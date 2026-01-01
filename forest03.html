@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest of Support - Digital Sanctuary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #e6f2e6, #c9e4c9);
+            color: #2d5016;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background 1.5s ease;
+        }
+        
+        /* Seasonal backgrounds */
+        body.spring { background: linear-gradient(to bottom, #e6f7e6, #d4e8d4); }
+        body.summer { background: linear-gradient(to bottom, #d4e8c9, #b8d8a8); }
+        body.autumn { background: linear-gradient(to bottom, #f7e6cc, #e8d4a8); }
+        body.winter { background: linear-gradient(to bottom, #e6f2f7, #c9dde8); }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        h1 {
+            color: #2d5016;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .season-indicator {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin: 15px 0;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .spring-indicator { background: #c9e8c9; color: #2d6a2d; }
+        .summer-indicator { background: #a8d8a8; color: #1a5a1a; }
+        .autumn-indicator { background: #e8d4a8; color: #8a5a2d; }
+        .winter-indicator { background: #c9dde8; color: #2d5a8a; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .card.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        button {
+            background: linear-gradient(to right, #4a7c3f, #5a9c4a);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 8px;
+            box-shadow: 0 4px 15px rgba(74, 124, 63, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 124, 63, 0.4);
+        }
+        
+        button.secondary {
+            background: linear-gradient(to right, #8aae7f, #9abe8f);
+        }
+        
+        .principle-button {
+            background: linear-gradient(to right, #7a9e6f, #8aae7f);
+            width: 100%;
+            margin: 10px 0;
+            text-align: left;
+            padding: 20px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .principle-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(122, 158, 111, 0.4);
+        }
+        
+        .principle-button.selected {
+            background: linear-gradient(to right, #4a7c3f, #5a9c4a);
+            box-shadow: 0 4px 15px rgba(74, 124, 63, 0.4);
+        }
+        
+        .principle-emoji {
+            font-size: 1.8em;
+            margin-right: 15px;
+            width: 40px;
+        }
+        
+        .principle-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .principle-title {
+            font-weight: bold;
+            display: block;
+            font-size: 1.1em;
+        }
+        
+        .principle-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+            display: block;
+        }
+        
+        .tree-display {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+            margin: 25px 0;
+            padding: 25px;
+            background: rgba(249, 255, 249, 0.9);
+            border-radius: 15px;
+            border: 2px dashed #8aae7f;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tree-variety-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .tree-option {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tree-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tree-option.selected {
+            border-color: #4a7c3f;
+            background: #f0f7f0;
+        }
+        
+        .journal-entry {
+            background: #f9fff9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #4a7c3f;
+        }
+        
+        .wisdom-response {
+            background: #f0f7f0;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #8a5a2d;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .wisdom-author {
+            text-align: right;
+            font-style: normal;
+            font-weight: bold;
+            color: #5a7d3e;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #c9e4c9;
+            border-radius: 15px;
+            font-size: 1.1em;
+            margin: 15px 0;
+            resize: vertical;
+            transition: border 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #4a7c3f;
+            box-shadow: 0 0 0 3px rgba(74, 124, 63, 0.2);
+        }
+        
+        .exercise-box {
+            background: #f0f7f0;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border: 2px solid #b8d8a8;
+        }
+        
+        .breathing-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #4a7c3f;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            animation: pulse 4s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .seasonal-effects {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .season-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .spring-btn { background: #c9e8c9; color: #2d6a2d; }
+        .summer-btn { background: #a8d8a8; color: #1a5a1a; }
+        .autumn-btn { background: #e8d4a8; color: #8a5a2d; }
+        .winter-btn { background: #c9dde8; color: #2d5a8a; }
+        
+        .season-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a7c3f;
+            display: block;
+        }
+        
+        .tree-name-display {
+            font-size: 2em;
+            color: #2d5016;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: #4a7c3f;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #5a7d3e;
+            font-size: 0.95em;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .tree-variety-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .seasonal-effects {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="spring">
+    <div class="container">
+        <header>
+            <h1>🌳 Forest of Support</h1>
+            <p class="tagline">A digital sanctuary with wisdom from sages of the world</p>
+            <div class="season-indicator spring-indicator">🌸 Current Season: SPRING</div>
+        </header>
+        
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('forest')">🌲 My Forest</button>
+            <button class="nav-tab" onclick="showTab('practice')">📿 Daily Practice</button>
+            <button class="nav-tab" onclick="showTab('journal')">📖 Journal</button>
+            <button class="nav-tab" onclick="showTab('trees')">🌿 Tree Varieties</button>
+        </div>
+        
+        <!-- My Forest Tab -->
+        <div id="forest" class="card active">
+            <h2>🌲 Your Digital Forest</h2>
+            <div id="forestContent">
+                <div class="tree-name-display" id="treeNameDisplay">No tree planted yet</div>
+                
+                <div class="tree-display" id="mainTreeDisplay">
+                    <pre id="treeAscii">Plant a tree to begin your journey</pre>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value" id="statRings">0</span>
+                        Growth Rings
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statHeight">0</span>
+                        Height (m)
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statJournals">0</span>
+                        Journal Entries
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statWisdom">0</span>
+                        Wisdom Received
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="showTab('practice')">Start Daily Practice</button>
+                    <button class="secondary" onclick="showTab('trees')">Choose Tree Type</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Practice Tab -->
+        <div id="practice" class="card">
+            <h2>📿 Daily Tree Practice</h2>
+            <div id="practiceStatus">Plant a tree first to begin practice.</div>
+            
+            <div id="practiceContent" style="display: none;">
+                <div id="step1" class="step">
+                    <h3>1. Choose Today's Principle</h3>
+                    <p>Select one principle to focus on today:</p>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('root')">
+                        <span class="principle-emoji">🌱</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Root First</span>
+                            <span class="principle-desc">Ground before responding</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('bark')">
+                        <span class="principle-emoji">🛡️</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Bark Boundaries</span>
+                            <span class="principle-desc">Protect while staying open</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('rings')">
+                        <span class="principle-emoji">🎋</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Grow Rings</span>
+                            <span class="principle-desc">Every experience adds strength</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('release')">
+                        <span class="principle-emoji">🍂</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Seasonal Release</span>
+                            <span class="principle-desc">Let go of what no longer serves</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('light')">
+                        <span class="principle-emoji">☀️</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Reach for Light</span>
+                            <span class="principle-desc">Grow toward nourishment</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('network')">
+                        <span class="principle-emoji">🌳</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Forest Network</span>
+                            <span class="principle-desc">We're connected underground</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('bend')">
+                        <span class="principle-emoji">🌀</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Bend in Storms</span>
+                            <span class="principle-desc">Flexibility prevents breaking</span>
+                        </span>
+                    </button>
+                    
+                    <button class="principle-button" onclick="selectPrinciple('shape')">
+                        <span class="principle-emoji">🌲</span>
+                        <span class="principle-text">
+                            <span class="principle-title">Your True Shape</span>
+                            <span class="principle-desc">A pine doesn't try to be an oak</span>
+                        </span>
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button onclick="nextStep()" id="nextStep1Btn" disabled>Next →</button>
+                    </div>
+                </div>
+                
+                <div id="step2" class="step" style="display: none;">
+                    <h3 id="exerciseTitle">2. Principle Exercise</h3>
+                    <div id="exerciseContent" class="exercise-box">
+                        <!-- Exercise content will be loaded here -->
+                    </div>
+                    <div style="text-align: center;">
+                        <button onclick="prevStep()">← Previous</button>
+                        <button onclick="nextStep()" id="exerciseCompleteBtn">Complete Exercise →</button>
+                    </div>
+                </div>
+                
+                <div id="step3" class="step" style="display: none;">
+                    <h3>3. Journal Reflection</h3>
+                    <p>Reflect on today's practice. Write from your heart.</p>
+                    <textarea id="practiceJournal" placeholder="How does this principle feel today? What insights arose? What's growing in you?"></textarea>
+                    <div style="text-align: center;">
+                        <button onclick="prevStep()">← Previous</button>
+                        <button onclick="completePractice()">Complete Practice & Receive Wisdom</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="practiceResult" style="display: none; margin-top: 20px;">
+                <div class="wisdom-response">
+                    <p id="wisdomText"></p>
+                    <div class="wisdom-author" id="wisdomAuthor"></div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <p id="resultMessage" style="margin-bottom: 20px;"></p>
+                    <button onclick="showTab('forest')">View My Forest</button>
+                    <button class="secondary" onclick="showTab('journal')">Go to Journal</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Journal Tab -->
+        <div id="journal" class="card">
+            <h2>📖 Your Tree Journal</h2>
+            <p>Each entry receives wisdom from sages of the world.</p>
+            
+            <div style="margin: 25px 0;">
+                <h3>New Journal Entry</h3>
+                <textarea id="newJournalEntry" placeholder="Write your thoughts, reflections, questions..."></textarea>
+                <div style="text-align: center;">
+                    <button onclick="saveJournalEntry()">Save Entry & Receive Wisdom</button>
+                    <button class="secondary" onclick="clearJournal()">Clear Field</button>
+                </div>
+            </div>
+            
+            <div id="journalEntriesContainer">
+                <h3>Past Entries with Wisdom</h3>
+                <div id="journalEntries">
+                    <!-- Journal entries will appear here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tree Varieties Tab -->
+        <div id="trees" class="card">
+            <h2>🌿 Choose Your Tree Variety</h2>
+            <p>Each tree type has unique characteristics. Choose what resonates with you.</p>
+            
+            <div class="tree-variety-selector">
+                <div class="tree-option" onclick="selectTreeType('oak')">
+                    <h3>🌳 Mighty Oak</h3>
+                    <p>Strength, endurance, wisdom</p>
+                    <pre style="font-size: 0.8em;">
+     /\
+    /  \
+   /    \
+  /______\
+    |  |
+    |__|
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('willow')">
+                    <h3>🍃 Weeping Willow</h3>
+                    <p>Flexibility, emotion, release</p>
+                    <pre style="font-size: 0.8em;">
+    \  |  /
+     \ | /
+      \|/
+       |
+       |
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('pine')">
+                    <h3>🎄 Noble Pine</h3>
+                    <p>Resilience, evergreen, peace</p>
+                    <pre style="font-size: 0.8em;">
+   /\
+  /__\
+ /\  /\
+/__\/__\
+   ||
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('maple')">
+                    <h3>🍁 Sugar Maple</h3>
+                    <p>Balance, generosity, sweetness</p>
+                    <pre style="font-size: 0.8em;">
+  /\  /\
+ /  \/  \
+/________\
+   |  |
+   |__|
+                    </pre>
+                </div>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <h3>Name Your Tree:</h3>
+                <input type="text" id="treeName" placeholder="Enter your tree's name..." 
+                       style="width: 100%; padding: 15px; font-size: 1.2em; border: 2px solid #b8d8a8; border-radius: 10px; text-align: center;">
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="plantTree()" id="plantButton">🌱 Plant My Tree</button>
+                <p id="selectedTreeDisplay" style="margin-top: 15px; font-style: italic;"></p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🌿 Forest of Support v3.0 • With Wisdom from Sages of the World</p>
+            <p>Your data stays in your browser • Share with #ForestOfSupport</p>
+            <p><em>"Ring by ring, wisdom by wisdom, you grow."</em></p>
+        </footer>
+    </div>
+
+    <script>
+        // Forest of Support v3.0 - With Wisdom from Sages
+        // 365 wisdom phrases for each day of the year
+        
+        let myTree = {
+            name: "",
+            type: "oak",
+            plantedDate: "",
+            rings: 0,
+            height: 1.0,
+            journals: [],
+            season: "spring",
+            seasonCounter: 0,
+            practices: [],
+            wisdomReceived: 0
+        };
+        
+        const treeASCII = {
+            oak: `     /\\
+    /  \\
+   /    \\
+  /______\\
+    |  |
+    |__|`,
+            willow: `    \\  |  /
+     \\ | /
+      \\|/
+       |
+       |`,
+            pine: `   /\\
+  /__\\
+ /\\  /\\
+/__\\/__\\
+   ||`,
+            maple: `  /\\  /\\
+ /  \\/  \\
+/________\\
+   |  |
+   |__|`
+        };
+        
+        const seasonData = {
+            spring: {
+                name: "Spring",
+                bgClass: "spring",
+                indicatorClass: "spring-indicator",
+                description: "🌸 Spring is a time of new beginnings, budding growth, and fresh energy.",
+                growthMultiplier: 1.5
+            },
+            summer: {
+                name: "Summer",
+                bgClass: "summer",
+                indicatorClass: "summer-indicator",
+                description: "☀️ Summer brings full bloom, vibrant energy, and deep growth.",
+                growthMultiplier: 1.0
+            },
+            autumn: {
+                name: "Autumn",
+                bgClass: "autumn",
+                indicatorClass: "autumn-indicator",
+                description: "🍂 Autumn is a time of harvest, letting go, and preparation.",
+                growthMultiplier: 0.75
+            },
+            winter: {
+                name: "Winter",
+                bgClass: "winter",
+                indicatorClass: "winter-indicator",
+                description: "❄️ Winter invites rest, reflection, and inner growth.",
+                growthMultiplier: 0.5
+            }
+        };
+        
+        const principles = {
+            root: {
+                title: "Root First",
+                emoji: "🌱",
+                description: "Ground before responding",
+                exercise: `
+                    <h4>🌱 Rooting Exercise</h4>
+                    <p>Stand or sit with feet flat on the ground. Close your eyes.</p>
+                    <div class="breathing-circle" id="breathingCircle">
+                        Breathe In
+                    </div>
+                    <p>Imagine roots growing from your feet into the earth. With each breath:</p>
+                    <ul>
+                        <li>Inhale: Feel stability entering through your roots</li>
+                        <li>Exhale: Release tension into the earth</li>
+                        <li>Repeat for 3 minutes</li>
+                    </ul>
+                    <p><em>Feel your connection to the ground beneath you.</em></p>
+                `
+            },
+            bark: {
+                title: "Bark Boundaries",
+                emoji: "🛡️",
+                description: "Protect while staying open",
+                exercise: `
+                    <h4>🛡️ Boundary Visualization</h4>
+                    <p>Close your eyes and visualize a protective energy field around you.</p>
+                    <p>Imagine it as tree bark:</p>
+                    <ul>
+                        <li>Strong enough to protect your core</li>
+                        <li>Porous enough to let in light and air</li>
+                        <li>Flexible enough to grow with you</li>
+                    </ul>
+                    <p>Say silently: <em>"I am protected yet open. I choose what enters my space."</em></p>
+                    <p>Breathe deeply for 2 minutes, feeling this protective layer.</p>
+                `
+            },
+            rings: {
+                title: "Grow Rings",
+                emoji: "🎋",
+                description: "Every experience adds strength",
+                exercise: `
+                    <h4>🎋 Ring of Experience</h4>
+                    <p>Place your hand on your heart. Breathe deeply.</p>
+                    <p>Recall one experience from this week:</p>
+                    <ul>
+                        <li>A challenge that made you stronger</li>
+                        <li>A joy that expanded your heart</li>
+                        <li>A lesson that deepened your wisdom</li>
+                    </ul>
+                    <p>With each inhale, imagine this experience becoming a growth ring.</p>
+                    <p>With each exhale, feel it integrated into your being.</p>
+                    <p><em>Every ring, thick or thin, makes you who you are.</em></p>
+                `
+            },
+            release: {
+                title: "Seasonal Release",
+                emoji: "🍂",
+                description: "Let go of what no longer serves",
+                exercise: `
+                    <h4>🍂 Letting Go Ritual</h4>
+                    <p>Take a deep breath and bring to mind something you're ready to release.</p>
+                    <p>It could be:</p>
+                    <ul>
+                        <li>A worry that no longer serves you</li>
+                        <li>An old story about yourself</li>
+                        <li>A resentment you're carrying</li>
+                    </ul>
+                    <p>On your next exhale, imagine it as a leaf falling from a tree.</p>
+                    <p>Watch it drift gently to the ground.</p>
+                    <p>Say: <em>"I release you back to the earth. I make space for new growth."</em></p>
+                `
+            },
+            light: {
+                title: "Reach for Light",
+                emoji: "☀️",
+                description: "Grow toward nourishment",
+                exercise: `
+                    <h4>☀️ Turning Toward Light</h4>
+                    <p>Stand with arms slightly outstretched, palms up.</p>
+                    <p>Close your eyes and feel for what nourishes you:</p>
+                    <ul>
+                        <li>What brings you joy?</li>
+                        <li>What makes you feel alive?</li>
+                        <li>What expands your spirit?</li>
+                    </ul>
+                    <p>Imagine these as sunlight filtering through leaves.</p>
+                    <p>Slowly lean toward this feeling, as a tree leans toward light.</p>
+                    <p>Breathe it in for 3 minutes.</p>
+                `
+            },
+            network: {
+                title: "Forest Network",
+                emoji: "🌳",
+                description: "We're connected underground",
+                exercise: `
+                    <h4>🌳 Mycelium Connection</h4>
+                    <p>Sit comfortably and place hands on your lap.</p>
+                    <p>Imagine underground roots connecting you to:</p>
+                    <ul>
+                        <li>Loved ones who support you</li>
+                        <li>Ancestors who came before</li>
+                        <li>All beings who seek healing</li>
+                    </ul>
+                    <p>Feel this network of support beneath you.</p>
+                    <p>With each breath, send and receive nourishment through these connections.</p>
+                    <p><em>You are never alone in the forest.</em></p>
+                `
+            },
+            bend: {
+                title: "Bend in Storms",
+                emoji: "🌀",
+                description: "Flexibility prevents breaking",
+                exercise: `
+                    <h4>🌀 Storm Flexibility</h4>
+                    <p>Stand with knees slightly bent, arms relaxed.</p>
+                    <p>Recall a recent "storm" - a challenge or difficulty.</p>
+                    <p>Instead of resisting, imagine yourself as a willow in wind:</p>
+                    <ul>
+                        <li>Roots firm in the ground</li>
+                        <li>Trunk and branches flexible</li>
+                        <li>Swaying with the wind rather than fighting it</li>
+                    </ul>
+                    <p>Breathe deeply, feeling both strength and flexibility.</p>
+                    <p><em>Sometimes bending is the strongest response.</em></p>
+                `
+            },
+            shape: {
+                title: "Your True Shape",
+                emoji: "🌲",
+                description: "A pine doesn't try to be an oak",
+                exercise: `
+                    <h4>🌲 Authentic Being</h4>
+                    <p>Sit quietly and place a hand on your heart.</p>
+                    <p>Ask yourself:</p>
+                    <ul>
+                        <li>What is my natural way of being?</li>
+                        <li>When do I feel most myself?</li>
+                        <li>What unique gifts do I bring?</li>
+                    </ul>
+                    <p>Imagine yourself as your chosen tree type.</p>
+                    <p>Feel its unique shape, pace of growth, and way of being.</p>
+                    <p>Breathe into this authentic shape for 3 minutes.</p>
+                    <p><em>Your true form is beautiful as it is.</em></p>
+                `
+            }
+        };
+        
+        // 365 Wisdom Phrases from Sages of the World
+        const wisdomPhrases = [
+            {text: "The wound is the place where the Light enters you.", author: "Rumi"},
+            {text: "He who knows himself knows his Lord.", author: "Ibn Arabi"},
+            {text: "The lion's share is not for the lion, but for the one who tills the soil.", author: "Shota Rustaveli"},
+            {text: "Be like a tree. Let the dead leaves drop.", author: "Rumi"},
+            {text: "The real journey is the one that occurs within.", author: "Ibn Arabi"},
+            {text: "A friend's eye is a good mirror.", author: "Irish Proverb"},
+            {text: "What you seek is seeking you.", author: "Rumi"},
+            {text: "The whole universe is contained within a single human being - you.", author: "Rumi"},
+            {text: "Patience is the key to joy.", author: "Rumi"},
+            {text: "When you do things from your soul, you feel a river moving in you, a joy.", author: "Rumi"},
+            {text: "Your task is not to seek for love, but merely to seek and find all the barriers within yourself that you have built against it.", author: "Rumi"},
+            {text: "The art of knowing is knowing what to ignore.", author: "Ibn Arabi"},
+            {text: "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.", author: "Rumi"},
+            {text: "The morning wind spreads its fresh smell. We must get up and take that in, that wind that lets us live. Breathe before it's gone.", author: "Rumi"},
+            {text: "Where there is ruin, there is hope for a treasure.", author: "Rumi"},
+            {text: "You were born with wings, why prefer to crawl through life?", author: "Rumi"},
+            {text: "The cure for pain is in the pain.", author: "Rumi"},
+            {text: "Good and bad are mixed. If you don't have both, you don't belong with us.", author: "Rumi"},
+            {text: "When I am silent, I have thunder hidden inside.", author: "Rumi"},
+            {text: "Sell your cleverness and buy bewilderment.", author: "Rumi"},
+            {text: "The moon stays bright when it doesn't avoid the night.", author: "Rumi"},
+            {text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi"},
+            {text: "The garden of the world has no limits except in your mind.", author: "Rumi"},
+            {text: "Why are you so enchanted by this world when a mine of gold lies within you?", author: "Rumi"},
+            {text: "This being human is a guest house. Every morning a new arrival.", author: "Rumi"},
+            {text: "Respond to every call that excites your spirit.", author: "Rumi"},
+            {text: "What hurts you, blesses you. Darkness is your candle.", author: "Rumi"},
+            {text: "For one who sees the source, the river and the waves are one.", author: "Ibn Arabi"},
+            {text: "The knower and the known are one. Simple people imagine that they should see God as if He stood on that side and they on this.", author: "Ibn Arabi"},
+            {text: "When the heart weeps for what it has lost, the spirit laughs for what it has found.", author: "Sufi Saying"},
+            {text: "The soul has been given its own ears to hear things the mind does not understand.", author: "Rumi"},
+            {text: "There is a voice that doesn't use words. Listen.", author: "Rumi"},
+            {text: "Silence is the language of God, all else is poor translation.", author: "Rumi"},
+            {text: "The water in the vessel is sparkling; the water in the sea is dark. The small truth has words that are clear; the great truth has great silence.", author: "Rabindranath Tagore"},
+            {text: "Trees are poems the earth writes upon the sky. We fell them down and turn them into paper that we may record our emptiness.", author: "Khalil Gibran"},
+            {text: "Your heart is the size of an ocean. Go find yourself in its hidden depths.", author: "Rumi"},
+            {text: "The moment you accept what troubles you've been given, the door will open.", author: "Rumi"},
+            {text: "When you feel a peaceful joy, that's when you are near truth.", author: "Rumi"},
+            {text: "Let the beauty we love be what we do.", author: "Rumi"},
+            {text: "There are a thousand ways to kneel and kiss the earth.", author: "Rumi"},
+            {text: "The sunrise occurs when your mind stops chasing the birds.", author: "Rumi"},
+            {text: "I am not this hair, I am not this skin, I am the soul that lives within.", author: "Rumi"},
+            {text: "Don't be satisfied with stories, how things have gone with others. Unfold your own myth.", author: "Rumi"},
+            {text: "We carry inside us the wonders we seek outside us.", author: "Rumi"},
+            {text: "The only lasting beauty is the beauty of the heart.", author: "Rumi"},
+            {text: "Your depression is connected to your insolence and refusal to praise.", author: "Rumi"},
+            {text: "You have to keep breaking your heart until it opens.", author: "Rumi"},
+            {text: "The ground's generosity takes in our compost and grows beauty. Try to be more like the ground.", author: "Rumi"},
+            {text: "Every tree and plant in the meadow seemed to be dancing, those which average eyes would see as fixed and still.", author: "Rumi"},
+            {text: "The moon is most happy when it is full. And the sun always looks like a perfectly minted gold coin.", author: "Rumi"},
+            {text: "Love is the bridge between you and everything.", author: "Rumi"},
+            {text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi"},
+            {text: "Raise your words, not voice. It is rain that grows flowers, not thunder.", author: "Rumi"},
+            {text: "The garden of love is green without limit and yields many fruits other than sorrow or joy.", author: "Rumi"},
+            {text: "Be empty of worrying. Think of who created thought.", author: "Rumi"},
+            {text: "If light is in your heart, you will find your way home.", author: "Rumi"},
+            {text: "Life is a balance between holding on and letting go.", author: "Rumi"},
+            {text: "The quieter you become, the more you are able to hear.", author: "Rumi"},
+            {text: "What matters is how quickly you do what your soul directs.", author: "Rumi"},
+            {text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi"},
+            {text: "The wound is where the light enters you.", author: "Rumi"},
+            {text: "Don't grieve. Anything you lose comes round in another form.", author: "Rumi"},
+            {text: "Let the waters settle and you will see the moon and the stars mirrored in your own being.", author: "Rumi"},
+            {text: "Everyone has been made for some particular work, and the desire for that work has been put in every heart.", author: "Rumi"},
+            {text: "When you go through a hard period, when everything seems to oppose you, when you feel you cannot even bear one more minute, never give up! Because it is the time and place that the course will divert!", author: "Rumi"},
+            {text: "There is a candle in your heart, ready to be kindled. There is a void in your soul, ready to be filled. You feel it, don't you?", author: "Rumi"},
+            {text: "You were born with potential. You were born with goodness and trust. You were born with ideals and dreams.", author: "Rumi"},
+            {text: "The lion is most handsome when looking for food.", author: "Rumi"},
+            {text: "Let yourself become living poetry.", author: "Rumi"},
+            {text: "The art of knowing is knowing what to ignore.", author: "Ibn Arabi"},
+            {text: "The whole universe is a single atom of divine light.", author: "Ibn Arabi"},
+            {text: "The knower and the known are one. Simple people imagine that they should see God as if He stood on that side and they on this.", author: "Ibn Arabi"},
+            {text: "Love is the essence of all creeds, the secret of all revelations.", author: "Ibn Arabi"},
+            {text: "The heart is the throne of God.", author: "Ibn Arabi"},
+            {text: "The world is a mirror reflecting the divine names.", author: "Ibn Arabi"},
+            {text: "The one who knows himself knows his Lord.", author: "Ibn Arabi"},
+            {text: "The perfect man is he who journeys through all degrees of existence.", author: "Ibn Arabi"},
+            {text: "The universe is a single being, and you are that being.", author: "Ibn Arabi"},
+            {text: "The journey to God is measured by the steps you take away from yourself.", author: "Ibn Arabi"},
+            {text: "What is the mirror of the universe? The heart of the perfect man.", author: "Ibn Arabi"},
+            {text: "The world is an image in a mirror; the mirror is the heart of man.", author: "Ibn Arabi"},
+            {text: "He who knows his own soul knows his Lord.", author: "Ibn Arabi"},
+            {text: "The whole cosmos is contained in a single human being.", author: "Ibn Arabi"},
+            {text: "Love is the law of existence.", author: "Ibn Arabi"},
+            {text: "The world is a book, and he who does not travel reads only one page.", author: "Ibn Arabi"},
+            {text: "The heart that loves is always young.", author: "Ibn Arabi"},
+            {text: "Peace comes from within. Do not seek it without.", author: "Buddha"},
+            {text: "The mind is everything. What you think you become.", author: "Buddha"},
+            {text: "Three things cannot be long hidden: the sun, the moon, and the truth.", author: "Buddha"},
+            {text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha"},
+            {text: "The way is not in the sky. The way is in the heart.", author: "Buddha"},
+            {text: "Thousands of candles can be lit from a single candle, and the life of the candle will not be shortened. Happiness never decreases by being shared.", author: "Buddha"},
+            {text: "You will not be punished for your anger, you will be punished by your anger.", author: "Buddha"},
+            {text: "In the sky, there is no distinction of east and west; people create distinctions out of their own minds and then believe them to be true.", author: "Buddha"},
+            {text: "The root of suffering is attachment.", author: "Buddha"},
+            {text: "Better than a thousand hollow words, is one word that brings peace.", author: "Buddha"},
+            {text: "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path.", author: "Buddha"},
+            {text: "Peace comes from within. Do not seek it without.", author: "Buddha"},
+            {text: "The tongue like a sharp knife... Kills without drawing blood.", author: "Buddha"},
+            {text: "The whole secret of existence is to have no fear. Never fear what will become of you, depend on no one. Only the moment you reject all help are you freed.", author: "Buddha"},
+            {text: "Your work is to discover your world and then with all your heart give yourself to it.", author: "Buddha"},
+            {text: "There is no path to happiness: happiness is the path.", author: "Buddha"},
+            {text: "What we think, we become.", author: "Buddha"},
+            {text: "Just as a candle cannot burn without fire, men cannot live without a spiritual life.", author: "Buddha"},
+            {text: "All that we are is the result of what we have thought.", author: "Buddha"},
+            {text: "The mind is everything. What you think you become.", author: "Buddha"},
+            {text: "To understand everything is to forgive everything.", author: "Buddha"},
+            {text: "You cannot travel the path until you have become the path itself.", author: "Buddha"},
+            {text: "The only real failure in life is not to be true to the best one knows.", author: "Buddha"},
+            {text: "Every morning we are born again. What we do today matters most.", author: "Buddha"},
+            {text: "The trouble is, you think you have time.", author: "Buddha"},
+            {text: "Your purpose in life is to find your purpose and give your whole heart and soul to it.", author: "Buddha"},
+            {text: "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.", author: "Buddha"},
+            {text: "The secret of health for both mind and body is not to mourn for the past, nor to worry about the future, but to live the present moment wisely and earnestly.", author: "Buddha"},
+            {text: "Better than worshiping gods is obedience to the laws of righteousness.", author: "Buddha"},
+            {text: "All wrong-doing arises because of mind. If mind is transformed can wrong-doing remain?", author: "Buddha"},
+            {text: "Hatred does not cease by hatred, but only by love; this is the eternal rule.", author: "Buddha"},
+            {text: "Radiate boundless love towards the entire world.", author: "Buddha"},
+            {text: "The virtuous man delights in this world and he delights in the next.", author: "Buddha"},
+            {text: "Just as treasures are uncovered from the earth, so virtue appears from good deeds, and wisdom appears from a pure and peaceful mind.", author: "Buddha"},
+            {text: "To live a pure unselfish life, one must count nothing as one's own in the midst of abundance.", author: "Buddha"},
+            {text: "There is no fire like passion, there is no shark like hatred, there is no snare like folly, there is no torrent like greed.", author: "Buddha"},
+            {text: "The mind is everything. What you think you become.", author: "Buddha"},
+            {text: "Ardently do today what must be done. Who knows? Tomorrow, death comes.", author: "Buddha"},
+            {text: "Meditate. Live purely. Be quiet. Do your work with mastery.", author: "Buddha"},
+            {text: "If you light a lamp for somebody, it will also brighten your path.", author: "Buddha"},
+            {text: "However many holy words you read, however many you speak, what good will they do you if you do not act on upon them?", author: "Buddha"},
+            {text: "Every human being is the author of his own health or disease.", author: "Buddha"},
+            {text: "One moment can change a day, one day can change a life, and one life can change the world.", author: "Buddha"},
+            {text: "The foot feels the foot when it feels the ground.", author: "Buddha"},
+            {text: "A jug fills drop by drop.", author: "Buddha"},
+            {text: "An idea that is developed and put into action is more important than an idea that exists only as an idea.", author: "Buddha"},
+            {text: "Be where you are; otherwise you will miss your life.", author: "Buddha"},
+            {text: "Believe nothing, no matter where you read it, or who said it, no matter if I have said it, unless it agrees with your own reason and your own common sense.", author: "Buddha"},
+            {text: "Better than a thousand hollow words, is one word that brings peace.", author: "Buddha"},
+            {text: "Chaos is inherent in all compounded things. Strive on with diligence.", author: "Buddha"},
+            {text: "Do not overrate what you have received, nor envy others. He who envies others does not obtain peace of mind.", author: "Buddha"},
+            {text: "Even death is not to be feared by one who has lived wisely.", author: "Buddha"},
+            {text: "Every experience, no matter how bad it seems, holds within it a blessing of some kind. The goal is to find it.", author: "Buddha"},
+            {text: "Everything that has a beginning has an ending. Make your peace with that and all will be well.", author: "Buddha"},
+            {text: "Happiness will never come to those who fail to appreciate what they already have.", author: "Buddha"},
+            {text: "Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.", author: "Buddha"},
+            {text: "I never see what has been done; I only see what remains to be done.", author: "Buddha"},
+            {text: "If we could see the miracle of a single flower clearly, our whole life would change.", author: "Buddha"},
+            {text: "If with a pure mind a person speaks or acts, happiness follows them like a never-departing shadow.", author: "Buddha"},
+            {text: "In the end, these things matter most: How well did you love? How fully did you live? How deeply did you let go?", author: "Buddha"},
+            {text: "It is better to travel well than to arrive.", author: "Buddha"},
+            {text: "Just as a solid rock is not shaken by the storm, even so the wise are not affected by praise or blame.", author: "Buddha"},
+            {text: "Kindness should become the natural way of life, not the exception.", author: "Buddha"},
+            {text: "Learn this from water: loud splashes the brook but the oceans depth are calm.", author: "Buddha"},
+            {text: "Let all-embracing thoughts for all beings be yours.", author: "Buddha"},
+            {text: "Like a beautiful flower, full of color but without scent, are the fine but fruitless words of him who does not act accordingly.", author: "Buddha"},
+            {text: "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path.", author: "Buddha"},
+            {text: "Nothing can harm you as much as your own thoughts unguarded.", author: "Buddha"},
+            {text: "One who acts on truth is happy in this world and beyond.", author: "Buddha"},
+            {text: "Peace comes from within. Do not seek it without.", author: "Buddha"},
+            {text: "Pure love has no conditions or boundaries. Love does not restrain itself or hold back. Love gives all the time and doesn't ask for anything in return. Love is a continuous flow without any limits. And all of this is inside you.", author: "Buddha"},
+            {text: "The mind is everything. What you think you become.", author: "Buddha"},
+            {text: "There are only two mistakes one can make along the road to truth; not going all the way, and not starting.", author: "Buddha"},
+            {text: "There is no path to happiness: happiness is the path.", author: "Buddha"},
+            {text: "Those who are free of resentful thoughts surely find peace.", author: "Buddha"},
+            {text: "To be idle is a short road to death and to be diligent is a way of life; foolish people are idle, wise people are diligent.", author: "Buddha"},
+            {text: "To conquer oneself is a greater task than conquering others.", author: "Buddha"},
+            {text: "Unity can only be manifested by the Binary. Unity itself and the idea of Unity are already two.", author: "Buddha"},
+            {text: "Virtue is persecuted more by the wicked than it is loved by the good.", author: "Buddha"},
+            {text: "We are shaped by our thoughts; we become what we think. When the mind is pure, joy follows like a shadow that never leaves.", author: "Buddha"},
+            {text: "We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.", author: "Buddha"},
+            {text: "What you are is what you have been. What you'll be is what you do now.", author: "Buddha"},
+            {text: "Whatever words we utter should be chosen with care for people will hear them and be influenced by them for good or ill.", author: "Buddha"},
+            {text: "When you realize how perfect everything is you will tilt your head back and laugh at the sky.", author: "Buddha"},
+            {text: "Without health life is not life; it is only a state of languor and suffering - an image of death.", author: "Buddha"},
+            {text: "Work out your own salvation. Do not depend on others.", author: "Buddha"},
+            {text: "You cannot travel the path until you have become the path itself.", author: "Buddha"},
+            {text: "You, yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha"},
+            {text: "Your body is precious. It is our vehicle for awakening. Treat it with care.", author: "Buddha"},
+            {text: "Your work is to discover your work and then with all your heart to give yourself to it.", author: "Buddha"},
+            {text: "A generous heart, kind speech, and a life of service and compassion are the things which renew humanity.", author: "Buddha"},
+            {text: "A dog is not considered a good dog because he is a good barker. A man is not considered a good man because he is a good talker.", author: "Buddha"},
+            {text: "A jug fills drop by drop.", author: "Buddha"},
+            {text: "A man is not called wise because he talks and talks again; but if he is peaceful, loving and fearless then he is in truth called wise.", author: "Buddha"},
+            {text: "A mind unruffled by the vagaries of fortune, from sorrow freed, from defilements cleansed, from fear liberated — this is the greatest blessing.", author: "Buddha"},
+            {text: "All conditioned things are impermanent. When one sees this with wisdom, one turns away from suffering.", author: "Buddha"},
+            {text: "All that we are is the result of what we have thought. The mind is everything. What we think we become.", author: "Buddha"},
+            {text: "All tremble at violence; all fear death. Putting oneself in the place of another, one should not kill nor cause another to kill.", author: "Buddha"},
+            {text: "All wrong-doing arises because of mind. If mind is transformed can wrong-doing remain?", author: "Buddha"},
+            {text: "Ambition is like love, impatient both of delays and rivals.", author: "Buddha"},
+            {text: "An insincere and evil friend is more to be feared than a wild beast; a wild beast may wound your body, but an evil friend will wound your mind.", author: "Buddha"},
+            {text: "An idea that is developed and put into action is more important than an idea that exists only as an idea.", author: "Buddha"},
+            {text: "As a solid rock is not shaken by the wind, so the wise are not ruffled by praise or blame.", author: "Buddha"},
+            {text: "As you walk and eat and travel, be where you are. Otherwise you will miss most of your life.", author: "Buddha"},
+            {text: "Be a lamp unto yourself. Work out your liberation with diligence.", author: "Buddha"},
+            {text: "Be where you are; otherwise you will miss your life.", author: "Buddha"},
+            {text: "Believe nothing, no matter where you read it, or who said it, no matter if I have said it, unless it agrees with your own reason and your own common sense.", author: "Buddha"},
+            {text: "Better than a thousand hollow words, is one word that brings peace.", author: "Buddha"},
+            {text: "Better than worshiping gods is obedience to the laws of righteousness.", author: "Buddha"},
+            {text: "Chaos is inherent in all compounded things. Strive on with diligence.", author: "Buddha"},
+            {text: "Conquer the angry one by not getting angry; conquer the wicked by goodness; conquer the stingy by generosity, and the liar by speaking the truth.", author: "Buddha"},
+            {text: "Delight in heedfulness! Guard well your thoughts!", author: "Buddha"},
+            {text: "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.", author: "Buddha"},
+            {text: "Do not overrate what you have received, nor envy others. He who envies others does not obtain peace of mind.", author: "Buddha"},
+            {text: "Drop by drop is the water pot filled. Likewise, the wise man, gathering it little by little, fills himself with good.", author: "Buddha"},
+            {text: "Even death is not to be feared by one who has lived wisely.", author: "Buddha"},
+            {text: "Every human being is the author of his own health or disease.", author: "Buddha"},
+            {text: "Every morning we are born again. What we do today is what matters most.", author: "Buddha"},
+            {text: "Everything that has a beginning has an ending. Make your peace with that and all will be well.", author: "Buddha"},
+            {text: "Falling in love you remain a child; rising in love you mature. By and by love becomes not a relationship, it becomes a state of your being. Not that you are in love - now you are love.", author: "Osho"},
+            {text: "Friendship is the purest love. It is the highest form of Love where nothing is asked for, no condition, where one simply enjoys giving.", author: "Osho"},
+            {text: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama"},
+            {text: "The purpose of our lives is to be happy.", author: "Dalai Lama"},
+            {text: "Be kind whenever possible. It is always possible.", author: "Dalai Lama"},
+            {text: "If you want others to be happy, practice compassion. If you want to be happy, practice compassion.", author: "Dalai Lama"},
+            {text: "We can never obtain peace in the outer world until we make peace with ourselves.", author: "Dalai Lama"},
+            {text: "This is my simple religion. There is no need for temples; no need for complicated philosophy. Our own brain, our own heart is our temple; the philosophy is kindness.", author: "Dalai Lama"},
+            {text: "Sleep is the best meditation.", author: "Dalai Lama"},
+            {text: "Remember that sometimes not getting what you want is a wonderful stroke of luck.", author: "Dalai Lama"},
+            {text: "The roots of all goodness lie in the soil of appreciation for goodness.", author: "Dalai Lama"},
+            {text: "Give the ones you love wings to fly, roots to come back, and reasons to stay.", author: "Dalai Lama"},
+            {text: "Love and compassion are necessities, not luxuries. Without them, humanity cannot survive.", author: "Dalai Lama"},
+            {text: "Our prime purpose in this life is to help others. And if you can't help them, at least don't hurt them.", author: "Dalai Lama"},
+            {text: "I find hope in the darkest of days, and focus in the brightest. I do not judge the universe.", author: "Dalai Lama"},
+            {text: "Calm mind brings inner strength and self-confidence, so that's very important for good health.", author: "Dalai Lama"},
+            {text: "In the practice of tolerance, one's enemy is the best teacher.", author: "Dalai Lama"},
+            {text: "If you have a particular faith or religion, that is good. But you can survive without it if you have love, compassion, and tolerance.", author: "Dalai Lama"},
+            {text: "The true hero is one who conquers his own anger and hatred.", author: "Dalai Lama"},
+            {text: "The more you are motivated by love, the more fearless and free your action will be.", author: "Dalai Lama"},
+            {text: "With realization of one's own potential and self-confidence in one's ability, one can build a better world.", author: "Dalai Lama"},
+            {text: "It is very rare or almost impossible that an event can be negative from all points of view.", author: "Dalai Lama"},
+            {text: "We need to learn to want what we have, not to have what we want, in order to get stable and steady happiness.", author: "Dalai Lama"},
+            {text: "Only the development of compassion and understanding for others can bring us the tranquility and happiness we all seek.", author: "Dalai Lama"},
+            {text: "If you can cultivate the right attitude, your enemies are your best spiritual teachers because their presence provides you with the opportunity to enhance and develop tolerance, patience and understanding.", author: "Dalai Lama"},
+            {text: "Sometimes one creates a dynamic impression by saying something, and sometimes one creates as significant an impression by remaining silent.", author: "Dalai Lama"},
+            {text: "To be aware of a single shortcoming in oneself is more useful than to be aware of a thousand in somebody else.", author: "Dalai Lama"},
+            {text: "The ultimate authority must always rest with the individual's own reason and critical analysis.", author: "Dalai Lama"},
+            {text: "A good friend who points out mistakes and imperfections and rebukes evil is to be respected as if he reveals a secret of hidden treasure.", author: "Buddha"},
+            {text: "A heart filled with love is like a phoenix that no cage can imprison.", author: "Rumi"},
+            {text: "A mountain keeps an echo deep inside. That's how I hold your voice.", author: "Rumi"},
+            {text: "A thousand half-loves must be forsaken to take one whole heart home.", author: "Rumi"},
+            {text: "All people on the planet are children, except for a very few. No one is grown up except those free of desire.", author: "Rumi"},
+            {text: "Be a lamp, or a lifeboat, or a ladder. Help someone's soul heal. Walk out of your house like a shepherd.", author: "Rumi"},
+            {text: "Be empty of worrying. Think of who created thought.", author: "Rumi"},
+            {text: "Be full of sorrow, that you may become a hill of joy; weep, that you may break into laughter.", author: "Rumi"},
+            {text: "Be grateful for your life, every detail of it, and your face will come to shine like a sun, and everyone who sees it will be made glad and peaceful.", author: "Rumi"},
+            {text: "Be like the sun for grace and mercy. Be like the night to cover others' faults. Be like running water for generosity. Be like death for rage and anger. Be like the Earth for modesty. Appear as you are. Be as you appear.", author: "Rumi"},
+            {text: "Be silent, only the hand of God can remove the burdens of your heart.", author: "Rumi"},
+            {text: "Be with those who help your being.", author: "Rumi"},
+            {text: "Become the sky. Take an axe to the prison wall. Escape.", author: "Rumi"},
+            {text: "Before death takes away what you are given, give away what you have.", author: "Rumi"},
+            {text: "Birds make great sky-circles of their freedom. How do they learn it? They fall, and falling, they're given wings.", author: "Rumi"},
+            {text: "Come, come, whoever you are. Wanderer, worshiper, lover of leaving. It doesn't matter. Ours is not a caravan of despair. Come, even if you have broken your vows a thousand times. Come, yet again, come, come.", author: "Rumi"},
+            {text: "Dance, when you're broken open. Dance, if you've torn the bandage off. Dance in the middle of the fighting. Dance in your blood. Dance when you're perfectly free.", author: "Rumi"},
+            {text: "Do not feel lonely, the entire universe is inside you.", author: "Rumi"},
+            {text: "Don't be satisfied with stories, how things have gone with others. Unfold your own myth.", author: "Rumi"},
+            {text: "Don't grieve. Anything you lose comes round in another form.", author: "Rumi"},
+            {text: "Don't sit and wait. Get out there, feel life. Touch the sun, and immerse in the sea.", author: "Rumi"},
+            {text: "Don't turn your head. Keep looking at the bandaged place. That's where the light enters you.", author: "Rumi"},
+            {text: "Every tree and plant in the meadow seemed to be dancing, those which average eyes would see as fixed and still.", author: "Rumi"},
+            {text: "Everyone has been made for some particular work, and the desire for that work has been put in every heart.", author: "Rumi"},
+            {text: "Forget safety. Live where you fear to live. Destroy your reputation. Be notorious.", author: "Rumi"},
+            {text: "Goodbyes are only for those who love with their eyes. Because for those who love with heart and soul there is no such thing as separation.", author: "Rumi"},
+            {text: "I am not this hair, I am not this skin, I am the soul that lives within.", author: "Rumi"},
+            {text: "I want to sing like the birds sing, not worrying about who hears or what they think.", author: "Rumi"},
+            {text: "If you are irritated by every rub, how will your mirror be polished?", author: "Rumi"},
+            {text: "If you want the moon, do not hide at night. If you want a rose, do not run from the thorns. If you want love, do not hide from yourself.", author: "Rumi"},
+            {text: "Ignore those that make you fearful and sad, that degrade you back towards disease and death.", author: "Rumi"},
+            {text: "In your light I learn how to love. In your beauty, how to make poems. You dance inside my chest where no-one sees you, but sometimes I do, and that sight becomes this art.", author: "Rumi"},
+            {text: "Inside you there's an artist you don't know about.", author: "Rumi"},
+            {text: "It's your road and yours alone. Others may walk it with you, but no one can walk it for you.", author: "Rumi"},
+            {text: "Let the beauty of what you love be what you do.", author: "Rumi"},
+            {text: "Let yourself be drawn by the stronger pull of that which you truly love.", author: "Rumi"},
+            {text: "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.", author: "Rumi"},
+            {text: "Life is a balance between holding on and letting go.", author: "Rumi"},
+            {text: "Live life as if everything is rigged in your favor.", author: "Rumi"},
+            {text: "Lovers don't finally meet somewhere. They're in each other all along.", author: "Rumi"},
+            {text: "Move outside the tangle of fear-thinking.", author: "Rumi"},
+            {text: "My soul is from elsewhere, I'm sure of that, and I intend to end up there.", author: "Rumi"},
+            {text: "Nothing in the universe can rival the beauty of a soul that has weathered life's storms and still shines with hope.", author: "Rumi"},
+            {text: "Observe the wonders as they occur around you. Don't claim them. Feel the artistry moving through and be silent.", author: "Rumi"},
+            {text: "Only from the heart can you touch the sky.", author: "Rumi"},
+            {text: "Out beyond ideas of wrongdoing and rightdoing there is a field. I'll meet you there.", author: "Rumi"},
+            {text: "Reason is powerless in the expression of Love.", author: "Rumi"},
+            {text: "Respond to every call that excites your spirit.", author: "Rumi"},
+            {text: "Sell your cleverness and buy bewilderment.", author: "Rumi"},
+            {text: "Silence is an ocean. Speech is a river.", author: "Rumi"},
+            {text: "Silence is the language of God, all else is poor translation.", author: "Rumi"},
+            {text: "Start a huge, foolish project, like Noah. It makes absolutely no difference what people think of you.", author: "Rumi"},
+            {text: "That which is false troubles the heart, but truth brings joyous tranquility.", author: "Rumi"},
+            {text: "The art of knowing is knowing what to ignore.", author: "Rumi"},
+            {text: "The cure for pain is in the pain.", author: "Rumi"},
+            {text: "The garden of the world has no limits except in your mind.", author: "Rumi"},
+            {text: "The minute I heard my first love story I started looking for you, not knowing how blind that was. Lovers don't finally meet somewhere. They're in each other all along.", author: "Rumi"},
+            {text: "The moon stays bright when it doesn't avoid the night.", author: "Rumi"},
+            {text: "The morning wind spreads its fresh smell. We must get up and take that in, that wind that lets us live. Breathe before it's gone.", author: "Rumi"},
+            {text: "The only lasting beauty is the beauty of the heart.", author: "Rumi"},
+            {text: "The rose's rarest essence lives in the thorn.", author: "Rumi"},
+            {text: "The same wind that uproots trees makes the grasses shine.", author: "Rumi"},
+            {text: "The soul has been given its own ears to hear things the mind does not understand.", author: "Rumi"},
+            {text: "The universe is not outside of you. Look inside yourself; everything that you want, you already are.", author: "Rumi"},
+            {text: "The water in the vessel is sparkling; the water in the sea is dark. The small truth has words that are clear; the great truth has great silence.", author: "Rumi"},
+            {text: "The whole universe is contained within a single human being - you.", author: "Rumi"},
+            {text: "The wise man is the one who can, in a flash, recognize his own folly.", author: "Rumi"},
+            {text: "The wound is the place where the Light enters you.", author: "Rumi"},
+            {text: "There is a candle in your heart, ready to be kindled. There is a void in your soul, ready to be filled. You feel it, don't you?", author: "Rumi"},
+            {text: "There is a voice that doesn't use words. Listen.", author: "Rumi"},
+            {text: "There is a way between voice and presence where information flows.", author: "Rumi"},
+            {text: "These pains you feel are messengers. Listen to them.", author: "Rumi"},
+            {text: "This being human is a guest house. Every morning a new arrival.", author: "Rumi"},
+            {text: "This is love: to fly toward a secret sky, to cause a hundred veils to fall each moment. First to let go of life. Finally, to take a step without feet.", author: "Rumi"},
+            {text: "Today, like every other day, we wake up empty and frightened. Don't open the door to the study and begin reading. Take down a musical instrument.", author: "Rumi"},
+            {text: "Travel brings power and love back into your life.", author: "Rumi"},
+            {text: "Try something different. Surrender.", author: "Rumi"},
+            {text: "Two there are who are never satisfied -- the lover of the world and the lover of knowledge.", author: "Rumi"},
+            {text: "We come spinning out of nothingness, scattering stars like dust.", author: "Rumi"},
+            {text: "What is planted in each person's soul will sprout.", author: "Rumi"},
+            {text: "What matters is how quickly you do what your soul directs.", author: "Rumi"},
+            {text: "When I am silent, I have thunder hidden inside.", author: "Rumi"},
+            {text: "When you do things from your soul, you feel a river moving in you, a joy.", author: "Rumi"},
+            {text: "When you go through a hard period, when everything seems to oppose you, when you feel you cannot even bear one more minute, never give up! Because it is the time and place that the course will divert!", author: "Rumi"},
+            {text: "When you lose all sense of self the bonds of a thousand chains will vanish.", author: "Rumi"},
+            {text: "Where there is ruin, there is hope for a treasure.", author: "Rumi"},
+            {text: "Who could be so lucky? Who comes to a lake for water and sees the reflection of moon.", author: "Rumi"},
+            {text: "Why are you so enchanted by this world when a mine of gold lies within you?", author: "Rumi"},
+            {text: "Why do you stay in prison when the door is so wide open?", author: "Rumi"},
+            {text: "Woman is the light of God.", author: "Rumi"},
+            {text: "Words are a pretext. It is the inner bond that draws one person to another, not words.", author: "Rumi"},
+            {text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi"},
+            {text: "You are the universe in ecstatic motion.", author: "Rumi"},
+            {text: "You have to keep breaking your heart until it opens.", author: "Rumi"},
+            {text: "You were born with potential. You were born with goodness and trust. You were born with ideals and dreams.", author: "Rumi"},
+            {text: "Your heart is the size of an ocean. Go find yourself in its hidden depths.", author: "Rumi"},
+            {text: "Your longing for me is my message to you. All your attempts to reach me are in reality my attempts to reach you.", author: "Rumi"},
+            {text: "Your task is not to seek for love, but merely to seek and find all the barriers within yourself that you have built against it.", author: "Rumi"},
+            {text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi"}
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTree();
+            updateDisplay();
+        });
+        
+        let currentStep = 1;
+        let selectedPrinciple = null;
+        let selectedTreeType = "oak";
+        
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate corresponding nav button
+            document.querySelector(`.nav-tab[onclick*="${tabId}"]`).classList.add('active');
+            
+            // Special updates for specific tabs
+            if (tabId === 'forest') updateForestDisplay();
+            if (tabId === 'journal') loadJournalEntries();
+            if (tabId === 'practice') updatePracticeCard();
+        }
+        
+        function selectTreeType(type) {
+            selectedTreeType = type;
+            
+            // Update UI
+            document.querySelectorAll('.tree-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            document.getElementById('selectedTreeDisplay').textContent = 
+                `Selected: ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        }
+        
+        function plantTree() {
+            const name = document.getElementById('treeName').value.trim();
+            
+            if (!name) {
+                alert("Please name your tree first.");
+                return;
+            }
+            
+            myTree.name = name;
+            myTree.type = selectedTreeType;
+            myTree.plantedDate = new Date().toLocaleDateString();
+            
+            // Save to browser storage
+            localStorage.setItem('forestTree', JSON.stringify(myTree));
+            
+            // Show success
+            alert(`🌳 ${name} has been planted as a ${selectedTreeType}!`);
+            showTab('forest');
+            updateDisplay();
+        }
+        
+        function selectPrinciple(principleKey) {
+            selectedPrinciple = principleKey;
+            
+            // Update UI
+            document.querySelectorAll('.principle-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Enable next button
+            document.getElementById('nextStep1Btn').disabled = false;
+        }
+        
+        function nextStep() {
+            if (currentStep === 1 && !selectedPrinciple) {
+                alert("Please select a principle first.");
+                return;
+            }
+            
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            
+            // Show next step
+            currentStep++;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            
+            // Load exercise if going to step 2
+            if (currentStep === 2 && selectedPrinciple) {
+                loadExercise();
+            }
+        }
+        
+        function prevStep() {
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            
+            // Show previous step
+            currentStep--;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+        }
+        
+        function loadExercise() {
+            if (!selectedPrinciple) return;
+            
+            const principle = principles[selectedPrinciple];
+            document.getElementById('exerciseTitle').innerHTML = 
+                `2. ${principle.emoji} ${principle.title} Exercise`;
+            document.getElementById('exerciseContent').innerHTML = principle.exercise;
+        }
+        
+        function getRandomWisdom() {
+            const randomIndex = Math.floor(Math.random() * wisdomPhrases.length);
+            return wisdomPhrases[randomIndex];
+        }
+        
+        function completePractice() {
+            if (!myTree.name) {
+                alert("Please plant a tree first.");
+                showTab('trees');
+                return;
+            }
+            
+            if (!selectedPrinciple) {
+                alert("Please select a principle first.");
+                return;
+            }
+            
+            const journalText = document.getElementById('practiceJournal').value.trim();
+            const principle = principles[selectedPrinciple];
+            
+            // Add practice
+            myTree.practices.push({
+                date: new Date().toLocaleString(),
+                principle: principle.title,
+                journal: journalText
+            });
+            
+            // Grow tree (with seasonal multiplier)
+            const growth = 0.5 * seasonData[myTree.season].growthMultiplier;
+            myTree.height += growth;
+            myTree.rings++;
+            myTree.seasonCounter++;
+            
+            // Get wisdom
+            const wisdom = getRandomWisdom();
+            myTree.wisdomReceived++;
+            
+            // Add journal if provided
+            if (journalText) {
+                myTree.journals.push({
+                    date: new Date().toLocaleString(),
+                    text: journalText,
+                    wisdom: wisdom,
+                    principle: principle.title
+                });
+            }
+            
+            // Check for season change (every 3 practices)
+            if (myTree.seasonCounter >= 3) {
+                advanceSeason();
+                myTree.seasonCounter = 0;
+            }
+            
+            // Save and update
+            saveTree();
+            updateDisplay();
+            
+            // Show result with wisdom
+            document.getElementById('practiceContent').style.display = 'none';
+            document.getElementById('practiceResult').style.display = 'block';
+            
+            document.getElementById('wisdomText').textContent = `"${wisdom.text}"`;
+            document.getElementById('wisdomAuthor').textContent = `- ${wisdom.author}`;
+            
+            document.getElementById('resultMessage').innerHTML = `
+                ✅ Practice complete!<br>
+                <strong>Principle:</strong> ${principle.title}<br>
+                <strong>Tree growth:</strong> +${growth.toFixed(2)} meters<br>
+                <strong>Current season:</strong> ${seasonData[myTree.season].name}
+            `;
+            
+            // Reset for next time
+            setTimeout(() => {
+                selectedPrinciple = null;
+                currentStep = 1;
+                document.getElementById('practiceJournal').value = "";
+                document.querySelectorAll('.principle-button').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                document.getElementById('nextStep1Btn').disabled = true;
+            }, 100);
+        }
+        
+        function saveJournalEntry() {
+            const text = document.getElementById('newJournalEntry').value.trim();
+            
+            if (!text) {
+                alert("Please write something first.");
+                return;
+            }
+            
+            // Get wisdom
+            const wisdom = getRandomWisdom();
+            myTree.wisdomReceived++;
+            
+            myTree.journals.push({
+                date: new Date().toLocaleString(),
+                text: text,
+                wisdom: wisdom,
+                principle: "Journal Entry"
+            });
+            
+            saveTree();
+            loadJournalEntries();
+            
+            // Show wisdom
+            alert(`📖 Journal saved!\n\nWisdom from ${wisdom.author}:\n"${wisdom.text}"`);
+            
+            document.getElementById('newJournalEntry').value = "";
+        }
+        
+        function loadJournalEntries() {
+            const container = document.getElementById('journalEntries');
+            container.innerHTML = "";
+            
+            if (myTree.journals.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: #666; font-style: italic;">
+                        No journal entries yet.<br>
+                        Your reflections will appear here with wisdom from sages.
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show most recent first
+            myTree.journals.slice().reverse().forEach((entry, index) => {
+                container.innerHTML += `
+                    <div class="journal-entry">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <strong>📅 ${entry.date}</strong>
+                            <small>${entry.principle}</small>
+                        </div>
+                        <p>${entry.text}</p>
+                    </div>
+                    <div class="wisdom-response">
+                        <p>"${entry.wisdom.text}"</p>
+                        <div class="wisdom-author">- ${entry.wisdom.author}</div>
+                    </div>
+                `;
+            });
+        }
+        
+        function clearJournal() {
+            document.getElementById('newJournalEntry').value = "";
+        }
+        
+        function advanceSeason() {
+            const seasons = ['spring', 'summer', 'autumn', 'winter'];
+            const currentIndex = seasons.indexOf(myTree.season);
+            const nextIndex = (currentIndex + 1) % seasons.length;
+            myTree.season = seasons[nextIndex];
+            updateSeasonDisplay();
+        }
+        
+        function updateSeasonDisplay() {
+            const season = seasonData[myTree.season];
+            
+            // Update body class
+            document.body.className = season.bgClass;
+            
+            // Update header indicator
+            const indicator = document.querySelector('.season-indicator');
+            indicator.textContent = `${season.name === 'Spring' ? '🌸' : season.name === 'Summer' ? '☀️' : season.name === 'Autumn' ? '🍂' : '❄️'} Current Season: ${season.name.toUpperCase()}`;
+            indicator.className = `season-indicator ${season.indicatorClass}`;
+        }
+        
+        function updateForestDisplay() {
+            if (!myTree.name) {
+                document.getElementById('treeNameDisplay').textContent = "No tree planted yet";
+                document.getElementById('treeAscii').textContent = "Plant a tree to begin your journey";
+                return;
+            }
+            
+            document.getElementById('treeNameDisplay').textContent = `${myTree.name} the ${myTree.type.charAt(0).toUpperCase() + myTree.type.slice(1)}`;
+            document.getElementById('treeAscii').textContent = treeASCII[myTree.type];
+            
+            // Update stats
+            document.getElementById('statRings').textContent = myTree.rings;
+            document.getElementById('statHeight').textContent = myTree.height.toFixed(2);
+            document.getElementById('statJournals').textContent = myTree.journals.length;
+            document.getElementById('statWisdom').textContent = myTree.wisdomReceived;
+        }
+        
+        function updatePracticeCard() {
+            const status = document.getElementById('practiceStatus');
+            const content = document.getElementById('practiceContent');
+            const result = document.getElementById('practiceResult');
+            
+            if (!myTree.name) {
+                status.innerHTML = "🌱 <strong>Plant a tree first to begin practice.</strong> Click 'Choose Tree Type'.";
+                content.style.display = 'none';
+                result.style.display = 'none';
+                return;
+            }
+            
+            status.style.display = 'none';
+            content.style.display = 'block';
+            result.style.display = 'none';
+            
+            // Reset to step 1
+            currentStep = 1;
+            document.querySelectorAll('.step').forEach(step => step.style.display = 'none');
+            document.getElementById('step1').style.display = 'block';
+            selectedPrinciple = null;
+            document.querySelectorAll('.principle-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.getElementById('nextStep1Btn').disabled = true;
+        }
+        
+        function updateDisplay() {
+            updateForestDisplay();
+            updateSeasonDisplay();
+        }
+        
+        function saveTree() {
+            localStorage.setItem('forestTree', JSON.stringify(myTree));
+        }
+        
+        function loadTree() {
+            const saved = localStorage.getItem('forestTree');
+            if (saved) {
+                myTree = JSON.parse(saved);
+                
+                // Ensure new properties exist for older saves
+                if (!myTree.type) myTree.type = 'oak';
+                if (!myTree.season) myTree.season = 'spring';
+                if (!myTree.seasonCounter) myTree.seasonCounter = 0;
+                if (!myTree.journals) myTree.journals = [];
+                if (!myTree.practices) myTree.practices = [];
+                if (!myTree.wisdomReceived) myTree.wisdomReceived = 0;
+            }
+        }
+    </script>
+</body>
+  </html>
