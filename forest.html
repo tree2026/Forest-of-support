@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest of Support - Digital Sanctuary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #e6f2e6, #c9e4c9);
+            color: #2d5016;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background 1.5s ease;
+        }
+        
+        /* Seasonal backgrounds */
+        body.spring { background: linear-gradient(to bottom, #e6f7e6, #d4e8d4); }
+        body.summer { background: linear-gradient(to bottom, #d4e8c9, #b8d8a8); }
+        body.autumn { background: linear-gradient(to bottom, #f7e6cc, #e8d4a8); }
+        body.winter { background: linear-gradient(to bottom, #e6f2f7, #c9dde8); }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        h1 {
+            color: #2d5016;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .season-indicator {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin: 15px 0;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .spring-indicator { background: #c9e8c9; color: #2d6a2d; }
+        .summer-indicator { background: #a8d8a8; color: #1a5a1a; }
+        .autumn-indicator { background: #e8d4a8; color: #8a5a2d; }
+        .winter-indicator { background: #c9dde8; color: #2d5a8a; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .card.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        button {
+            background: linear-gradient(to right, #4a7c3f, #5a9c4a);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 8px;
+            box-shadow: 0 4px 15px rgba(74, 124, 63, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 124, 63, 0.4);
+        }
+        
+        button.secondary {
+            background: linear-gradient(to right, #8aae7f, #9abe8f);
+        }
+        
+        .tree-display {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+            margin: 25px 0;
+            padding: 25px;
+            background: rgba(249, 255, 249, 0.9);
+            border-radius: 15px;
+            border: 2px dashed #8aae7f;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tree-variety-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .tree-option {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tree-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tree-option.selected {
+            border-color: #4a7c3f;
+            background: #f0f7f0;
+        }
+        
+        .journal-entry {
+            background: #f9fff9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #4a7c3f;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #c9e4c9;
+            border-radius: 15px;
+            font-size: 1.1em;
+            margin: 15px 0;
+            resize: vertical;
+            transition: border 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #4a7c3f;
+            box-shadow: 0 0 0 3px rgba(74, 124, 63, 0.2);
+        }
+        
+        .seasonal-effects {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .season-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .spring-btn { background: #c9e8c9; color: #2d6a2d; }
+        .summer-btn { background: #a8d8a8; color: #1a5a1a; }
+        .autumn-btn { background: #e8d4a8; color: #8a5a2d; }
+        .winter-btn { background: #c9dde8; color: #2d5a8a; }
+        
+        .season-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a7c3f;
+            display: block;
+        }
+        
+        .tree-name-display {
+            font-size: 2em;
+            color: #2d5016;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: #4a7c3f;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #5a7d3e;
+            font-size: 0.95em;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .tree-variety-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .seasonal-effects {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="spring">
+    <div class="container">
+        <header>
+            <h1>🌳 Forest of Support</h1>
+            <p class="tagline">A digital sanctuary with seasons, tree varieties, and journaling</p>
+            <div class="season-indicator spring-indicator">🌸 Current Season: SPRING</div>
+        </header>
+        
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('forest')">🌲 My Forest</button>
+            <button class="nav-tab" onclick="showTab('practice')">📿 Daily Practice</button>
+            <button class="nav-tab" onclick="showTab('journal')">📖 Journal</button>
+            <button class="nav-tab" onclick="showTab('trees')">🌿 Tree Varieties</button>
+            <button class="nav-tab" onclick="showTab('seasons')">🍂 Seasons</button>
+        </div>
+        
+        <!-- My Forest Tab -->
+        <div id="forest" class="card active">
+            <h2>🌲 Your Digital Forest</h2>
+            <div id="forestContent">
+                <div class="tree-name-display" id="treeNameDisplay">No tree planted yet</div>
+                
+                <div class="tree-display" id="mainTreeDisplay">
+                    <pre id="treeAscii">Plant a tree to begin your journey</pre>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value" id="statRings">0</span>
+                        Growth Rings
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statHeight">0</span>
+                        Height (m)
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statJournals">0</span>
+                        Journal Entries
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="statSeason">1</span>
+                        Seasons Lived
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="showTab('practice')">Start Daily Practice</button>
+                    <button class="secondary" onclick="showTab('trees')">Choose Tree Type</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Practice Tab -->
+        <div id="practice" class="card">
+            <h2>📿 Daily Tree Practice</h2>
+            <div id="practiceSteps">
+                <div class="step" id="step1">
+                    <h3>1. Choose Your Tree Variety</h3>
+                    <p>Select from the Trees tab first, or continue with your current tree.</p>
+                    <button onclick="showTab('trees')">Browse Trees</button>
+                    <button onclick="nextStep()">Continue with Current Tree</button>
+                </div>
+                
+                <div class="step" id="step2" style="display: none;">
+                    <h3>2. Grounding Breath</h3>
+                    <p>Close your eyes. Breathe with the rhythm:</p>
+                    <div id="breathTimer" style="font-size: 2em; margin: 20px 0; color: #4a7c3f;">
+                        Breathe in... 4
+                    </div>
+                    <button onclick="startBreathing()" id="breathButton">Begin Breathing Exercise</button>
+                </div>
+                
+                <div class="step" id="step3" style="display: none;">
+                    <h3>3. Healing Principle</h3>
+                    <p>Choose one principle to focus on today:</p>
+                    <select id="principleSelect" style="width: 100%; padding: 15px; margin: 15px 0; border-radius: 10px; border: 2px solid #c9e4c9; font-size: 1.1em;">
+                        <option value="Root First">🌱 Root First - Ground before responding</option>
+                        <option value="Bark Boundaries">🛡️ Bark Boundaries - Protect while staying open</option>
+                        <option value="Grow Rings">🎋 Grow Rings - Every experience adds strength</option>
+                        <option value="Seasonal Release">🍂 Seasonal Release - Let go of what no longer serves</option>
+                        <option value="Reach for Light">☀️ Reach for Light - Grow toward nourishment</option>
+                        <option value="Forest Network">🌳 Forest Network - We're connected underground</option>
+                        <option value="Bend in Storms">🌀 Bend in Storms - Flexibility prevents breaking</option>
+                        <option value="Your True Shape">🌲 Your True Shape - A pine doesn't try to be an oak</option>
+                    </select>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+                
+                <div class="step" id="step4" style="display: none;">
+                    <h3>4. Add Journal Reflection (Optional)</h3>
+                    <textarea id="practiceJournal" placeholder="How does this principle feel today? What's growing in you?"></textarea>
+                    <button onclick="completePractice()">Complete Practice</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Journal Tab -->
+        <div id="journal" class="card">
+            <h2>📖 Your Tree Journal</h2>
+            <p>Reflect on your growth. Each entry becomes part of your tree's story.</p>
+            
+            <div style="margin: 25px 0;">
+                <h3>New Journal Entry</h3>
+                <textarea id="newJournalEntry" placeholder="Write about your growth, challenges, insights... This is for you alone."></textarea>
+                <button onclick="saveJournalEntry()">Save to Journal</button>
+                <button class="secondary" onclick="clearJournal()">Clear Field</button>
+            </div>
+            
+            <div id="journalEntriesContainer">
+                <h3>Past Entries</h3>
+                <div id="journalEntries">
+                    <!-- Journal entries will appear here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tree Varieties Tab -->
+        <div id="trees" class="card">
+            <h2>🌿 Choose Your Tree Variety</h2>
+            <p>Each tree type has unique characteristics. Choose what resonates with you.</p>
+            
+            <div class="tree-variety-selector">
+                <div class="tree-option" onclick="selectTreeType('oak')">
+                    <h3>🌳 Mighty Oak</h3>
+                    <p>Strength, endurance, wisdom</p>
+                    <pre style="font-size: 0.8em;">
+     /\
+    /  \
+   /    \
+  /______\
+    |  |
+    |__|
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('willow')">
+                    <h3>🍃 Weeping Willow</h3>
+                    <p>Flexibility, emotion, release</p>
+                    <pre style="font-size: 0.8em;">
+    \  |  /
+     \ | /
+      \|/
+       |
+       |
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('pine')">
+                    <h3>🎄 Noble Pine</h3>
+                    <p>Resilience, evergreen, peace</p>
+                    <pre style="font-size: 0.8em;">
+   /\
+  /__\
+ /\  /\
+/__\/__\
+   ||
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('birch')">
+                    <h3>🌿 Silver Birch</h3>
+                    <p>New beginnings, purification</p>
+                    <pre style="font-size: 0.8em;">
+   /\
+  /  \
+ /\  /\
+/__\/__\
+  |  |
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('maple')">
+                    <h3>🍁 Sugar Maple</h3>
+                    <p>Balance, generosity, sweetness</p>
+                    <pre style="font-size: 0.8em;">
+  /\  /\
+ /  \/  \
+/________\
+   |  |
+   |__|
+                    </pre>
+                </div>
+                
+                <div class="tree-option" onclick="selectTreeType('bonsai')">
+                    <h3>🎋 Ancient Bonsai</h3>
+                    <p>Patience, miniature beauty</p>
+                    <pre style="font-size: 0.8em;">
+  /\/\
+ /    \
+/______\
+  |  |
+                    </pre>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="confirmTreeType()">Plant This Tree Type</button>
+                <p id="selectedTreeDisplay" style="margin-top: 15px; font-style: italic;"></p>
+            </div>
+        </div>
+        
+        <!-- Seasons Tab -->
+        <div id="seasons" class="card">
+            <h2>🍂 Seasonal Changes</h2>
+            <p>Your tree changes with the seasons. Each season brings different energy.</p>
+            
+            <div class="seasonal-effects">
+                <button class="season-btn spring-btn" onclick="changeSeason('spring')">🌸 Spring</button>
+                <button class="season-btn summer-btn" onclick="changeSeason('summer')">☀️ Summer</button>
+                <button class="season-btn autumn-btn" onclick="changeSeason('autumn')">🍂 Autumn</button>
+                <button class="season-btn winter-btn" onclick="changeSeason('winter')">❄️ Winter</button>
+            </div>
+            
+            <div id="seasonDescription">
+                <h3>Current Season: <span id="currentSeasonName">Spring</span></h3>
+                <p id="seasonText">🌸 Spring is a time of new beginnings, budding growth, and fresh energy. Your tree is awakening from winter rest.</p>
+                
+                <div style="margin: 25px 0;">
+                    <h4>Seasonal Effects:</h4>
+                    <ul style="padding-left: 20px;">
+                        <li id="seasonEffect1">Growth rate: +50% faster</li>
+                        <li id="seasonEffect2">Special ability: Can add extra journal entries</li>
+                        <li id="seasonEffect3">Tree appearance: Buds and blossoms</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f0f7f0; padding: 20px; border-radius: 15px; margin-top: 25px;">
+                <h3>Automatic Season Rotation</h3>
+                <p>Seasons automatically change every 7 practices, or you can manually change them here.</p>
+                <p>Next automatic change after: <span id="seasonCounter">0</span> more practices</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🌿 Forest of Support v2.0 • Now with Seasons, Tree Varieties & Journaling</p>
+            <p>Your data stays in your browser • Share with #ForestOfSupport</p>
+            <p><em>"Ring by ring, season by season, you grow."</em></p>
+        </footer>
+    </div>
+
+    <script>
+        // Forest of Support v2.0 - Enhanced Edition
+        // With tree varieties, journaling, and seasonal changes
+        
+        let myTree = {
+            name: "",
+            type: "oak",
+            plantedDate: "",
+            rings: 0,
+            height: 1.0,
+            journals: [],
+            season: "spring",
+            seasonCounter: 0,
+            practices: [],
+            rootStrength: 3,
+            connections: []
+        };
+        
+        const treeASCII = {
+            oak: `     /\\
+    /  \\
+   /    \\
+  /______\\
+    |  |
+    |__|`,
+            
+            willow: `    \\  |  /
+     \\ | /
+      \\|/
+       |
+       |`,
+            
+            pine: `   /\\
+  /__\\
+ /\\  /\\
+/__\\/__\\
+   ||`,
+            
+            birch: `   /\\
+  /  \\
+ /\\  /\\
+/__\\/__\\
+  |  |`,
+            
+            maple: `  /\\  /\\
+ /  \\/  \\
+/________\\
+   |  |
+   |__|`,
+            
+            bonsai: `  /\\/\\
+ /    \\
+/______\\
+  |  |`
+        };
+        
+        const seasonData = {
+            spring: {
+                name: "Spring",
+                bgClass: "spring",
+                indicatorClass: "spring-indicator",
+                description: "🌸 Spring is a time of new beginnings, budding growth, and fresh energy. Your tree is awakening from winter rest.",
+                effects: ["Growth rate: +50% faster", "Special ability: Can add extra journal entries", "Tree appearance: Buds and blossoms"],
+                growthMultiplier: 1.5
+            },
+            summer: {
+                name: "Summer",
+                bgClass: "summer",
+                indicatorClass: "summer-indicator",
+                description: "☀️ Summer brings full bloom, vibrant energy, and deep growth. Your tree is in its peak season.",
+                effects: ["Growth rate: Normal", "Special ability: Extra connection opportunities", "Tree appearance: Full canopy"],
+                growthMultiplier: 1.0
+            },
+            autumn: {
+                name: "Autumn",
+                bgClass: "autumn",
+                indicatorClass: "autumn-indicator",
+                description: "🍂 Autumn is a time of harvest, letting go, and preparation. Your tree releases what no longer serves.",
+                effects: ["Growth rate: -25% slower", "Special ability: Automatic journal archiving", "Tree appearance: Colorful leaves"],
+                growthMultiplier: 0.75
+            },
+            winter: {
+                name: "Winter",
+                bgClass: "winter",
+                indicatorClass: "winter-indicator",
+                description: "❄️ Winter invites rest, reflection, and inner growth. Your tree conserves energy for spring.",
+                effects: ["Growth rate: -50% slower", "Special ability: Deep reflection prompts", "Tree appearance: Bare branches, snow"],
+                growthMultiplier: 0.5
+            }
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTree();
+            updateDisplay();
+        });
+        
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate corresponding nav button
+            document.querySelector(`.nav-tab[onclick*="${tabId}"]`).classList.add('active');
+            
+            // Special updates for specific tabs
+            if (tabId === 'forest') updateForestDisplay();
+            if (tabId === 'journal') loadJournalEntries();
+            if (tabId === 'seasons') updateSeasonDisplay();
+        }
+        
+        function selectTreeType(type) {
+            // Update UI
+            document.querySelectorAll('.tree-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Store selection
+            myTree.type = type;
+            document.getElementById('selectedTreeDisplay').textContent = `Selected: ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        }
+        
+        function confirmTreeType() {
+            if (!myTree.type) {
+                alert("Please select a tree type first.");
+                return;
+            }
+            
+            if (!myTree.name) {
+                const name = prompt("Name your tree:");
+                if (name && name.trim()) {
+                    myTree.name = name.trim();
+                    myTree.plantedDate = new Date().toLocaleDateString();
+                    alert(`🌳 ${myTree.name} the ${myTree.type} has been planted!`);
+                    saveTree();
+                    updateDisplay();
+                    showTab('forest');
+                }
+            } else {
+                saveTree();
+                updateDisplay();
+                showTab('forest');
+            }
+        }
+        
+        let currentStep = 1;
+        
+        function nextStep() {
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            currentStep++;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+        }
+        
+        function startBreathing() {
+            const timer = document.getElementById('breathTimer');
+            const button = document.getElementById('breathButton');
+            button.disabled = true;
+            
+            let count = 4;
+            let phase = "in";
+            
+            const breathCycle = setInterval(() => {
+                if (phase === "in") {
+                    timer.innerHTML = `Breathe in... ${count}`;
+                    count--;
+                    
+                    if (count < 0) {
+                        phase = "hold";
+                        count = 4;
+                        timer.innerHTML = `Hold... ${count}`;
+                    }
+                } else if (phase === "hold") {
+                    timer.innerHTML = `Hold... ${count}`;
+                    count--;
+                    
+                    if (count < 0) {
+                        phase = "out";
+                        count = 4;
+                        timer.innerHTML = `Breathe out... ${count}`;
+                    }
+                } else if (phase === "out") {
+                    timer.innerHTML = `Breathe out... ${count}`;
+                    count--;
+                    
+                    if (count < 0) {
+                        clearInterval(breathCycle);
+                        timer.innerHTML = "🌿 Rooted and present";
+                        button.disabled = false;
+                        button.textContent = "Ready to continue";
+                        
+                        // Auto-proceed after 2 seconds
+                        setTimeout(() => nextStep(), 2000);
+                    }
+                }
+            }, 1000);
+        }
+        
+        function completePractice() {
+            if (!myTree.name) {
+                alert("Please plant a tree first.");
+                showTab('trees');
+                return;
+            }
+            
+            const principle = document.getElementById('principleSelect').value;
+            const journalText = document.getElementById('practiceJournal').value;
+            
+            // Add practice
+            myTree.practices.push({
+                date: new Date().toLocaleString(),
+                principle: principle,
+                journal: journalText
+            });
+            
+            // Grow tree (with seasonal multiplier)
+            const growth = 0.5 * seasonData[myTree.season].growthMultiplier;
+            myTree.height += growth;
+            myTree.rings++;
+            myTree.seasonCounter++;
+            
+            // Add journal if provided
+            if (journalText.trim()) {
+                myTree.journals.push({
+                    date: new Date().toLocaleString(),
+                    text: journalText,
+                    season: myTree.season
+                });
+            }
+            
+            // Check for season change (every 3 practices)
+            if (myTree.seasonCounter >= 3) {
+                advanceSeason();
+                myTree.seasonCounter = 0;
+            }
+            
+            // Save and update
+            saveTree();
+            updateDisplay();
+            
+            // Show completion message
+            alert(`✅ Practice complete!\n\nPrinciple: ${principle}\nTree grew: +${growth.toFixed(2)}m\nSeason: ${seasonData[myTree.season].name}`);
+            
+            // Reset practice flow
+            currentStep = 1;
+            document.querySelectorAll('.step').forEach(step => step.style.display = 'none');
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('practiceJournal').value = "";
+            
+            showTab('forest');
+        }
+        
+        function saveJournalEntry() {
+            const text = document.getElementById('newJournalEntry').value.trim();
+            
+            if (!text) {
+                alert("Please write something first.");
+                return;
+            }
+            
+            myTree.journals.push({
+                date: new Date().toLocaleString(),
+                text: text,
+                season: myTree.season
+            });
+            
+            saveTree();
+            loadJournalEntries();
+            document.getElementById('newJournalEntry').value = "";
+            alert("Journal entry saved! 📖");
+        }
+        
+        function loadJournalEntries() {
+            const container = document.getElementById('journalEntries');
+            container.innerHTML = "";
+            
+            if (myTree.journals.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No journal entries yet. Your reflections will appear here.</p>';
+                return;
+            }
+            
+            // Show most recent first
+            myTree.journals.slice().reverse().forEach((entry, index) => {
+                const seasonEmoji = entry.season === 'spring' ? '🌸' : 
+                                   entry.season === 'summer' ? '☀️' : 
+                                   entry.season === 'autumn' ? '🍂' : '❄️';
+                
+                container.innerHTML += `
+                    <div class="journal-entry">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <strong>${seasonEmoji} ${entry.date}</strong>
+                            <small>${entry.season.charAt(0).toUpperCase() + entry.season.slice(1)}</small>
+                        </div>
+                        <p>${entry.text}</p>
+                    </div>
+                `;
+            });
+        }
+        
+        function clearJournal() {
+            document.getElementById('newJournalEntry').value = "";
+        }
+        
+        function changeSeason(season) {
+            myTree.season = season;
+            updateSeasonDisplay();
+            saveTree();
+        }
+        
+        function advanceSeason() {
+            const seasons = ['spring', 'summer', 'autumn', 'winter'];
+            const currentIndex = seasons.indexOf(myTree.season);
+            const nextIndex = (currentIndex + 1) % seasons.length;
+            myTree.season = seasons[nextIndex];
+            updateSeasonDisplay();
+        }
+        
+        function updateSeasonDisplay() {
+            const season = seasonData[myTree.season];
+            
+            // Update body class
+            document.body.className = season.bgClass;
+            
+            // Update header indicator
+            const indicator = document.querySelector('.season-indicator');
+            indicator.textContent = `${season.name === 'Spring' ? '🌸' : season.name === 'Summer' ? '☀️' : season.name === 'Autumn' ? '🍂' : '❄️'} Current Season: ${season.name.toUpperCase()}`;
+            indicator.className = `season-indicator ${season.indicatorClass}`;
+            
+            // Update season tab
+            document.getElementById('currentSeasonName').textContent = season.name;
+            document.getElementById('seasonText').textContent = season.description;
+            
+            // Update effects
+            document.getElementById('seasonEffect1').textContent = season.effects[0];
+            document.getElementById('seasonEffect2').textContent = season.effects[1];
+            document.getElementById('seasonEffect3').textContent = season.effects[2];
+            
+            // Update counter
+            document.getElementById('seasonCounter').textContent = 3 - myTree.seasonCounter;
+        }
+        
+        function updateForestDisplay() {
+            if (!myTree.name) {
+                document.getElementById('treeNameDisplay').textContent = "No tree planted yet";
+                document.getElementById('treeAscii').textContent = "Plant a tree in the 'Tree Varieties' tab to begin your journey";
+                return;
+            }
+            
+            document.getElementById('treeNameDisplay').textContent = `${myTree.name} the ${myTree.type.charAt(0).toUpperCase() + myTree.type.slice(1)}`;
+            document.getElementById('treeAscii').textContent = treeASCII[myTree.type];
+            
+            // Update stats
+            document.getElementById('statRings').textContent = myTree.rings;
+            document.getElementById('statHeight').textContent = myTree.height.toFixed(2);
+            document.getElementById('statJournals').textContent = myTree.journals.length;
+            document.getElementById('statSeason').textContent = Math.floor(myTree.rings / 3) + 1;
+        }
+        
+        function updateDisplay() {
+            updateForestDisplay();
+            updateSeasonDisplay();
+        }
+        
+        function saveTree() {
+            localStorage.setItem('forestTree', JSON.stringify(myTree));
+        }
+        
+        function loadTree() {
+            const saved = localStorage.getItem('forestTree');
+            if (saved) {
+                myTree = JSON.parse(saved);
+                
+                // Ensure new properties exist for older saves
+                if (!myTree.type) myTree.type = 'oak';
+                if (!myTree.season) myTree.season = 'spring';
+                if (!myTree.seasonCounter) myTree.seasonCounter = 0;
+                if (!myTree.journals) myTree.journals = [];
+                if (!myTree.practices) myTree.practices = [];
+            }
+        }
+    </script>
+</body>
+</html>
