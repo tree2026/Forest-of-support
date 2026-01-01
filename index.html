@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest of Support - Tree Healing Sanctuary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #e6f2e6, #c9e4c9);
+            color: #2d5016;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2d5016;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tagline {
+            font-style: italic;
+            color: #5a7d3e;
+            font-size: 1.2em;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        button {
+            background: #4a7c3f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #3a6530;
+            transform: translateY(-2px);
+        }
+        
+        button.secondary {
+            background: #8aae7f;
+        }
+        
+        .tree-display {
+            text-align: center;
+            font-family: monospace;
+            line-height: 1.2;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9fff9;
+            border-radius: 10px;
+        }
+        
+        .principle-badge {
+            display: inline-block;
+            background: #e8f5e8;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+            border-left: 4px solid #4a7c3f;
+        }
+        
+        .share-section {
+            background: #f0f7f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        #shareOutput {
+            width: 100%;
+            height: 100px;
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px dashed #4a7c3f;
+            border-radius: 10px;
+            background: white;
+            font-family: monospace;
+            resize: none;
+        }
+        
+        .forest-network {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tree-node {
+            background: white;
+            border: 2px solid #8aae7f;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .connection {
+            position: absolute;
+            height: 2px;
+            background: #8aae7f;
+            transform-origin: 0 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #5a7d3e;
+            font-size: 0.9em;
+        }
+        
+        .hashtag {
+            color: #4a7c3f;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            button {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌳 Forest of Support</h1>
+            <p class="tagline">A digital sanctuary based on tree-healing principles</p>
+            <p>No downloads needed • Runs in your browser • Your data stays with you</p>
+        </header>
+        
+        <!-- Main Navigation -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button onclick="showCard('welcome')">🌱 Welcome</button>
+            <button onclick="showCard('plant')">🪴 Plant Your Tree</button>
+            <button onclick="showCard('practice')">📿 Daily Practice</button>
+            <button onclick="showCard('forest')">🌲 View Forest</button>
+            <button onclick="showCard('share')">📤 Share</button>
+        </div>
+        
+        <!-- Welcome Card -->
+        <div id="welcome" class="card active">
+            <h2>Welcome to the Digital Forest</h2>
+            <p>This is a safe space to practice <strong>tree-inspired healing</strong>. Based on our conversation about how trees heal themselves, this interactive sanctuary helps you apply those principles in daily life.</p>
+            
+            <div style="margin: 25px 0;">
+                <h3>🌿 The 8 Tree Principles</h3>
+                <div id="principlesList"></div>
+            </div>
+            
+            <p><strong>How it works:</strong> Plant your digital tree, practice daily principles, watch your tree grow, and connect with others in spirit (anonymously).</p>
+            
+            <button onclick="showCard('plant')">Start Your Journey →</button>
+        </div>
+        
+        <!-- Plant Your Tree Card -->
+        <div id="plant" class="card">
+            <h2>🪴 Plant Your Digital Tree</h2>
+            <p>Every tree starts as a seed. Name yours with intention.</p>
+            
+            <input type="text" id="treeName" placeholder="Enter your tree's name..." 
+                   style="width: 100%; padding: 15px; margin: 20px 0; font-size: 1.2em; border: 2px solid #8aae7f; border-radius: 10px;">
+            
+            <div class="tree-display" id="seedPreview">
+                <pre>
+        🌱
+       Your seed
+      awaits planting
+                </pre>
+            </div>
+            
+            <button onclick="plantTree()">🌱 Plant This Tree</button>
+            <button class="secondary" onclick="loadDemoTree()">Try a Demo Tree</button>
+        </div>
+        
+        <!-- Daily Practice Card -->
+        <div id="practice" class="card">
+            <h2>📿 Daily Tree Practice</h2>
+            <p id="practiceStatus">Plant a tree first to begin practice.</p>
+            
+            <div id="practiceContent" style="display: none;">
+                <div style="background: #f0f7f0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h3>1. Rooting Exercise</h3>
+                    <p id="breathingTimer">Breathe in... 3</p>
+                    <button onclick="startBreathing()" id="breathButton">Begin Rooting Breath</button>
+                </div>
+                
+                <div style="margin: 25px 0;">
+                    <h3>2. Choose Today's Principle</h3>
+                    <div id="principleButtons"></div>
+                </div>
+                
+                <div>
+                    <h3>3. Today's Inner Weather</h3>
+                    <select id="weatherSelect" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <option value="sunny">☀️ Sunny - Clear and energized</option>
+                        <option value="rainy">🌧️ Rainy - Reflective or sad</option>
+                        <option value="windy">🌬️ Windy - Anxious or scattered</option>
+                        <option value="calm">🌤️ Calm - Peaceful and centered</option>
+                        <option value="stormy">⛈️ Stormy - Turbulent emotions</option>
+                        <option value="misty">🌫️ Misty - Uncertain or dreamy</option>
+                    </select>
+                </div>
+                
+                <button onclick="completePractice()" style="margin-top: 20px;">🌳 Complete Today's Practice</button>
+            </div>
+            
+            <div id="practiceResult" style="display: none; margin-top: 20px; padding: 20px; background: #e8f5e8; border-radius: 10px;">
+                <h3>✅ Practice Complete!</h3>
+                <p id="resultMessage"></p>
+                <div class="tree-display" id="updatedTree"></div>
+            </div>
+        </div>
+        
+        <!-- View Forest Card -->
+        <div id="forest" class="card">
+            <h2>🌲 Your Forest</h2>
+            <div id="forestContent">
+                <p>Plant a tree to see your forest grow.</p>
+            </div>
+            
+            <div id="yourTreeSection" style="display: none;">
+                <h3>Your Tree</h3>
+                <div class="tree-display" id="fullTreeDisplay"></div>
+                
+                <h3 style="margin-top: 30px;">Growth Rings</h3>
+                <div id="growthRings"></div>
+            </div>
+        </div>
+        
+        <!-- Share Card -->
+        <div id="share" class="card">
+            <h2>📤 Share the Forest</h2>
+            <p>Share your journey or invite others to the Forest of Support.</p>
+            
+            <div class="share-section">
+                <h3>Share Your Progress</h3>
+                <p>This generates a shareable message about your practice (no personal data):</p>
+                <button onclick="generateShareMessage()">Create Share Message</button>
+                
+                <textarea id="shareOutput" readonly placeholder="Your share message will appear here..."></textarea>
+                
+                <button onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                <button class="secondary" onclick="shareOnTwitter()">🐦 Share on Twitter</button>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3>Invite Others to the Forest</h3>
+                <p>Share this link:</p>
+                <input type="text" id="forestLink" readonly 
+                       value="https://example.com/forest-of-support" 
+                       style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+                
+                <p style="margin-top: 20px;">
+                    <span class="hashtag">#ForestOfSupport</span>
+                    <span class="hashtag">#HealLikeATree</span>
+                    <span class="hashtag">#DigitalSanctuary</span>
+                    <span class="hashtag">#TreeWisdom</span>
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🌿 Forest of Support v1.0 • Based on tree-healing principles • Your data never leaves your browser</p>
+            <p>This is a non-commercial, open-hearted digital sanctuary.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Forest of Support - Browser Version
+        // All data stored locally in your browser
+        
+        let myTree = null;
+        let principles = [
+            {id: 1, name: "Root First", practice: "Pause. Feel your feet on ground before responding."},
+            {id: 2, name: "Bark Boundaries", practice: "Protect your core while letting life flow through."},
+            {id: 3, name: "Grow Rings", practice: "Each experience, hard or easy, adds to your strength."},
+            {id: 4, name: "Seasonal Release", practice: "Let go of what no longer serves, like autumn leaves."},
+            {id: 5, name: "Reach for Light", practice: "Grow toward what nourishes you, at your own pace."},
+            {id: 6, name: "Forest Network", practice: "You're never alone - we're connected underground."},
+            {id: 7, name: "Bend in Storms", practice: "Flexibility prevents breaking. Sway, don't snap."},
+            {id: 8, name: "Your True Shape", practice: "A pine doesn't try to be an oak. Be your own tree."}
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPrinciples();
+            loadTreeFromStorage();
+        });
+        
+        function loadPrinciples() {
+            const container = document.getElementById('principlesList');
+            principles.forEach(p => {
+                container.innerHTML += `
+                    <div class="principle-badge">
+                        <strong>${p.name}</strong><br>
+                        <small>${p.practice}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        function showCard(cardId) {
+            // Hide all cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Show selected card
+            document.getElementById(cardId).classList.add('active');
+            
+            // Update content if needed
+            if (cardId === 'practice') {
+                updatePracticeCard();
+            } else if (cardId === 'forest') {
+                updateForestCard();
+            }
+        }
+        
+        function plantTree() {
+            const name = document.getElementById('treeName').value.trim();
+            if (!name) {
+                alert("Please name your tree first.");
+                return;
+            }
+            
+            myTree = {
+                name: name,
+                plantedDate: new Date().toLocaleDateString(),
+                rings: [],
+                height: 1,
+                connections: [],
+                rootStrength: 3,
+                weatherHistory: []
+            };
+            
+            // Save to browser storage
+            localStorage.setItem('forestTree', JSON.stringify(myTree));
+            
+            // Show success
+            alert(`🌳 ${name}'s tree has been planted!`);
+            showCard('practice');
+            updatePracticeCard();
+        }
+        
+        function loadDemoTree() {
+            document.getElementById('treeName').value = "Serenity Oak";
+            plantTree();
+        }
+        
+        function loadTreeFromStorage() {
+            const saved = localStorage.getItem('forestTree');
+            if (saved) {
+                myTree = JSON.parse(saved);
+                document.getElementById('treeName').value = myTree.name;
+            }
+        }
+        
+        function updatePracticeCard() {
+            const status = document.getElementById('practiceStatus');
+            const content = document.getElementById('practiceContent');
+            const result = document.getElementById('practiceResult');
+            
+            if (!myTree) {
+                status.innerHTML = "🌱 <strong>Plant a tree first to begin practice.</strong> Click 'Plant Your Tree' above.";
+                content.style.display = 'none';
+                result.style.display = 'none';
+                return;
+            }
+            
+            status.innerHTML = `Practicing with <strong>${myTree.name}</strong>`;
+            content.style.display = 'block';
+            result.style.display = 'none';
+            
+            // Load principle buttons
+            const container = document.getElementById('principleButtons');
+            container.innerHTML = '';
+            principles.forEach(p => {
+                container.innerHTML += `
+                    <button class="secondary" onclick="selectPrinciple(${p.id})" 
+                            style="margin: 5px; text-align: left; display: inline-block; width: calc(50% - 10px);">
+                        <strong>${p.name}</strong><br>
+                        <small>${p.practice.substring(0, 40)}...</small>
+                    </button>
+                `;
+            });
+        }
+        
+        let selectedPrinciple = null;
+        
+        function selectPrinciple(id) {
+            selectedPrinciple = principles.find(p => p.id === id);
+            document.querySelectorAll('#principleButtons button').forEach(btn => {
+                btn.style.background = '#8aae7f';
+            });
+            event.target.style.background = '#4a7c3f';
+        }
+        
+        function startBreathing() {
+            const timer = document.getElementById('breathingTimer');
+            const button = document.getElementById('breathButton');
+            button.disabled = true;
+            
+            let count = 3;
+            timer.innerHTML = `Breathe in... ${count}`;
+            
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    timer.innerHTML = `Breathe in... ${count}`;
+                } else {
+                    timer.innerHTML = "🌿 Rooted and present";
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.textContent = "Rooting Complete";
+                    }, 1000);
+                }
+            }, 1000);
+        }
+        
+        function completePractice() {
+            if (!selectedPrinciple) {
+                alert("Please select a principle first.");
+                return;
+            }
+            
+            const weather = document.getElementById('weatherSelect').value;
+            const weatherText = document.getElementById('weatherSelect').options[document.getElementById('weatherSelect').selectedIndex].text;
+            
+            // Add ring to tree
+            myTree.rings.push({
+                date: new Date().toLocaleDateString(),
+                principle: selectedPrinciple.name,
+                weather: weather,
+                weatherText: weatherText.split(' - ')[0]
+            });
+            
+            // Grow tree
+            myTree.height += 0.5;
+            myTree.rootStrength = Math.min(10, myTree.rootStrength + 1);
+            
+            // Occasionally add connections
+            if (Math.random() > 0.7) {
+                const demoConnections = ["Willow", "Cedar", "Maple", "Pine", "Birch", "Redwood"];
+                const newConnection = demoConnections[Math.floor(Math.random() * demoConnections.length)];
+                if (!myTree.connections.includes(newConnection)) {
+                    myTree.connections.push(newConnection);
+                }
+            }
+            
+            // Save
+            localStorage.setItem('forestTree', JSON.stringify(myTree));
+            
+            // Show result
+            document.getElementById('practiceContent').style.display = 'none';
+            document.getElementById('practiceResult').style.display = 'block';
+            
+            document.getElementById('resultMessage').innerHTML = `
+                You practiced: <strong>${selectedPrinciple.name}</strong><br>
+                Inner weather: ${weatherText}<br>
+                Your tree has grown to ${myTree.height.toFixed(1)} meters<br>
+                ${myTree.connections.length > 0 ? `Connected with: ${myTree.connections.join(', ')}` : ''}
+            `;
+            
+            // Draw updated tree
+            document.getElementById('updatedTree').innerHTML = drawTree(myTree);
+            
+            // Reset for next time
+            setTimeout(() => {
+                selectedPrinciple = null;
+                updatePracticeCard();
+            }, 3000);
+        }
+        
+        function updateForestCard() {
+            const content = document.getElementById('forestContent');
+            const yourTree = document.getElementById('yourTreeSection');
+            
+            if (!myTree) {
+                content.innerHTML = "<p>Plant a tree to see your forest grow.</p>";
+                yourTree.style.display = 'none';
+                return;
+            }
+            
+            content.innerHTML = `
+                <p>Your forest has <strong>1 tree</strong> (yours) with <strong>${myTree.connections.length}</strong> spiritual connections.</p>
+            `;
+            
+            yourTree.style.display = 'block';
+            document.getElementById('fullTreeDisplay').innerHTML = drawTree(myTree);
+            
+            // Show growth rings
+            const ringsContainer = document.getElementById('growthRings');
+            ringsContainer.innerHTML = '';
+            
+            if (myTree.rings.length === 0) {
+                ringsContainer.innerHTML = "<p>No practices yet. Visit Daily Practice to add your first growth ring.</p>";
+            } else {
+                myTree.rings.slice().reverse().forEach(ring => {
+                    ringsContainer.innerHTML += `
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #4a7c3f;">
+                            <strong>${ring.principle}</strong><br>
+                            <small>${ring.date} • ${ring.weatherText}</small>
+                        </div>
+                    `;
+                });
+            }
+        }
+        
+        function drawTree(tree) {
+            const height = Math.min(10, Math.floor(tree.height));
+            let treeArt = `
+               ^
+              ^^^
+             ^^^^^
+            ^^^^^^^
+           ^^^^^^^^^
+          ^^^^^^^^^^^
+         ^^^^^^^^^^^^^
+              |||
+              |||
+            ~~~~~~~
+            
+            ${tree.name}
+            Height: ${tree.height.toFixed(1)}m
+            Rings: ${tree.rings.length}
+            Roots: ${'▊'.repeat(tree.rootStrength)}${'▂'.repeat(10-tree.rootStrength)}
+            Connections: ${tree.connections.length}
+            Planted: ${tree.plantedDate}
+            `;
+            
+            return `<pre>${treeArt}</pre>`;
+        }
+        
+        function generateShareMessage() {
+            if (!myTree) {
+                document.getElementById('shareOutput').value = "Plant a tree first to generate a share message.";
+                return;
+            }
+            
+            const lastPractice = myTree.rings.length > 0 ? myTree.rings[myTree.rings.length-1] : null;
+            const today = new Date().toLocaleDateString();
+            
+            let message = `🌳 Forest of Support Update 🌳\n\n`;
+            
+            if (lastPractice) {
+                message += `Today I practiced: ${lastPractice.principle}\n`;
+                message += `Inner weather: ${lastPractice.weatherText}\n`;
+            }
+            
+            message += `Total growth rings: ${myTree.rings.length}\n`;
+            message += `Tree height: ${myTree.height.toFixed(1)}m\n\n`;
+            
+            message += `#ForestOfSupport #HealLikeATree #DigitalSanctuary #TreeWisdom\n\n`;
+            message += `👉 Experience your own Forest: [Share this link]\n`;
+            message += `💚 Remember: We grow together, each at our own pace.`;
+            
+            document.getElementById('shareOutput').value = message;
+        }
+        
+        function copyToClipboard() {
+            const textarea = document.getElementById('shareOutput');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile
+            
+            try {
+                navigator.clipboard.writeText(textarea.value).then(() => {
+                    alert("Message copied to clipboard!");
+                });
+            } catch (err) {
+                // Fallback for older browsers
+                document.execCommand('copy');
+                alert("Message copied to clipboard!");
+            }
+        }
+        
+        function shareOnTwitter() {
+            const text = document.getElementById('shareOutput').value.substring(0, 200);
+            const url = encodeURIComponent(window.location.href);
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}&hashtags=ForestOfSupport,HealLikeATree`;
+            window.open(twitterUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
