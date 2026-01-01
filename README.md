@@ -3,7 +3,7 @@
 A digital sanctuary based on tree-healing principles.
 
 ## 🌐 Live Website
-**Access here:** https://[your-username].github.io/[repository-name]/
+**Access here:** https://github.com/tree2026/Forest-of-support/blob/main/forest.html
 
 ## 📱 Install as App
 **On Mobile:**
