@@ -1572,37 +1572,60 @@
         }
         
         function loadJournalEntries() {
-            const container = document.getElementById('journalEntries');
-            container.innerHTML = "";
+    const container = document.getElementById('journalEntries');
+    container.innerHTML = "";
+    
+    if (myTree.journals.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #666; font-style: italic;">
+                No journal entries yet.<br>
+                Your reflections will appear here with poetic responses.
+            </div>
+        `;
+        return;
+    }
+    
+    // Show most recent first
+    myTree.journals.slice().reverse().forEach((entry, index) => {
+        const isPractice = entry.type === 'practice';
+        
+        // Get wisdom phrase if available
+        let wisdomDisplay = "";
+        if (entry.text && window.getWisdomPhrase) {
+            const category = determineCategoryFromText(entry.text);
+            const wisdom = window.getWisdomPhrase(category, entry.text);
             
-            if (myTree.journals.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 30px; color: #666; font-style: italic;">
-                        No journal entries yet.<br>
-                        Your reflections will appear here with poetic responses.
+            if (wisdom.phrase) {
+                wisdomDisplay = `
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #b8d8a8;">
+                    <p style="font-style: normal; color: #5a7d3e; margin-bottom: 5px;">
+                        ${wisdom.phrase}
+                    </p>
+                    <div style="text-align: right; font-size: 0.9em; color: #8a5a2d;">
+                        — ${wisdom.author}
                     </div>
+                </div>
                 `;
-                return;
             }
-            
-            // Show most recent first
-            myTree.journals.slice().reverse().forEach((entry, index) => {
-                const isPractice = entry.type === 'practice';
+        }
+        
+        container.innerHTML += `
+            <div class="journal-entry">
+                <div class="entry-date">
+                    <span>${entry.date}</span>
+                    <span>${isPractice ? '📿 ' + entry.principle : '📖 Journal'}</span>
+                </div>
+                <p>${entry.text}</p>
+            </div>
+            <div class="poem-response">
+                <p>${entry.poem.replace(/\n/g, '<br>')}</p>
+                <div class="sage-quote">${entry.sage}</div>
                 
-                container.innerHTML += `
-                    <div class="journal-entry">
-                        <div class="entry-date">
-                            <span>${entry.date}</span>
-                            <span>${isPractice ? '📿 ' + entry.principle : '📖 Journal'}</span>
-                        </div>
-                        <p>${entry.text}</p>
-                    </div>
-                    <div class="poem-response">
-                        <p>${entry.poem.replace(/\n/g, '<br>')}</p>
-                        <div class="sage-quote">${entry.sage}</div>
-                    </div>
-                `;
-            });
+                <!-- WISDOM PHRASE WITH AUTHOR -->
+                ${wisdomDisplay}
+            </div>
+        `;
+    });
         }
         
         function clearJournal() {
