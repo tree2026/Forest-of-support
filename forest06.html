@@ -1570,6 +1570,25 @@
                 journalEntries.firstChild.scrollIntoView({ behavior: 'smooth' });
             }
         }
+// Simple category detector (based on your existing logic)
+function determineCategoryFromText(text) {
+    const t = text.toLowerCase();
+    
+    if (t.includes('root') || t.includes('ground') || t.includes('stable')) return 'rooting';
+    if (t.includes('boundary') || t.includes('protect') || t.includes('shield')) return 'bark';
+    if (t.includes('grow') || t.includes('experience') || t.includes('learn')) return 'rings';
+    if (t.includes('release') || t.includes('let go') || t.includes('forgive')) return 'release';
+    if (t.includes('reach') || t.includes('goal') || t.includes('dream')) return 'reaching';
+    if (t.includes('connect') || t.includes('friend') || t.includes('community')) return 'network';
+    if (t.includes('bend') || t.includes('flexible') || t.includes('storm')) return 'bending';
+    if (t.includes('authentic') || t.includes('true self') || t.includes('unique')) return 'shape';
+    if (t.includes('season') || t.includes('cycle') || t.includes('change')) return 'seasons';
+    if (t.includes('whole') || t.includes('heal') || t.includes('scar')) return 'wholeness';
+    if (t.includes('patient') || t.includes('wait') || t.includes('time')) return 'patience';
+    if (t.includes('present') || t.includes('now') || t.includes('moment')) return 'presence';
+    
+    return 'rooting'; // default
+}
         
         function loadJournalEntries() {
     const container = document.getElementById('journalEntries');
