@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest of Support - Healing Sanctuary</title>
+  <!-- PWA CONFIGURATION - EXACT PATHS FOR YOUR URL -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4a7c3f">
+<meta name="description" content="Forest of Support - A digital sanctuary with contextual poetic wisdom">
+<link rel="manifest" href="/Forest-of-support/manifest.json">
+
+<!-- EMOJI ICONS - NO PNG FILES NEEDED -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em% font-size=%2290%22>🌳</text></svg>">
+
+<!-- IOS SUPPORT -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Forest">
     <style>
         * {
             margin: 0;
@@ -275,6 +289,10 @@
     </style>
 </head>
 <body>
+    <!-- INSTALL BUTTON - FIXED POSITION -->
+<button id="installBtn" style="display:none; position:fixed; top:15px; right:15px; background:#4a7c3f; color:white; border:none; padding:10px 15px; border-radius:20px; font-size:13px; z-index:10000; box-shadow:0 3px 10px rgba(0,0,0,0.2); cursor:pointer;">
+    📲 Install App
+</button>
     <div class="container">
         <header>
             <h1>🌳 Forest of Support</h1>
@@ -1642,6 +1660,67 @@
         function saveTree() {
             localStorage.setItem('forestTree', JSON.stringify(myTree));
         }
+// ====================
+// PWA INSTALL FIX
+// ====================
+
+// Service Worker Registration - EXACT PATH
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/Forest-of-support/sw.js')
+            .then(function(registration) {
+                console.log('✅ Service Worker registered:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('❌ Service Worker failed:', error);
+            });
+    });
+}
+
+// PWA Install Logic
+let installPrompt;
+const installButton = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    installPrompt = e;
+    
+    // Show install button after 3 seconds
+    setTimeout(function() {
+        installButton.style.display = 'block';
+        setTimeout(function() {
+            installButton.style.opacity = '1';
+        }, 100);
+    }, 3000);
+});
+
+// Install button click
+installButton.addEventListener('click', function() {
+    if (!installPrompt) return;
+    
+    installPrompt.prompt();
+    
+    installPrompt.userChoice.then(function(choiceResult) {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('✅ User installed the app');
+            installButton.textContent = '✅ Installed';
+            installButton.style.background = '#3a6530';
+            setTimeout(function() {
+                installButton.style.display = 'none';
+            }, 2000);
+        } else {
+            console.log('❌ User declined install');
+        }
+        installPrompt = null;
+    });
+});
+
+// Hide button if already installed
+window.addEventListener('appinstalled', function() {
+    console.log('✅ App was installed');
+    installButton.style.display = 'none';
+    installPrompt = null;
+});
     </script>
 </body>
   </html>
