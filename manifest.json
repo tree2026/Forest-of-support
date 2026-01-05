@@ -1,22 +1,20 @@
 {
   "name": "Forest of Support",
   "short_name": "Forest",
-  "description": "A digital sanctuary with contextual poetic wisdom for tree-inspired healing",
+  "description": "Tree-inspired healing sanctuary with contextual poetic wisdom",
   "start_url": "/Forest-of-support/forest05.html",
   "scope": "/Forest-of-support/",
   "display": "standalone",
   "background_color": "#e6f2e6",
   "theme_color": "#4a7c3f",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90' fill='%234a7c3f'>🌳</text></svg>",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
-  "categories": ["health", "lifestyle", "wellness"],
-  "lang": "en",
-  "dir": "ltr"
+  "categories": ["health", "lifestyle", "wellness"]
 }
