@@ -1,18 +1,19 @@
-// sw.js - Forest of Support Service Worker
-const APP_VERSION = '1.1';
+// sw.js - Forest of Support Service Worker v1.3
+const APP_VERSION = '1.3';
 const CACHE_NAME = `forest-cache-v${APP_VERSION}`;
-const APP_PREFIX = '/Forest-of-support/';
-
+const APP_PREFIX = self.location.pathname.includes('Forest-of-support') 
+    ? '/Forest-of-support/' 
+    : '/';
 const urlsToCache = [
   APP_PREFIX,
-  APP_PREFIX + 'index.html',  
+  APP_PREFIX + 'forest05.html',  // ← Your main file
   APP_PREFIX + 'manifest.json'
 ];
 
 // INSTALL
 self.addEventListener('install', event => {
   console.log('🌳 Service Worker installing v' + APP_VERSION);
-  self.skipWaiting(); // Force activation
+  self.skipWaiting();
 });
 
 // ACTIVATE
@@ -31,6 +32,12 @@ self.addEventListener('activate', event => {
       );
     }).then(() => {
       return self.clients.claim();
+    }).then(() => {
+      return self.clients.matchAll().then(clients => {
+        clients.forEach(client => {
+          client.postMessage({ type: 'UPDATE_READY' });
+        });
+      });
     })
   );
 });
@@ -62,7 +69,7 @@ self.addEventListener('fetch', event => {
           })
           .catch(() => {
             if (event.request.headers.get('Accept').includes('text/html')) {
-              return caches.match(APP_PREFIX + 'index.html');
+              return caches.match(APP_PREFIX + 'forest05.html');  // ← Updated
             }
           });
       })
