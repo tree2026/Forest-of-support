@@ -7,7 +7,6 @@
   "scope": "/Forest-of-support/",  // ← IMPORTANT!
   "background_color": "#e6f2e6",
   "theme_color": "#4a7c3f",
-  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
