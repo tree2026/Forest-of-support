@@ -1,6 +1,6 @@
 {
   "name": "Forest of Support",
-  "short_name": "ForestHeal",
+  "short_name": "ხეკურნავს", // ForestHeal
   "description": "Digital sanctuary based on tree-healing principles",
   "start_url": "/Forest-of-support/forest05.html",  // ← YOUR REPOSITORY NAME
   "display": "standalone",
