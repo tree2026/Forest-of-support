@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#4a7c3f">
     <meta name="description" content="Forest of Support - A digital sanctuary with contextual poetic wisdom">
-    <link rel="manifest" href="manifest.json?v=1.3">
+    <link rel="manifest" href="manifest.json?v=1.4">
     
     <!-- Emoji as Icons (No image files needed) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
@@ -448,11 +448,66 @@
         gap: 5px/*10px*/;
         margin: 10px 0;
     }
+
+    /* Music toggle button */
+    .music-toggle {
+    visibility: visible !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 100 !important;
+    background: transparent;
+    border: 2px solid var(--button-bg);
+    color: var(--button-bg);
+    padding: 5px/*8px 12px*/;
+    border-radius: 50%;
+    font-size: 1.0em/*1.2em*/;
+    cursor: pointer;
+    /*margin-left: 5px;*/
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    width: 35px/*45px*/;
+    height: 35px/*45px*/;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /*top: -2px;*/
+    vertical-align: middle;
+    box-shadow: none !important; /* Remove button shadow */
+    }
+
+    .music-toggle:hover {
+    background: var(--button-bg);
+    color: white;
+    transform: scale(1.1);
+    }
+
+    .music-toggle.playing {
+    background: var(--button-bg) !important;
+    color: white !important;
+    animation: pulse 2s infinite !important;
+    }
+
+    @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 124, 63, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(74, 124, 63, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 124, 63, 0); }
+    }
         
     /* ==================== DARK MODE - COLOR CHANGE ONLY ==================== */
 
     /* === APPLY COLORS TO EXISTING STRUCTURE === */
 
+[data-theme="dark"] .music-toggle {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .music-toggle:hover {
+    background: var(--button-bg);
+    color: var(--text-primary);
+}
+        
 /* Body background */
 [data-theme="dark"] body {
     background: linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
@@ -698,11 +753,22 @@
 </head>
 <body> 
     <div class="container">
-        <header>
+        <header> <!--bottom of title -->
+            <h1 id="app-title">
+        🌳 <span id="title-text">Forest of Support</span>
+            </h1>
+            <div style="position: relative; text-align: center;">
+                <button id="music-toggle" class="music-toggle" aria-label="Toggle ambient sounds">
+            🎵
+                </button>
+            </div>
+        </header>
+        
+        <!--<header>
             <h1 id="app-title">🌳 Forest of Support</h1>
             <p class="tagline" id="app-tagline">A digital sanctuary with contextual poetic wisdom</p>
             <p id="app-subtitle">Your journal receives personalized healing poems</p>
-        </header>
+        </header>-->
          
             
         <!-- Navigation -->
@@ -882,7 +948,7 @@
         <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">🌙</button>
     </div>
     
-    <p id="footer-version">🌿 Forest of Support v1.3 • Digital Healing Sanctuary</p>
+    <p id="footer-version">🌿 Forest of Support v1.4 • Digital Healing Sanctuary</p>
     <p id="footer-creator">Created by DeepSeek & Geoni</p>
     <p id="footer-data">Your data stays in your browser • Share with #ForestOfSupport #HealLikeATree</p>
     <p>
@@ -905,7 +971,7 @@
         // 144 poems in both English and Georgian
         
         // APP CONFIG
-        const APP_VERSION = '1.3';
+        const APP_VERSION = '1.4';
         const VERSION_KEY = 'forestAppVersion';
         const LANG_KEY = 'forestLanguage';
         
@@ -2133,9 +2199,9 @@
       intention`,
         
                 ge: `       🌱
-     თესლი
-   განზრახვით
-    ითესება`
+    ნერგი
+   შთანერგვით
+    ირგვება`
             };
     
             const previewElement = document.getElementById('seedPreview').querySelector('pre');
@@ -2795,7 +2861,7 @@ function checkVersionAndPreserveData() {
                 if (savedVersion) {
                     setTimeout(() => {
                         const t = TEXT[currentLanguage];
-                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Dark-light mode' : 'ნათელი და მუქი რეჟიმი'}\n• ${currentLanguage === 'en' ? 'Better contextual matching' : 'უკეთესი კონტექსტუალური შესაბამისობა'}\n• ${currentLanguage === 'en' ? 'Available in two languages' : 'ხელმისაწვდომია ორ ენაზე'}`;
+                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Birdsong in the forest' : 'ჩიტების ჭიკჭიკი ტყეში'}`;
                         if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
                             showCard('welcome');
                             document.getElementById('welcome').innerHTML += `
@@ -2814,8 +2880,169 @@ function checkVersionAndPreserveData() {
             }
         }
     </script>
+   
+    <!-- <script>
+// 2. Add this JavaScript
+let forestAudio = null;
+let isPlaying = false;
+
+document.getElementById('music-toggle').addEventListener('click', function() {
+    if (!forestAudio) {
+        forestAudio = new Audio('https://files.catbox.moe/dgid57.mp3');
+        forestAudio.loop = true;
+        forestAudio.volume = 0.3;
+    }
+    
+    if (isPlaying) {
+        forestAudio.pause();
+        this.innerHTML = '🎵';
+        this.style.background = 'transparent';
+    } else {
+        forestAudio.play().catch(e => {
+            alert('Click "Allow" if browser asks for audio permission');
+        });
+        this.innerHTML = '🔊';
+        this.style.background = '#4a7c3f';
+        this.style.color = 'white';
+    }
+    isPlaying = !isPlaying;
+});
+</script>-->
     
     <script>
+
+        // ==================== AMBIENT SOUND PLAYER ====================
+ 
+    const audioManager = {
+    audio: null,
+    isPlaying: false,
+    volume: 0.9, // 90% volume - subtle background
+    audioFiles: {
+        birds: 'https://files.catbox.moe/fw3nxk.mp3'
+        
+        // 'https://files.catbox.moe/n75sd5.mp3' cleared
+        // 'https://files.catbox.moe/fw3nxk.mp3' ++volume
+        // 'https://files.catbox.moe/dgid57.mp3' old
+        // 'https://cdn.jsdelivr.net/gh/tree2026/Forest-of-support/birdsong.mp3'
+        // 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_45a3a2c8a9.mp3?filename=forest-with-small-birds-wind-rain-13223.mp3'
+        // 'https://assets.mixkit.co/sfx/download/mixkit-forest-birds-1575.mp3'
+        // 'https://tree2026.github.io/Forest-of-support/birdsong.mp3'
+        // 'https://raw.githubusercontent.com/tree2026/Forest-of-support/main/birdsong.mp3'
+        // birds: 'audio/forest-birdsong.mp3'
+    },
+    
+    init() {
+        // Create audio element
+        this.audio = new Audio(this.audioFiles.birds);
+        this.audio.loop = true;
+        this.audio.volume = this.volume;
+        this.audio.preload = 'auto';
+        
+        // Load saved preference
+        const savedPref = localStorage.getItem('forestAudioPref');
+        if (savedPref === 'playing') {
+            setTimeout(() => this.toggle(), 1000); // Start after 1 sec delay
+        }
+        
+        // Auto-pause when tab is hidden (better UX)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && this.isPlaying) {
+                this.pause();
+                // Will resume when tab becomes visible again
+                this.shouldResume = true;
+            } else if (this.shouldResume) {
+                this.play();
+                this.shouldResume = false;
+            }
+        });
+    },
+    
+    toggle() {
+        if (this.isPlaying) {
+            this.pause();
+        } else {
+            this.play();
+        }
+    },
+    
+    play() {
+        if (!this.audio) this.init();
+        
+        // Modern browsers require user interaction first
+        const playPromise = this.audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                this.isPlaying = true;
+                this.updateUI();
+                localStorage.setItem('forestAudioPref', 'playing');
+            }).catch(error => {
+                console.log('Audio play failed:', error);
+                // Show user instruction if needed
+                if (error.name === 'NotAllowedError') {
+                    this.showPlayInstruction();
+                }
+            });
+        }
+    },
+    
+    pause() {
+        if (this.audio) {
+            this.audio.pause();
+            this.isPlaying = false;
+            this.updateUI();
+            localStorage.setItem('forestAudioPref', 'paused');
+        }
+    },
+    
+    updateUI() {
+        const button = document.getElementById('music-toggle');
+        if (button) {
+            if (this.isPlaying) {
+                button.classList.add('playing');
+                button.innerHTML = '🔊';
+                button.title = currentLanguage === 'ge' ? 'ხმის გამორთვა' : 'Mute ambient sounds';
+            } else {
+                button.classList.remove('playing');
+                button.innerHTML = '🎵';
+                button.title = currentLanguage === 'ge' ? 'ხმის ჩართვა' : 'Play ambient sounds';
+            }
+        }
+    },
+    
+    showPlayInstruction() {
+        // Only show once per session
+        if (!sessionStorage.getItem('audioInstructionShown')) {
+            const msg = currentLanguage === 'ge' 
+                ? 'ხმის ჩასართავად, დააწკაპუნეთ ხმის ღილაკზე 🌳\n(ბრაუზერი მოითხოვს ნებართვას)'
+                : 'To play sounds, click the music button 🌳\n(Browser requires your permission)';
+            
+            alert(msg);
+            sessionStorage.setItem('audioInstructionShown', 'true');
+        }
+    },
+    
+    setVolume(level) {
+        this.volume = Math.max(0, Math.min(1, level));
+        if (this.audio) {
+            this.audio.volume = this.volume;
+        }
+    }
+};
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener to button
+    const musicButton = document.getElementById('music-toggle');
+    if (musicButton) {
+        musicButton.addEventListener('click', () => audioManager.toggle());
+    }
+    
+    // Initialize audio manager after a delay
+    setTimeout(() => audioManager.init(), 500);
+}); 
+
+        
     // ==================== PWA SERVICE WORKER REGISTRATION ====================
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
