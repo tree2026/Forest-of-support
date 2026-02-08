@@ -2895,6 +2895,201 @@ function checkVersionAndPreserveData() {
                 loadJournalEntries();
             }, 3000);
         }
+
+        // =========== CANOPY FUNCTIONS ============
+
+function showCanopyCard() {
+    showCard('canopy');
+    initCanopyPractice();
+}
+
+function initCanopyPractice() {
+    const t = TEXT[currentLanguage];
+    const status = document.getElementById('canopyStatus');
+    
+    if (!myTree.name) {
+        status.innerHTML = `🌱 <strong>${t.practiceStatus}</strong> ${t.plantBtn}`;
+        return;
+    }
+    
+    status.style.display = 'none';
+    
+    // Reset to step 1
+    canopyCurrentStep = 1;
+    selectedCanopyInsight = null;
+    
+    // Hide all steps and result
+    document.getElementById('canopyStep1').style.display = 'none';
+    document.getElementById('canopyStep2').style.display = 'none';
+    document.getElementById('canopyStep3').style.display = 'none';
+    document.getElementById('canopyResult').style.display = 'none';
+    
+    // Show step 1
+    document.getElementById('canopyStep1').style.display = 'block';
+    document.getElementById('canopyJournal').value = "";
+    
+    // DISABLE the Next button initially
+    document.getElementById('canopyNextBtn1').disabled = true;
+    
+    // Load canopy insight buttons
+    const container = document.getElementById('canopyButtons');
+    container.innerHTML = '';
+    const insights = canopyWisdom[currentLanguage];
+    insights.forEach(insight => {
+        container.innerHTML += `
+            <div class="principle-badge" onclick="selectCanopyInsight('${insight.id}')" id="canopy-${insight.id}">
+                <strong>🌤️ ${insight.title}</strong><br>
+                <small>${insight.practice.split(/[.!?]/)[0].trim()}</small>
+            </div>
+        `;
+    });
+}
+
+function selectCanopyInsight(id) {
+    selectedCanopyInsight = id;
+    
+    // Update UI
+    document.querySelectorAll('#canopyButtons .principle-badge').forEach(badge => {
+        badge.classList.remove('selected');
+    });
+    document.getElementById(`canopy-${id}`).classList.add('selected');
+    
+    // Enable next button
+    document.getElementById('canopyNextBtn1').disabled = false;
+}
+
+function canopyNextStep() {
+    const t = TEXT[currentLanguage];
+    
+    if (canopyCurrentStep === 1 && !selectedCanopyInsight) {
+        alert(t.alertSelectPrinciple);
+        return;
+    }
+    // Hide current step
+    document.getElementById(`canopyStep${canopyCurrentStep}`).style.display = 'none';
+    // Show next step
+    canopyCurrentStep++;
+    document.getElementById(`canopyStep${canopyCurrentStep}`).style.display = 'block';
+    // Load insight and practice if going to step 2
+    if (canopyCurrentStep === 2 && selectedCanopyInsight) {
+        const insights = canopyWisdom[currentLanguage];
+        const insight = insights.find(i => i.id === selectedCanopyInsight);
+        document.getElementById('canopyExerciseContent').innerHTML = `
+            <h4>${insight.title}</h4>
+            <p>${insight.insight}</p>
+            <br>
+            <p><em><strong>${currentLanguage === 'ge' ? 'ვარჯიში' : 'Practice'}:</strong> ${insight.practice}</em></p>
+        `;
+    }
+     // Show offering in Step 3
+    if (canopyCurrentStep === 3 && selectedCanopyInsight) {
+        const insights = canopyWisdom[currentLanguage];
+        const insight = insights.find(i => i.id === selectedCanopyInsight);
+        document.getElementById('canopyOfferingDisplay').innerHTML = `
+            <p>${insight.offering}</p>
+        `;
+    }
+}
+
+function canopyPrevStep() {
+    // Hide current step
+    document.getElementById(`canopyStep${canopyCurrentStep}`).style.display = 'none';
+    
+    // Show previous step
+    canopyCurrentStep--;
+    document.getElementById(`canopyStep${canopyCurrentStep}`).style.display = 'block';
+}
+
+function completeCanopyPractice() {
+    const t = TEXT[currentLanguage];
+    
+    if (!myTree.name) {
+        alert(t.alertPlantFirst);
+        showCard('plant');
+        return;
+    }
+    
+    if (!selectedCanopyInsight) {
+        alert(t.alertSelectPrinciple);
+        return;
+    }
+    
+    const responseText = document.getElementById('canopyJournal').value.trim();
+    if (!responseText) {
+        alert(t.alertWriteJournal);
+        return;
+    }
+    
+    const insights = canopyWisdom[currentLanguage];
+    const insight = insights.find(i => i.id === selectedCanopyInsight);
+    
+    // Save to journals - ONLY user's response
+    myTree.journals.push({
+        date: new Date().toLocaleString(),
+        text: responseText,
+        title: `🌤️ ${insight.title}`,
+        offering: insight.offering,
+        type: 'canopy',
+        insightId: insight.id,
+        principle: insight.title
+    });
+    
+    saveTree();
+    
+    // Show result
+    document.getElementById('canopyStep3').style.display = 'none';
+    document.getElementById('canopyResult').style.display = 'block';
+    
+    document.getElementById('canopyResultMessage').innerHTML = 
+        `${currentLanguage === 'ge' ? '✅ ვარჯიში დასრულდა!' : '✅ Practice complete!'}<br>
+        <strong>${currentLanguage === 'ge' ? 'საჩრდილობელი' : 'Canopy Insight'}:</strong> ${insight.title}<br>
+        <em>${insight.offering}</em>`;
+    
+    document.getElementById('canopySageQuote').textContent = 
+        currentLanguage === 'ge' 
+            ? '"საჩრდილობელი ჩრდილს დაჩრდილავს"'
+            : '"Canopy permission over shadow"';
+}
+
+function resetCanopyPractice() {
+    initCanopyPractice();
+}
+
+function showJournalAndScrollToNewest() {
+    showCard('journal');
+    
+    // Wait for journal to load, then scroll to top (newest entries are at top)
+    setTimeout(() => {
+        // Scroll the entire journal card to the top
+        const journalCard = document.getElementById('journal');
+        if (journalCard) {
+            journalCard.scrollTop = 0;
+        }
+        
+        // Also try to find and highlight canopy entries
+        const canopyEntries = document.querySelectorAll('.journal-entry');
+        if (canopyEntries.length > 0) {
+            // Find the first canopy entry (should be newest)
+            for (let entry of canopyEntries) {
+                if (entry.querySelector('.entry-date span:last-child')?.textContent?.includes('🌤️')) {
+                    // This is a canopy entry
+                    entry.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    
+                    // Add temporary highlight
+                    entry.style.backgroundColor = 'var(--principle-bg)';
+                    setTimeout(() => {
+                        entry.style.backgroundColor = '';
+                    }, 2000);
+                    break;
+                }
+            }
+        }
+    }, 300);
+ }      
+// canopy functions end 
         
         function saveJournalEntry() {
             const t = TEXT[currentLanguage];
