@@ -2309,7 +2309,8 @@
     safeUpdate('stat-stage-label', 'textContent', t.statStageLabel);
     safeUpdate('stat-journals-label', 'textContent', t.statJournalsLabel);
     safeUpdate('stat-poems-label', 'textContent', t.statPoemsLabel);
-    
+    safeUpdate('become-canopy-btn', 'textContent', t.becomeCanopyBtn);
+            
     // Update journal card
     safeUpdate('journal-title', 'textContent', t.journalTitle);
     safeUpdate('journal-subtitle', 'textContent', t.journalSubtitle);
@@ -2327,7 +2328,39 @@
     safeUpdate('install-text', 'textContent', t.installBtn);
     safeUpdate('footer-creator', 'textContent', t.footerCreator);
     safeUpdate('footer-book', 'textContent', t.footerBook);
-    
+            
+    // Update canopy card titles
+    safeUpdate('canopy-title', 'textContent', t.canopyTitle);
+    safeUpdate('canopy-subtitle', 'textContent', t.canopySubtitle);
+    safeUpdate('canopy-step1-title', 'textContent', t.canopyStep1Title);
+    safeUpdate('canopy-step1-text', 'textContent', t.canopyStep1Text);
+    safeUpdate('canopy-step2-title', 'textContent', t.canopyStep2Title);
+    safeUpdate('canopy-step3-title', 'textContent', t.canopyStep3Title);
+    safeUpdate('canopy-step3-text', 'textContent', t.canopyStep3Text);
+    safeUpdate('canopyJournal', 'placeholder', t.canopyJournalPlaceholder);
+
+    // Update canopy buttons
+    safeUpdate('canopyNextBtn1', 'textContent', t.nextBtn);
+    safeUpdate('canopyPrevBtn', 'textContent', t.prevBtn);
+    safeUpdate('canopyNextBtn2', 'textContent', t.nextBtn);
+    safeUpdate('canopyPrevBtn2', 'textContent', t.prevBtn);
+    safeUpdate('canopyCompleteBtn', 'textContent', t.canopyCompleteBtn);
+    safeUpdate('canopyViewJournalBtn', 'textContent', t.viewJournalBtn || 'View in Journal');
+
+    // Update canopy status message
+    const statusElement = document.getElementById('canopyStatus');
+    if (statusElement) {
+        statusElement.textContent = currentLanguage === 'ge' 
+        ? 'აირჩიეთ საჩრდილობლის შეხედულება' 
+        : 'Select a canopy insight to begin practice';
+    }
+
+    // Update the "New Practice" button in canopy result
+    const canopyNewPracticeBtn = document.querySelector('#canopyResult button.secondary');
+    if (canopyNewPracticeBtn) {
+        canopyNewPracticeBtn.textContent = currentLanguage === 'ge' ? 'ახალი ვარჯიში' : 'New Practice';
+    }
+            
     // Update tree display if no tree
     if (!myTree.name) {
         safeUpdate('treeNameDisplay', 'textContent', t.noTree);
