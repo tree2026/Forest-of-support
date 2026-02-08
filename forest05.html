@@ -966,6 +966,9 @@
 </footer> 
     </div>
 
+    <!-- 1.6 -->
+    <script src="poems-data.js?v=1.0"></script>
+    
     <script>
         // Forest of Support - Bilingual v1.2
         // 144 poems in both English and Georgian
@@ -975,7 +978,11 @@
         const VERSION_KEY = 'forestAppVersion';
         const LANG_KEY = 'forestLanguage';
         
-       
+        // 1.6 
+        // Replace the removed objects with these references:
+        const poeticWisdom = window.POETIC_WISDOM_EXPORT;
+        const canopyWisdom = window.CANOPY_WISDOM_EXPORT;
+        
         // Language state
         let currentLanguage = 'en'; // 'en' or 'ge'
         
@@ -3144,6 +3151,35 @@ function showUpdateNotification() {
     }, 1500);
 }
 
+// ========== 1.6 PERIODIC UPDATE CHECKS offline
+
+if ('serviceWorker' in navigator) {
+    function checkForUpdates() {
+        if (!navigator.onLine) return;
+        
+        navigator.serviceWorker.ready.then(registration => {
+            registration.update();
+            
+            // Check if update is already waiting
+            if (registration.waiting) {
+                showUpdateNotification();
+            }
+        }).catch(err => {
+            console.log('Update check failed:', err);
+        });
+    }
+    
+    // Check when app becomes visible/refocused
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+            setTimeout(checkForUpdates, 1000); 
+        }
+    });
+    
+    setInterval(checkForUpdates, 12 * 60 * 60 * 1000);
+    setTimeout(checkForUpdates, 5000);
+}
+       
 // Clear update flag on new session
 window.addEventListener('beforeunload', () => {
     sessionStorage.removeItem('updateNotificationShown');
