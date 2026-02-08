@@ -3353,6 +3353,8 @@ function copyToClipboard(text) {
                 // Show update message if not first install
                 if (savedVersion) {
                     setTimeout(() => {
+                        // TEMPORARILY disable service worker notifications
+                        sessionStorage.setItem('suppressServiceWorkerUpdate', 'true');
                         const t = TEXT[currentLanguage];
                         const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Share button & Canopy' : 'გაზიარების ღილაკი და საჩრდილობელი'}`;
                         if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
@@ -3368,6 +3370,10 @@ function copyToClipboard(text) {
                                 </div>
                             `;
                         }
+                        // Re-enable after 10 seconds
+                        setTimeout(() => {
+                            sessionStorage.removeItem('suppressServiceWorkerUpdate');
+                        }, 10000);
                     }, 2000);
                 }
             }
@@ -3571,6 +3577,10 @@ if ('serviceWorker' in navigator) {
 
 // Unified update notification function
 function showUpdateNotification() {
+    // Check if suppressed
+    if (sessionStorage.getItem('suppressServiceWorkerUpdate')) {
+        return;
+    }
     // Prevent multiple notifications
     if (sessionStorage.getItem('updateNotificationShown')) {
         return;
