@@ -1177,6 +1177,18 @@
                 statJournalsLabel: "Journal Entries",
                 statPoemsLabel: "Poems Received",
                 
+                // Canopy 
+                canopyTitle: "🌤️ Wisdom Canopy",
+                canopySubtitle: "How the ancient tree offers shelter, not shadow",
+                canopyCompleteBtn: "Complete Practice",
+                becomeCanopyBtn: "🌤️ Become Canopy",
+                canopyStep1Title: "1. Choose Today's Canopy Wisdom",
+                canopyStep1Text: "Select one canopy insight to reflect on:",
+                canopyStep2Title: "2. Practice Insight", 
+                canopyStep3Title: "3. Write Your Offering",
+                canopyStep3Text: "Reflect on the practice. What will you offer?",
+                canopyJournalPlaceholder: "Write your response here...",
+                
                 // Journal card
                 journalTitle: "📖 Your Tree Journal",
                 journalSubtitle: "Each entry receives a contextual poem that responds to your words.",
@@ -1267,6 +1279,18 @@
                 statStageLabel: "ხის სტადია",
                 statJournalsLabel: "დღიურის ჩანაწერი",
                 statPoemsLabel: "მიღებული ლექსი",
+                
+                // Canopy
+                canopyTitle: "🌤️ საჩრდილობელი",
+                canopySubtitle: "ბებერი ხე თავშესაფარს გვთავაზობს, მხოლოდ ჩრდილს კი არა",
+                canopyCompleteBtn: "დაასრულეთ ვარჯიში",
+                becomeCanopyBtn: "🌤️ საჩრდილობელი",
+                canopyStep1Title: "1. დღევანდელი საჩრდილობელი",
+                canopyStep1Text: "აირჩიეთ ერთი შეხედულება, რომელზეც დაფიქრდებით:",
+                canopyStep2Title: "2. შეხედულების სავარჯიშო",
+                canopyStep3Title: "3. შესაწირი წერილი",
+                canopyStep3Text: "დაფიქრდით ვარჯიშზე. რა იქნება თქვენი წვლილი?",
+                canopyJournalPlaceholder: "დაწერეთ თქვენი პასუხი აქ...",
                 
                 // Journal card
                 journalTitle: "📖 თქვენი ხის დღიური",
@@ -2207,6 +2231,10 @@
             // Update practice card if needed
             if (document.getElementById('practiceContent').style.display !== 'none') {
                 updatePracticeCard();
+            }
+            // If canopy card is active, reload its wisdom buttons
+            if (document.getElementById('canopy')?.classList.contains('active')) {
+                initCanopyPractice(); 
             }
         }
 
