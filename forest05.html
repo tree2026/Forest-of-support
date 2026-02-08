@@ -3089,7 +3089,6 @@ function showJournalAndScrollToNewest() {
         }
     }, 300);
  }      
-// canopy functions end 
         
         function saveJournalEntry() {
             const t = TEXT[currentLanguage];
@@ -3136,8 +3135,122 @@ function showJournalAndScrollToNewest() {
                 // journalEntries.firstChild.scrollIntoView({ behavior: 'smooth' });
             }
         }
+
+    function loadJournalEntries() {
+    const container = document.getElementById('journalEntries');
+    const t = TEXT[currentLanguage];
+    container.innerHTML = "";
+    
+    if (myTree.journals.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #666; font-style: italic;">
+                ${t.noEntries}
+            </div>
+        `;
+        return;
+    }
+    
+    // Show most recent first
+    myTree.journals.slice().reverse().forEach((entry, index) => {
+        // Calculate the original index (not reversed)
+        const originalIndex = myTree.journals.length - 1 - index;
         
-        function loadJournalEntries() {
+        if (entry.type === 'canopy') {
+            // CANOPY ENTRY - Show only user response
+            container.innerHTML += `
+                <div class="journal-entry">
+                    <div class="entry-date">
+                       <!-- <span>${entry.date}</span>-->
+                        <span>${entry.date.split(',')[0]}</span>
+                        <span style="text-align: right;">🌤️ ${entry.principle || entry.title}</span>
+                      <!--  <span>🌤️ ${entry.principle || entry.title}</span>-->
+                    </div>
+                    <p>${entry.text}</p>
+                    <!--<p style="font-style: italic; margin-top: 10px; color: var(--text-secondary);">
+                        ${entry.offering || ''}
+                    </p>-->
+                    <div class="entry-footer">
+                        <button onclick="shareEntry(${originalIndex})" class="small-share-btn" title="Share">↗️</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            // REGULAR JOURNAL OR PRACTICE ENTRY
+            const isPractice = entry.type === 'practice';
+            
+            container.innerHTML += `
+                <div class="journal-entry">
+                    <div class="entry-date">
+                        <!-- <span>${entry.date}</span>-->
+                        <span>${entry.date.split(',')[0]}</span>
+                        <span style="${isPractice ? 'text-align: right;' : ''}">${isPractice ? '📿 ' + entry.principle : '📖 ' + (currentLanguage === 'en' ? 'Journal' : 'დღიური')}</span>
+                       <!-- <span>${isPractice ? '📿 ' + entry.principle : '📖 ' + (currentLanguage === 'en' ? 'Journal' : 'დღიური')}</span>-->
+                    </div>
+                    <p>${entry.text}</p>
+                    <div class="entry-footer">
+                        <button onclick="shareEntry(${originalIndex})" class="small-share-btn" title="Share">↗️</button>
+                    </div>
+                </div>
+            `;
+            
+            if (entry.poem) {
+                container.innerHTML += `
+                    <div class="poem-response">
+                        <p>${entry.poem.replace(/\n/g, '<br>')}</p>
+                        <div class="sage-quote">${entry.sage}</div>
+                        <div class="entry-footer">
+                            <button onclick="shareEntry(${originalIndex}, true)" class="small-share-btn" title="Share Poem">↗️</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    });
+    }
+
+function shareEntry(entryIndex, sharePoemOnly = false) {
+    const entry = myTree.journals[entryIndex];
+    if (!entry) return;
+    
+    let shareText = '';
+    
+    if (sharePoemOnly && entry.poem) {
+        // Share only the poem
+        shareText = `${entry.poem}\n\n${entry.sage || ''}\n\n#ForestOfSupport #HealLikeATree`;
+    } else if (entry.type === 'canopy') {
+        // Share canopy entry
+        shareText = `🌤️ ${entry.principle || entry.title}\n\n${entry.text}\n\n${entry.offering || ''}\n\n#ForestOfSupport #CanopyWisdom`;
+    } else if (entry.poem) {
+        // Share journal entry with poem
+        shareText = `${entry.text}\n\n${entry.poem}\n\n${entry.sage || ''}\n\n#ForestOfSupport #HealLikeATree`;
+    } else {
+        // Share regular journal entry
+        shareText = `${entry.text}\n\n#ForestOfSupport #TreeJournal`;
+    }
+    
+    // Try Web Share API
+    if (navigator.share) {
+        navigator.share({
+            title: 'Forest of Support',
+            text: shareText,
+            url: window.location.href
+        }).catch(err => {
+            console.log('Share cancelled:', err);
+            copyToClipboard(shareText);
+        });
+    } else {
+        copyToClipboard(shareText);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    alert(currentLanguage === 'ge' 
+        ? '📋 კოპირებულია!'
+        : '📋 Copied!');
+}
+        
+       /* function loadJournalEntries() {
             const container = document.getElementById('journalEntries');
             const t = TEXT[currentLanguage];
             container.innerHTML = "";
@@ -3169,7 +3282,7 @@ function showJournalAndScrollToNewest() {
                     </div>
                 `;
             });
-        }
+        }*/
         
         function clearJournal() {
             document.getElementById('newJournalEntry').value = "";
@@ -3190,10 +3303,6 @@ function showJournalAndScrollToNewest() {
             // Show appropriate tree stage in current language
             const stageIndex = Math.min(myTree.stage - 1, treeStages[currentLanguage].length - 1);
             document.getElementById('treeAscii').textContent = treeStages[currentLanguage][stageIndex];
-            
-            /*// Show appropriate tree stage
-            const stageIndex = Math.min(myTree.stage - 1, treeStages.length - 1);
-            document.getElementById('treeAscii').textContent = treeStages[stageIndex];*/
             
             // Update progress ring
             const progressPercent = (myTree.stage / 5) * 100;
