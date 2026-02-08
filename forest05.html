@@ -1224,7 +1224,7 @@
                 // Update message
                 updateTitle: "📋 Update v{version}",
                 // updateNewPoem: "<strong>New Poem System:</strong>",
-                // updateList: "<li>Poems won't repeat until you've seen all in a category</li><li>Better matching to your journal words</li><li>Tracks which poems you've received</li><li>Prioritizes poems related to your latest practice</li>",
+                updateList: "<li>Share button added in journal</li><li>Canopy button added in MyForest after 21 rings</li>",
                 updatePreserved: "Your existing journal entries and tree progress are preserved."
             },
             
@@ -1327,7 +1327,7 @@
                 // Update message
                 updateTitle: "📋 განახლება v{version}",
               //  updateNewPoem: "<strong>ახალი პოემის სისტემა:</strong>",
-             //   updateList: "<li>ლექსები არ განმეორდება სანამ ყველას არ ნახავთ კატეგორიაში</li><li> უკეთესი შესაბამისობა თქვენს დღიურის სიტყვებთან</li><li>აკონტროლებს რომელი პოემები მიიღეთ</li><li>პრიორიტეტს ანიჭებს პოემებს, რომლებიც დაკავშირებულია თქვენს ბოლო პრაქტიკასთან</li>",
+                updateList: "<li>დაემატა გაზიარების ღილაკი დღიურში</li><li>დაემატა საჩრდილობელი 21 რგოლიდან ჩემს ტყეში</li>",
                 updatePreserved: "თქვენი არსებული დღიურის ჩანაწერები და ხის პროგრესი შენარჩუნებულია."
             }
         };
@@ -3354,20 +3354,20 @@ function copyToClipboard(text) {
                 if (savedVersion) {
                     setTimeout(() => {
                         const t = TEXT[currentLanguage];
-                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Share button in journal; Canopy in MyForest >21 rings' : 'გაზიარების ღილაკი; საჩრდილობელი 21 რგოლიდან'}`;
-                        /*if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
+                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Share button & Canopy' : 'გაზიარების ღილაკი და საჩრდილობელი'}`;
+                        if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
                             showCard('welcome');
                             document.getElementById('welcome').innerHTML += `
                                 <div class="step" style="background: #f0f7f0; margin-top: 20px;">
                                     <h3>${t.updateTitle.replace('{version}', APP_VERSION)}</h3>
-                                    <p>${t.updateNewPoem}</p>
+                                   <!-- <p>${t.updateNewPoem}</p>-->
                                     <ul style="padding-left: 20px; margin: 10px 0;">
                                         ${t.updateList}
                                     </ul>
                                     <p>${t.updatePreserved}</p>
                                 </div>
                             `;
-                        }*/
+                        }
                     }, 2000);
                 }
             }
