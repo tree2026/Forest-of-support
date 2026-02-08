@@ -493,11 +493,68 @@
     70% { box-shadow: 0 0 0 10px rgba(74, 124, 63, 0); }
     100% { box-shadow: 0 0 0 0 rgba(74, 124, 63, 0); }
     }
-        
+    
+    /* Canopy button  */
+    #become-canopy-btn {
+    background: linear-gradient(to right, #8a5a2d, #a67c52);
+    box-shadow: 0 4px 0 #724115;
+    }
+    
+    #become-canopy-btn:hover {
+    background: linear-gradient(to right, #724115, #8a5a2d);
+    box-shadow: 0 6px 0 #5a3410;
+    }
+
+    /* Entry footer - bottom right corner */
+    .entry-footer {
+    text-align: right;
+    margin-top: 2px;
+    padding-top: 1px;
+    }
+    /* Small share button */
+    .small-share-btn {
+    background: var(--button-secondary);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.8;
+    }
+    
+    .small-share-btn:hover {
+    opacity: 1;
+    background: var(--button-hover);
+    transform: translateY(-1px);
+    }
+    /* Poem share button */
+    .poem-response .entry-footer {
+    margin-top: 2px;
+    }
+    /* Remove time from date */
+    .entry-date span:first-child {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    }
     /* ==================== DARK MODE - COLOR CHANGE ONLY ==================== */
 
     /* === APPLY COLORS TO EXISTING STRUCTURE === */
+[data-theme="dark"] #become-canopy-btn {
+    background: linear-gradient(to right, #a67c52, #c9a87c);
+    box-shadow: 0 4px 0 #8a5a2d;
+}
 
+[data-theme="dark"] #become-canopy-btn:hover {
+    background: linear-gradient(to right, #8a5a2d, #a67c52);
+    box-shadow: 0 6px 0 #724115;
+}
+        
+[data-theme="dark"] .small-share-btn {
+    background: var(--button-bg);
+}
+        
 [data-theme="dark"] .music-toggle {
     border-color: var(--text-primary);
     color: var(--text-primary);
@@ -911,6 +968,7 @@
                 
                 <div style="text-align: center; margin-top: 30px;">
                     <button onclick="showCard('practice')" id="start-practice-btn">Start Daily Practice</button>
+                    <button onclick="showCanopyCard()" id="become-canopy-btn" style="display: none;"></button>
                 </div>
             </div>
         </div>
@@ -937,6 +995,62 @@
             </div>
         </div>
         
+        <!-- Canopy Card -->
+<div id="canopy" class="card">
+    <h2 id="canopy-title">🌤️ Wisdom Canopy</h2>
+    <p id="canopy-subtitle">How the ancient tree offers shelter, not shadow</p>
+    
+    <div id="canopyStatus" style="text-align: center; padding: 20px; font-style: italic;">
+        Select a canopy insight to begin practice
+    </div>
+    
+    <!-- Step 1: Choose Canopy Insight -->
+    <div id="canopyStep1" class="step" style="display: none;">
+        <h3 id="canopy-step1-title">1. Choose Today's Canopy Wisdom</h3>
+        <p id="canopy-step1-text">Select one canopy insight to reflect on:</p>
+        <div id="canopyButtons"></div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="canopyNextStep()" id="canopyNextBtn1" disabled>Next →</button>
+        </div>
+    </div>
+    
+    <!-- Step 2: Practice Insight -->
+    <div id="canopyStep2" class="step" style="display: none;">
+        <h3 id="canopy-step2-title">2. Practice Insight</h3>
+        <div id="canopyExerciseContent" class="exercise-box">
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="canopyPrevStep()" id="canopyPrevBtn">← Previous</button>
+            <button onclick="canopyNextStep()" id="canopyNextBtn2">Next →</button>
+        </div>
+    </div>
+    
+    <!-- Step 3: Write Offering Response -->
+    <div id="canopyStep3" class="step" style="display: none;">
+        <h3 id="canopy-step3-title">3. Write Your Offering</h3>
+        <p id="canopy-step3-text">Reflect on the practice. What will you offer?</p>
+        <textarea id="canopyJournal" placeholder="Write your response here..."></textarea>
+    <div id="canopyOfferingDisplay" style="font-style: italic; color: var(--text-secondary);">
+    </div>
+        <div style="text-align: center;">
+            <button onclick="canopyPrevStep()" id="canopyPrevBtn2">← Previous</button>
+            <button onclick="completeCanopyPractice()" id="canopyCompleteBtn">Complete Practice</button>
+        </div>
+    </div>
+    
+    <!-- Canopy Practice Result -->
+    <div id="canopyResult" style="display: none;">
+        <div class="poem-response">
+            <p id="canopyResultMessage"></p>
+            <div class="sage-quote" id="canopySageQuote"></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="showJournalAndScrollToNewest()" id="canopyViewJournalBtn">View in Journal</button>
+            <button onclick="resetCanopyPractice()" class="secondary">New Practice</button>
+        </div>
+    </div>
+</div>
    
        <!-- Replace your current footer -->
 <footer>
