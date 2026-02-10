@@ -538,9 +538,30 @@
     color: var(--text-secondary);
     font-size: 0.9em;
     }
+    /* Clear data button */
+    #clear-data-btn {
+    background: var(--button-secondary) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 50px !important;
+    font-size: 0.9em !important;
+    margin-top: 15px !important;
+    opacity: 0.8 !important;
+    }
+    #clear-data-btn:hover {
+    background: var(--button-hover) !important;
+    opacity: 1 !important;
+    transform: translateY(-2px) !important;
+    }
+
     /* ==================== DARK MODE - COLOR CHANGE ONLY ==================== */
 
     /* === APPLY COLORS TO EXISTING STRUCTURE === */
+[data-theme="dark"] #clear-data-btn {
+    background: var(--button-bg) !important;
+}
+        
 [data-theme="dark"] #become-canopy-btn {
     background: linear-gradient(to right, #a67c52, #c9a87c);
     box-shadow: 0 4px 0 #8a5a2d;
@@ -969,6 +990,10 @@
                 <div style="text-align: center; margin-top: 30px;">
                     <button onclick="showCard('practice')" id="start-practice-btn">Start Daily Practice</button>
                     <button onclick="showCanopyCard()" id="become-canopy-btn" style="display: none;"></button>
+                    <button onclick="clearAllData()" class="secondary" id="clear-data-btn" 
+                        style="margin-top: 15px; background: var(--button-secondary);">
+                        🔻 Clear All Data
+                    </button>
                 </div>
             </div>
         </div>
@@ -1088,7 +1113,7 @@
         // 144 poems in both English and Georgian
         
         // APP CONFIG
-        const APP_VERSION = '1.5';
+        const APP_VERSION = '1.6';
         const VERSION_KEY = 'forestAppVersion';
         const LANG_KEY = 'forestLanguage';
         
@@ -1282,7 +1307,7 @@
                 statStageLabel: "ხის სტადია",
                 statJournalsLabel: "დღიურის ჩანაწერი",
                 statPoemsLabel: "მიღებული ლექსი",
-                clearDataBtn: "🗑️ ყველაფრის გასუფთავება",
+                clearDataBtn: "<!--🗑️-->🔻 ყველაფრის გასუფთავება",
                 clearDataConfirm: "წავშალოთ ყველა ხის პროგრესი და დღიურის ჩანაწერი? ეს შეუქცევადია. შემდეგ შეგიძლიათ ახალი ხე დარგოთ.",
                 clearDataConfirmBtn: "დიახ, გავასუფთავო",
                 clearDataCancel: "გაუქმება",
