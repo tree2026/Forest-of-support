@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#4a7c3f">
     <meta name="description" content="Forest of Support - A digital sanctuary with contextual poetic wisdom">
-    <link rel="manifest" href="manifest.json?v=1.6">
+    <link rel="manifest" href="manifest.json?v=1.7">
     
     <!-- Emoji as Icons (No image files needed) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
@@ -1113,7 +1113,7 @@
         // 144 poems in both English and Georgian
         
         // APP CONFIG
-        const APP_VERSION = '1.6';
+        const APP_VERSION = '1.7';
         const VERSION_KEY = 'forestAppVersion';
         const LANG_KEY = 'forestLanguage';
         
@@ -1230,7 +1230,7 @@
                 // Footer
                 languageLabel: "Language / ენა:",
                 currentLang: "Current: English",
-                footerVersion: "🌿 Forest of Support v1.6 • Digital Healing Sanctuary",
+                footerVersion: "🌿 Forest of Support v1.7 • Digital Healing Sanctuary",
                 footerData: "Your data stays in your browser • Share with #ForestOfSupport #HealLikeATree",
                 footerQuote: "\"The wound is where the light enters you.\" - Rumi",
                 footerCreator: "Created by DeepSeek & Geoni",
@@ -1337,7 +1337,7 @@
                 // Footer
                 languageLabel: "Language / ენა:",
                 currentLang: "მიმდინარე: ქართული",
-                footerVersion: "🌿 მხარდაჭერის ტყე v1.6 • მკურნალი ხის ციფრული ოთახი",
+                footerVersion: "🌿 მხარდაჭერის ტყე v1.7 • მკურნალი ხის ციფრული ოთახი",
                 footerData: "თქვენი მონაცემები რჩება თქვენს ბრაუზერში • გააზიარეთ #ForestOfSupport #HealLikeATree",
                 footerQuote: "\"ჭრილობა იქ არის, სადაც სინათლე შემოდის.\" - რუმი",
                 footerCreator: "DeepSeek-ის და ჯეონისგან",
@@ -3129,7 +3129,128 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => audioManager.init(), 500);
 }); 
 
-        function checkAppVersion() {
+
+// ============== SIMPLIFIED UPDATE SYSTEM ================
+
+// APP VERSION CHECK & DATA MIGRATION
+function checkAppVersion() {
+    const savedVersion = localStorage.getItem(VERSION_KEY);
+    
+    if (savedVersion !== APP_VERSION) {
+        console.log(`🌳 Updating from v${savedVersion || '1.0'} to v${APP_VERSION}`);
+        
+        // Ensure new properties exist
+        myTree.lastPracticePrinciple = myTree.lastPracticePrinciple || null;
+        myTree.poemUsage = myTree.poemUsage || {};
+        myTree.shownPoemsByCategory = myTree.shownPoemsByCategory || {
+            rooting: [], bark: [], rings: [], release: [], reaching: [],
+            network: [], bending: [], shape: [], seasons: [], wholeness: [],
+            patience: [], presence: []
+        };
+        
+        // Save new version
+        localStorage.setItem(VERSION_KEY, APP_VERSION);
+        saveTree();
+        
+        // Show update message (only once per version)
+        if (savedVersion && !localStorage.getItem(`updateShown_${APP_VERSION}`)) {
+            setTimeout(() => {
+                const t = TEXT[currentLanguage];
+                const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Canopy button in MyForest after 21 rings' : 'დაემატა საჩრდილობელი ჩემს ტყეში 21 რგოლიდან'}\n\n${t.updatePreserved}`;
+                alert(updateMsg);
+                //localStorage.setItem(`updateShown_${APP_VERSION}`, 'true');
+            }, 2000);
+        }
+    }
+}
+
+// SERVICE WORKER REGISTRATION
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        const swPath = 'sw.js?v=' + APP_VERSION;
+        
+        navigator.serviceWorker.register(swPath)
+            .then(function(registration) {
+                console.log('🌳 ServiceWorker registered');
+                
+                // Check for updates periodically
+                setInterval(() => {
+                    if (navigator.onLine) registration.update();
+                }, 12 * 60 * 60 * 1000); // Every 12 hours
+                
+                // Check when app becomes visible
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && navigator.onLine) {
+                        registration.update();
+                    }
+                });
+            })
+            .catch(err => console.log('SW registration failed:', err));
+    });
+}
+
+// UNIFIED UPDATE NOTIFICATION HANDLER
+if ('serviceWorker' in navigator) {
+    let updateNotified = false;
+    
+    navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data?.type === 'UPDATE_READY' && !updateNotified) {
+            showSimpleUpdateNotification();
+            updateNotified = true;
+        }
+    });
+    
+    navigator.serviceWorker.ready.then(registration => {
+        // Check for waiting worker on load
+        if (registration.waiting && !updateNotified) {
+            showSimpleUpdateNotification();
+            updateNotified = true;
+        }
+        
+        // Listen for new installation
+        registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller && !updateNotified) {
+                    setTimeout(() => {
+                        showSimpleUpdateNotification();
+                        updateNotified = true;
+                    }, 3000);
+                }
+            });
+        });
+    });
+}
+        
+// SIMPLE UPDATE NOTIFICATION
+function showSimpleUpdateNotification() {
+    // Prevent multiple notifications at same time
+    if (sessionStorage.getItem('updateNotificationShown')) return;
+    
+    const msg = currentLanguage === 'ge'
+        ? '🔄 ახალი ვერსია ხელმისაწვდომია. განაახლებთ?'
+        : '🔄 New version available. Update now?';
+    
+    setTimeout(() => {
+        sessionStorage.setItem('updateNotificationShown', 'true');
+        
+        if (confirm(msg)) {
+            window.location.reload();
+        } else {
+            // User said no - clear flag after 1 hour so they'll be asked again
+            setTimeout(() => {
+                sessionStorage.removeItem('updateNotificationShown');
+            }, 60 * 60 * 1000); // 1 hour
+        }
+    }, 1500);
+}
+
+// CLEANUP
+window.addEventListener('beforeunload', () => {
+    // No cleanup needed anymore
+});
+        
+       /* function checkAppVersion() {
             const savedVersion = localStorage.getItem(VERSION_KEY);
             
             if (savedVersion !== APP_VERSION) {
@@ -3170,18 +3291,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             `;
                         }*/
-                        alert(updateMsg); //\n\n${t.updatePreserved}
+                       // alert(updateMsg); //\n\n${t.updatePreserved}
                         // Re-enable after 10 seconds
                         /*setTimeout(() => {
                             sessionStorage.removeItem('suppressServiceWorkerUpdate');
                         }, 10000);*/
-                    }, 2000);
+                   /* }, 2000);
                 }
             }
-        }
+        }*/
         
     // ==================== PWA SERVICE WORKER REGISTRATION ====================
-    if ('serviceWorker' in navigator) {
+   /* if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             // Use relative path (works for both local and GitHub Pages)
             const swPath = 'sw.js?v=' + APP_VERSION;
@@ -3281,7 +3402,7 @@ function showUpdateNotification() {
             }, 60 * 60 * 1000);
         }
     }, 1500);
-} //1.7 end
+} //1.7 end*/
 
 // Unified update notification function
 /*function showUpdateNotification() {
@@ -3329,7 +3450,7 @@ function showUpdateNotification() {
 
 // ========== PERIODIC UPDATE CHECKS offline
 
-if ('serviceWorker' in navigator) {
+/*if ('serviceWorker' in navigator) {
     function checkForUpdates() {
         if (!navigator.onLine) return;
         
@@ -3359,7 +3480,7 @@ if ('serviceWorker' in navigator) {
 // Clear update flag on new session
 window.addEventListener('beforeunload', () => {
     sessionStorage.removeItem('updateNotificationShown');
-}); 
+}); */
    
        // Add this function for app intall button
        let deferredInstallPrompt;
