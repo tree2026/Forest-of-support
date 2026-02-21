@@ -1253,7 +1253,7 @@
                 // Update message
                 updateTitle: "📋 Update v{version}",
                 // updateNewPoem: "<strong>New Poem System:</strong>",
-                updateList: "<li>Share button added in journal</li><li>Canopy button added in MyForest after 21 rings</li>",
+                //updateList: "<li>Share button added in journal</li><li>Canopy button added in MyForest after 21 rings</li>",
                 updatePreserved: "Your existing journal entries and tree progress are preserved."
             },
             
@@ -1360,7 +1360,7 @@
                 // Update message
                 updateTitle: "📋 განახლება v{version}",
                // updateNewPoem: "<strong>ახალი პოემის სისტემა:</strong>",
-                updateList: "<li>დაემატა გაზიარების ღილაკი დღიურში</li><li>დაემატა საჩრდილობელი 21 რგოლიდან ჩემს ტყეში</li>",
+               // updateList: "<li>დაემატა გაზიარების ღილაკი დღიურში</li><li>დაემატა საჩრდილობელი 21 რგოლიდან ჩემს ტყეში</li>",
                 updatePreserved: "თქვენი არსებული დღიურის ჩანაწერები და ხის პროგრესი შენარჩუნებულია."
             }
         };
@@ -2994,54 +2994,6 @@ function copyToClipboard(text) {
             }
         }
         
-        function checkAppVersion() {
-            const savedVersion = localStorage.getItem(VERSION_KEY);
-            
-            if (savedVersion !== APP_VERSION) {
-                console.log(`🌳 Updating from v${savedVersion || '1.0'} to v${APP_VERSION}`);
-                
-                // Ensure new properties exist
-                myTree.lastPracticePrinciple = myTree.lastPracticePrinciple || null;
-                myTree.poemUsage = myTree.poemUsage || {};
-                myTree.shownPoemsByCategory = myTree.shownPoemsByCategory || {
-                    rooting: [], bark: [], rings: [], release: [], reaching: [],
-                    network: [], bending: [], shape: [], seasons: [], wholeness: [],
-                    patience: [], presence: []
-                };
-                
-                // Save new version
-                localStorage.setItem(VERSION_KEY, APP_VERSION);
-                saveTree();
-                
-                // Show update message if not first install
-                if (savedVersion) {
-                    setTimeout(() => {
-                        // TEMPORARILY disable service worker notifications
-                        // sessionStorage.setItem('suppressServiceWorkerUpdate', 'true');
-                        const t = TEXT[currentLanguage];
-                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Share button & Canopy' : 'გაზიარების ღილაკი და საჩრდილობელი'}`;
-                        if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
-                            showCard('welcome');
-                            document.getElementById('welcome').innerHTML += `
-                                <div class="step" style="background: #f0f7f0; margin-top: 20px;">
-                                    <h3>${t.updateTitle.replace('{version}', APP_VERSION)}</h3>
-                                   <!-- <p>${t.updateNewPoem}</p>-->
-                                    <ul style="padding-left: 20px; margin: 10px 0;">
-                                        ${t.updateList}
-                                    </ul>
-                                    <p>${t.updatePreserved}</p>
-                                </div>
-                            `;
-                        }
-                        // alert(updateMsg); \n\n${t.updatePreserved}
-                        // Re-enable after 10 seconds
-                        /*setTimeout(() => {
-                            sessionStorage.removeItem('suppressServiceWorkerUpdate');
-                        }, 10000);*/
-                    }, 2000);
-                }
-            }
-        }
     </script>
     
     <script>
@@ -3177,6 +3129,56 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => audioManager.init(), 500);
 }); 
 
+        function checkAppVersion() {
+            const savedVersion = localStorage.getItem(VERSION_KEY);
+            
+            if (savedVersion !== APP_VERSION) {
+                console.log(`🌳 Updating from v${savedVersion || '1.0'} to v${APP_VERSION}`);
+                
+                // Ensure new properties exist
+                myTree.lastPracticePrinciple = myTree.lastPracticePrinciple || null;
+                myTree.poemUsage = myTree.poemUsage || {};
+                myTree.shownPoemsByCategory = myTree.shownPoemsByCategory || {
+                    rooting: [], bark: [], rings: [], release: [], reaching: [],
+                    network: [], bending: [], shape: [], seasons: [], wholeness: [],
+                    patience: [], presence: []
+                };
+                
+                // Save new version
+                localStorage.setItem(VERSION_KEY, APP_VERSION);
+                saveTree();
+                
+                // Show update message if not first install
+                if (savedVersion) {
+                    setTimeout(() => {
+                        // TEMPORARILY disable service worker notifications
+                        // sessionStorage.setItem('suppressServiceWorkerUpdate', 'true');
+                        // MARK that version update was shown
+                        sessionStorage.setItem('versionUpdateShown', 'true');
+                        const t = TEXT[currentLanguage];
+                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Share button & Canopy' : 'გაზიარების ღილაკი და საჩრდილობელი'}\n\n${t.updatePreserved}`;
+                       /* if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
+                            showCard('welcome');
+                            document.getElementById('welcome').innerHTML += `
+                                <div class="step" style="background: #f0f7f0; margin-top: 20px;">
+                                    <h3>${t.updateTitle.replace('{version}', APP_VERSION)}</h3>
+                                   <!-- <p>${t.updateNewPoem}</p>-->
+                                    <ul style="padding-left: 20px; margin: 10px 0;">
+                                        ${t.updateList}
+                                    </ul>
+                                    <p>${t.updatePreserved}</p>
+                                </div>
+                            `;
+                        }*/
+                        alert(updateMsg); //\n\n${t.updatePreserved}
+                        // Re-enable after 10 seconds
+                        /*setTimeout(() => {
+                            sessionStorage.removeItem('suppressServiceWorkerUpdate');
+                        }, 10000);*/
+                    }, 2000);
+                }
+            }
+        }
         
     // ==================== PWA SERVICE WORKER REGISTRATION ====================
     if ('serviceWorker' in navigator) {
@@ -3196,9 +3198,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     }
-    </script>
-    
-   <script> 
+        
    // ==================== UNIFIED UPDATE HANDLER ====================
 // Listen for service worker updates
 if ('serviceWorker' in navigator) {
@@ -3239,14 +3239,58 @@ if ('serviceWorker' in navigator) {
     }, 60 * 60 * 1000); // Check every hour
 }
 
-// Unified update notification function
+       // 1.7 Unified update notification function
 function showUpdateNotification() {
+    // Prevent multiple notifications - ADD APP VERSION CHECK
+    if (sessionStorage.getItem('updateNotificationShown') || 
+        sessionStorage.getItem('versionUpdateShown')) {
+        return;
+    }
+    
+    const lang = currentLanguage === 'ge' ? 'ge' : 'en';
+    const messages = {
+        ge: {
+            title: '🔄 ახალი ვერსია ხელმისაწვდომია',
+            message: 'განაახლებთ მხარდაჭერის ტყეს უახლესი ვერსიის მისაღებად?',
+            update: 'განახლება',
+            later: 'მოგვიანებით'
+        },
+        en: {
+            title: '🔄 New Version Available',
+            message: 'Update Forest of Support to get the latest version?',
+            update: 'Update',
+            later: 'Later'
+        }
+    };
+    
+    const msg = messages[lang];
+    
+    // Show after short delay
+    setTimeout(() => {
+        if (confirm(msg.title + '\n\n' + msg.message)) {
+            sessionStorage.setItem('updateNotificationShown', 'true');
+            sessionStorage.setItem('versionUpdateShown', 'true'); // ADD THIS
+            window.location.reload();
+        } else {
+            sessionStorage.setItem('updateNotificationShown', 'true');
+            sessionStorage.setItem('versionUpdateShown', 'true'); // ADD THIS
+            // Clear after 1 hour
+            setTimeout(() => {
+                sessionStorage.removeItem('updateNotificationShown');
+                sessionStorage.removeItem('versionUpdateShown');
+            }, 60 * 60 * 1000);
+        }
+    }, 1500);
+} //1.7 end
+
+// Unified update notification function
+/*function showUpdateNotification() {
     // Check if suppressed
     /*if (sessionStorage.getItem('suppressServiceWorkerUpdate')) {
         return;
     }*/
     // Prevent multiple notifications
-    if (sessionStorage.getItem('updateNotificationShown')) {
+   /* if (sessionStorage.getItem('updateNotificationShown')) {
         return;
     }
     
@@ -3281,7 +3325,7 @@ function showUpdateNotification() {
             }, 60 * 60 * 1000);
         }
     }, 1500);
-}
+}*/
 
 // ========== PERIODIC UPDATE CHECKS offline
 
