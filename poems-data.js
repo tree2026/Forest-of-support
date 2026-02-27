@@ -13,7 +13,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "rooting_8", poem: "The tallest redwood starts as small\nAs any seedling on the floor\nYour growth responds to nature's call\nWhen rooted in your deepest core.", sage: "You were born with wings, why prefer to crawl through life? - Rumi" },
             { id: "rooting_9", poem: "In winter, when the world seems dead\nThe roots are working out of sight\nPreparing for what lies ahead\nIn spring's returning, gentle light.", sage: "Where there is ruin, there is hope for a treasure. - Rumi" },
             { id: "rooting_10", poem: "The maple doesn't force its sap\nTo rise before the thawing time\nIt trusts in seasons' gentle map\nAnd doesn't make a frantic climb.", sage: "The art of knowing is knowing what to ignore. - Rumi" },
-            { id: "rooting_11", poem: "When lost in thought's persistent maze\nReturn to breath, to solid ground\nThe root of peace in present days\nIs where true healing can be found.", sage: "Peace comes from within. Do not seek it without. - Buddha" }
+            { id: "rooting_11", poem: "When lost in thought's persistent maze\nReturn to breath, to solid ground\nThe root of peace in present days\nIs where true healing can be found.", sage: "Peace comes from within. Do not seek it without. - Buddha" },
+            { id: "rooting_12", poem: "When mind becomes a frantic bird\nThat beats against its cage of care\nBe still and know the silent Word\nThat waits beyond thought's noisy flare.", sage: "His mind drifts elsewhere, carried by his own conceit. His tears did not stop, nor did he perceive a thing. - Rustaveli" },
+            { id: "rooting_13", poem: "The branch that bends but does not break\nHas roots that drink from hidden deep\nSo let the storm of feeling shake\nThe surface, while the soul learns peace.", sage: "Peace is the language of the soul's homeland. - Ibn Arabi" },
+            { id: "rooting_14", poem: "The tree that stands through winter's rage\nDoes not complain or beg for spring\nIt sinks its roots on wisdom's page\nAnd waits for what the seasons bring.", sage: "An enemy cannot harm another as much as a man harms himself. - Rustaveli" },
+            { id: "rooting_15", poem: "Beneath the noise of urgent things\nThere lies a silence vast and deep\nWhere consciousness unfurls its wings\nAnd finds the peace it needs to keep.", sage: "In Your light, I learn how to love. In Your beauty, how to make poems. - Dante" }
         ],
         
         // Category 2: Bark (12 poems) for boundaries, protection, self-care
@@ -29,7 +33,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "bark_8", poem: "The bark does not completely seal\nThe tree from all external touch\nBut learns what interactions heal\nAnd which ones ask for far too much.", sage: "Compassion for others begins with kindness to ourselves. - Pema Chödrön" },
             { id: "bark_9", poem: "In forest fires, the thick bark saves\nThe living core from certain death\nYour boundaries are the gentle waves\nThat guard your precious inner breath.", sage: "Caring for myself is not self-indulgence, it is self-preservation. - Audre Lorde" },
             { id: "bark_10", poem: "The bark renews itself in time\nShedding what's old to make space new\nYour boundaries help you realign\nWith what is authentically you.", sage: "The only person you are destined to become is the person you decide to be. - Emerson" },
-            { id: "bark_11", poem: "A tree stands strong because its bark\nProtects the tender growth within\nYour boundaries light the vital spark\nThat guards where your true self begins.", sage: "He who knows himself knows his Lord. - Ibn Arabi" }
+            { id: "bark_11", poem: "A tree stands strong because its bark\nProtects the tender growth within\nYour boundaries light the vital spark\nThat guards where your true self begins.", sage: "He who knows himself knows his Lord. - Ibn Arabi" },
+            { id: "bark_12", poem: "The fool collects a thousand facts\nAnd calls himself a learned man\nThe wise one slowly, gently acts\nOn one small truth throughout life's span.", sage: "Better to act and settle things than live in doubt and misery. - Rustaveli" },
+            { id: "bark_13", poem: "The bark knows when to close, when open\nWhen to receive, when to defend\nYour boundaries are the gentle token\nOf knowing where your being ends.", sage: "The lover's heart is a sanctuary - do not enter without reverence. - Ibn Arabi" },
+            { id: "bark_14", poem: "Not every hand may touch the wound\nNot every eye may see you weep\nThe sacred bark, the guarded ground\nIs where your soul its watch will keep.", sage: "Heart, awareness, and mind depend upon each other. When the heart departs, they too depart and follow it. - Rustaveli" },
+            { id: "bark_15", poem: "The scar is not a flaw in wood\nBut memory of what survived\nYour wholeness is not understood\nBy what was lost, but what's arrived.", sage: "The heart that breaks open becomes a vessel vast enough for God. - Ibn Arabi" }
         ],
         
         // Category 3: Rings (12 poems) for growth, experience, time
@@ -45,7 +53,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "rings_8", poem: "The center rings are childhood's mark\nWhen growth was fast and unconstrained\nThe outer rings show in the dark\nWhat wisdom from experience gained.", sage: "The real journey is the one that occurs within. - Ibn Arabi" },
             { id: "rings_9", poem: "No two trees have the selfsame rings\nEach life writes its unique tale\nYour own experience now brings\nA story that will never pale.", sage: "Don't be satisfied with stories, how things have gone with others. Unfold your own myth. - Rumi" },
             { id: "rings_10", poem: "The rings are not just measurement\nBut living record of a soul\nYour every moment, every sentiment\nContributes to the growing whole.", sage: "You are not a drop in the ocean. You are the entire ocean in a drop. - Rumi" },
-            { id: "rings_11", poem: "Count backward through the rings to see\nHow far you've come from seedling start\nEach year has brought you closer to\nThe wisdom growing in your heart.", sage: "What matters is how quickly you do what your soul directs. - Rumi" }
+            { id: "rings_11", poem: "Count backward through the rings to see\nHow far you've come from seedling start\nEach year has brought you closer to\nThe wisdom growing in your heart.", sage: "What matters is how quickly you do what your soul directs. - Rumi" },
+            { id: "rings_12", poem: "The lantern held before your feet\nReveals but one step at a time\nYet walking makes the path complete\nAnd brings you to the heights you climb.", sage: "The One in you who knows is the One who has always known. - Ibn Arabi" },
+            { id: "rings_13", poem: "Asleep within the dream of days\nWe grasp at shadows, call them real\nUntil a light cuts through the haze\nAnd teaches wounded hearts to feel.", sage: "In the middle of the journey of our life, I found myself within a dark wood. - Dante" },
+            { id: "rings_14", poem: "The narrow rings of famine years\nAnd wide rings of abundant rain\nAre written in the grain that bears\nThe story of what you contain.", sage: "Every moment, the soul is renewed, and in that renewal is its proof. - Ibn Arabi" },
+            { id: "rings_15", poem: "No ring is ever truly lost\nThough seasons change and years pass by\nEach one becomes the bridge across\nThe river of your living sky.", sage: "In His will is our peace, and every ring of time turns toward that center. - Dante" }
         ],
         
         // Category 4: Release (12 poems) for letting go, autumn, endings
@@ -61,7 +73,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "release_8", poem: "Release is not a loss but change\nA transformation of the form\nWhat falls away will rearrange\nInto what different will be born.", sage: "Nothing in nature blooms all year. Be patient with yourself. - Karen Salmansohn" },
             { id: "release_9", poem: "When branches free themselves of weight\nThey rise to meet the coming snow\nYour letting go can change your fate\nIn ways you cannot hope to know.", sage: "Some of us think holding on makes us strong, but sometimes it is letting go. - Hermann Hesse" },
             { id: "release_10", poem: "The tree accepts each leaf's departure\nAs part of nature's greater plan\nYour endings can become the rapture\nOf starting once again.", sage: "Every new beginning comes from some other beginning's end. - Seneca" },
-            { id: "release_11", poem: "What falls becomes the forest floor\nWhere new seeds find their place to start\nYour letting go can open door\nTo wisdom growing in your heart.", sage: "The secret of change is to focus all of your energy not on fighting the old, but on building the new. - Socrates" }
+            { id: "release_11", poem: "What falls becomes the forest floor\nWhere new seeds find their place to start\nYour letting go can open door\nTo wisdom growing in your heart.", sage: "The secret of change is to focus all of your energy not on fighting the old, but on building the new. - Socrates" },
+            { id: "release_12", poem: "Release the fist that grips so tight\nAround what never could be kept\nAnd in the opening comes light\nTo warm the places where you wept.", sage: "Grief has no purpose, unless joy awaits to overcome it. - Rustaveli" },
+            { id: "release_13", poem: "The wound is where the light gets in\nThe crack is how the music enters\nThe healing does not come from skin\nBut from the love that always ventures.", sage: "Even the greatest healer, when he falls ill, must summon another doctor who understands the pulse. - Rustaveli" },
+            { id: "release_14", poem: "The leaf that holds too long will freeze\nAnd bring the branch to winter's harm\nRelease is wisdom, not disease\nIt is the tree's unarming charm.", sage: "Let go of what you are, to become what you might be. - Ibn Arabi (inspired by Rumi's essence)" },
+            { id: "release_15", poem: "What falls becomes the forest floor\nWhere future seeds will find their bed\nRelease is not the closing door\nBut opening to what's ahead.", sage: "No one has ever gathered roses without thorns. - Rustaveli" }
         ],
         
         // Category 5: Reaching (12 poems) for goals, light, aspiration
@@ -77,7 +93,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "reaching_8", poem: "Reaching upward from the dark\nThe seedling seeks what gives it life\nYour aspirations light the spark\nThat helps you through the darkest strife.", sage: "Hope is being able to see that there is light despite all of the darkness. - Desmond Tutu" },
             { id: "reaching_9", poem: "The tree reaches in patient grace\nNot frantic, not in anxious haste\nYour aspirations find their place\nWhen inner peace you have embraced.", sage: "Adopt the pace of nature: her secret is patience. - Emerson" },
             { id: "reaching_10", poem: "Some reaches bend, some reaches break\nSome find the light they seek to know\nYour aspirations for your sake\nWill help your inner being grow.", sage: "The journey of a thousand miles begins with one step. - Lao Tzu" },
-            { id: "reaching_11", poem: "The tree reaches not to compete\nBut to fulfill its nature's call\nYour aspirations make complete\nThe purpose that includes it all.", sage: "He who has a why to live can bear almost any how. - Nietzsche" }
+            { id: "reaching_11", poem: "The tree reaches not to compete\nBut to fulfill its nature's call\nYour aspirations make complete\nThe purpose that includes it all.", sage: "He who has a why to live can bear almost any how. - Nietzsche" },
+            { id: "reaching_12", poem: "You cannot force the dawn to break\nNor hurry night to give its gift\nBut stay awake for your own sake\nAnd watch the veils of seeing lift.", sage: "The dawn does not ask permission to arrive. - Ibn Arabi" },
+            { id: "reaching_13", poem: "A single flame can light a room\nThat darkness held for countless years\nSo let this truth undo the gloom\nAnd dry the residue of tears.", sage: "What sort of light brings darkness with it?! - Rustaveli" },
+            { id: "reaching_14", poem: "The branch that reaches toward the light\nDoes not despise the shade below\nIt knows that darkness and the bright\nAre partners in the dance of grow.", sage: "The journey is not about reaching the sky, but about the reaching itself. - Ibn Arabi" },
+            { id: "reaching_15", poem: "Do not ask if you will reach the sun\nOr if your striving will succeed\nThe reaching is what makes you one\nWith every light-desiring seed.", sage: "From there we climbed, and saw the stars once more. - Dante" }
         ],
         
         // Category 6: Network (12 poems) for connection, community, support
@@ -93,7 +113,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "network_8", poem: "When storm uproots a single tree\nThe network holds the others fast\nYour community will be\nThe shelter that will always last.", sage: "I am because we are. - Ubuntu Philosophy" },
             { id: "network_9", poem: "Roots intertwine beneath the soil\nCreating strength from unity\nYour connections help you foil\nThe storms of life's adversity.", sage: "We need each other. Deeply, desperately. - Brené Brown" },
             { id: "network_10", poem: "The forest is a single being\nWith many trunks and countless leaves\nYour network, ever seeing, freeing\nIs what the heart of man believes.", sage: "We are like trees: we must create new leaves, in new directions, to grow. - Joyce Rachelle" },
-            { id: "network_11", poem: "No root system stands alone\nAll drink from shared and common source\nYour network is the stepping stone\nTo stay upon your chosen course.", sage: "The heart that loves is always young. - Greek Proverb" }
+            { id: "network_11", poem: "No root system stands alone\nAll drink from shared and common source\nYour network is the stepping stone\nTo stay upon your chosen course.", sage: "The heart that loves is always young. - Greek Proverb" },
+            { id: "network_12", poem: "The wounded tree receives the gift\nOf nutrients from healthy roots\nYour network is the living lift\nThat bears you and your precious fruits.", sage: "The One who is alone creates the many, and the many return to the One. - Ibn Arabi" },
+            { id: "network_13", poem: "Beneath the soil, a thousand hands\nEmbrace the roots of every tree\nYour network is where love expands\nAnd makes you more than you could be.", sage: "A true friend is revealed in times of hardship... Whoever does not seek a friend is their own enemy. - Rustaveli" },
+            { id: "network_14", poem: "Love is not what you think it is\nNot sentiment nor passing flame\nIt is the force that holds the stars\nAnd calls each being by its name.", sage: "Love that moves the sun and the stars. - Dante" },
+            { id: "network_15", poem: "The forest speaks in roots below\nWhat cannot be said above the ground\nThe oldest tree helps seedlings grow\nThrough silent web where help is found.", sage: "No one is a stranger in the kingdom of love, for all hearts are connected beneath the surface. - Ibn Arabi" }
         ],
         
         // Category 7: Bending (12 poems) for flexibility, resilience, storms
@@ -109,7 +133,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "bending_8", poem: "The tree that sways with every breeze\nDevelops strong and flexible roots\nYour bending in life's difficulties\nGrows wisdom-bearing fruits.", sage: "That which yields is not necessarily weak. - Jacqueline Carey" },
             { id: "bending_9", poem: "In hurricane, the palm trees lean\nAlmost horizontal to the ground\nYour flexibility is seen\nWhen new solutions can be found.", sage: "Adaptability is not imitation. It means power of resistance and assimilation. - Gandhi" },
             { id: "bending_10", poem: "The branch that bends will not be broken\nBy winter's ice or summer's storm\nYour flexibility has spoken\nIn keeping you both safe and warm.", sage: "It's not the strongest of the species that survives, nor the most intelligent. It is the one most adaptable to change. - Charles Darwin" },
-            { id: "bending_11", poem: "To bend requires both strength and grace\nA willingness to not stand still\nYour flexibility finds place\nIn learning to adapt your will.", sage: "The measure of intelligence is the ability to change. - Einstein" }
+            { id: "bending_11", poem: "To bend requires both strength and grace\nA willingness to not stand still\nYour flexibility finds place\nIn learning to adapt your will.", sage: "The measure of intelligence is the ability to change. - Einstein" },
+            { id: "bending_12", poem: "The river does not ask the sea\nTo justify its endless call\nIt simply flows, and willingly\nFinds home in what receives its all.", sage: "The Love that moves the sun and the stars. - Dante" },
+            { id: "bending_13", poem: "What would you hold that time will take?\nWhat would you keep that must depart?\nThe heart that breaks for love's own sake\nBecomes the door to love's own heart.", sage: "In surrender, you are more yourself than in any battle. - Ibn Arabi" },
+            { id: "bending_14", poem: "The reed that bends before the gale\nSurvives to see another spring\nThe oak that stiffens, proud and pale\nLies broken where it once was king.", sage: "In yielding, you become unbreakable. - Ibn Arabi" },
+            { id: "bending_15", poem: "To bend is not to be defeated\nBut to move with what must move\nYour resilience is seated\nIn wisdom that knows how to move.", sage: "Do not heed your own head's advice, your own whispers. Do what you do not want — do not pursue your desires' will. - Rustaveli" }
         ],
         
         // Category 8: Shape (12 poems) for authenticity, uniqueness, being
@@ -125,7 +153,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "shape_8", poem: "Your shape may change with passing years\nAs rings are added to your core\nBut authenticity appears\nIn being what you're growing for.", sage: "The only person you should try to be better than is the person you were yesterday. - Anonymous" },
             { id: "shape_9", poem: "The tree accepts its crooked branch\nAs part of what makes it complete\nYour authentic self will stanch\nThe need for others to compete.", sage: "You were born an original. Don't die a copy. - John Mason" },
             { id: "shape_10", poem: "No forest asks for uniformity\nBut celebrates diversity\nYour authentic self's purity\nIs in your own fidelity.", sage: "Always be a first rate version of yourself and not a second rate version of someone else. - Judy Garland" },
-            { id: "shape_11", poem: "Your shape is what the world will see\nWhen you stand true to your own light\nAuthenticity will be\nThe source of your enduring might.", sage: "He who knows himself knows his Lord. - Ibn Arabi" }
+            { id: "shape_11", poem: "Your shape is what the world will see\nWhen you stand true to your own light\nAuthenticity will be\nThe source of your enduring might.", sage: "He who knows himself knows his Lord. - Ibn Arabi" },
+            { id: "shape_12", poem: "The crooked pine upon the cliff\nGrows beautiful in its own way\nYour shape, though twisted, is the if\nThat makes you irreplaceable today.", sage: "Every form you see has its archetype in the unseen world. You are that form. - Ibn Arabi" },
+            { id: "shape_13", poem: "Do not desire another's form\nThe birch, the oak, the weeping willow\nYour shape was weathered in the storm\nAnd now stands firm upon its pillow.", sage: "Within each soul, a unique star shines in the divine firmament. - Dante" },
+            { id: "shape_14", poem: "The twisted trunk that grows alone\nUpon the wind-swept mountain crest\nIs more itself than any clone\nThat grows in valleys of the blessed.", sage: "Your form is a letter in God's great book - without you, the page is incomplete. - Ibn Arabi" },
+            { id: "shape_15", poem: "The tree does not apologize\nFor growing sideways toward the light\nIt does not seek another's eyes\nTo validate its crooked height.", sage: "A tree that grows crooked can still provide shade. - Folklore wisdom" }
         ],
         
         // Category 9: Seasons (12 poems) for cycles, change, rhythms
@@ -141,7 +173,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "seasons_8", poem: "Each season brings its needed gift\nIts teaching and its special grace\nYour cycles give your spirit lift\nTo find its proper time and place.", sage: "There is something infinitely healing in the repeated refrains of nature. - Rachel Carson" },
             { id: "seasons_9", poem: "Spring's hope, summer's full embrace\nAutumn's wisdom, winter's peace\nYour seasons find their proper place\nAs inner conflicts find release.", sage: "Nature does not hurry, yet everything is accomplished. - Lao Tzu" },
             { id: "seasons_10", poem: "The tree knows seasons come and go\nIn never-ending, patient round\nYour cycles help your spirit grow\nOn this, your sacred, hallowed ground.", sage: "The sun will rise and set regardless. What we choose to do with the light while it's here is up to us. - Alexandra Elle" },
-            { id: "seasons_11", poem: "In every season, trees find ways\nTo live according to the time\nYour cycles through the nights and days\nMake living such a sacred rhyme.", sage: "Life is about rhythm. We vibrate, our hearts are pumping blood. We are a rhythm machine, that's what we are. - Mickey Hart" }
+            { id: "seasons_11", poem: "In every season, trees find ways\nTo live according to the time\nYour cycles through the nights and days\nMake living such a sacred rhyme.", sage: "Life is about rhythm. We vibrate, our hearts are pumping blood. We are a rhythm machine, that's what we are. - Mickey Hart" },
+            { id: "seasons_12", poem: "The tree does not ask spring to stay\nNor begs the winter to depart\nIt knows the turning of the day\nIs written on the seasons' heart.", sage: "Time is a veil; beneath it, eternity breathes. - Ibn Arabi" },
+            { id: "seasons_13", poem: "Summer's pride and autumn's sigh\nWinter's sleep and spring's rebirth\nEach season teaches you to fly\nIn circles round the patient earth.", sage: "Winter withers the roses, their petals fall away. - Rustaveli" },
+            { id: "seasons_14", poem: "The rose that blooms in April's light\nRemembers not the March wind's chill\nYet carries winter through the night\nIn roots that wait, in stems grown still.", sage: "Every season is a door to eternity, and the wise one enters each without hesitation. - Dante" },
+            { id: "seasons_15", poem: "Not one season lasts forever\nNor should it, though we weep to see\nThe autumn leaf in wind's endeavor\nMake way for what is yet to be.", sage: "When the rose's bloom has withered and grown dry, It falls away—another comes to grace the garden fair. - Rustaveli" }
         ],
         
         // Category 10: Wholeness (12 poems) for healing, integration, completeness
@@ -157,7 +193,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "wholeness_8", poem: "What once was wound becomes now strength\nIn wood that grew around the hurt\nYour wholeness will go any length\nTo heal what life may disconcert.", sage: "The soul always knows what to do to heal itself. The challenge is to silence the mind. - Caroline Myss" },
             { id: "wholeness_9", poem: "The tree does not reject its past\nBut builds upon what came before\nYour wholeness will hold fast\nTo all you are and so much more.", sage: "Healing is not about moving on or getting over it. It's about learning to make peace with our pain. - Vironika Tugaleva" },
             { id: "wholeness_10", poem: "Each aspect has its role to play\nIn making up the living whole\nYour wholeness finds its way\nTo integrate the self and soul.", sage: "The privilege of a lifetime is being who you are. - Joseph Campbell" },
-            { id: "wholeness_11", poem: "The tree stands whole in sun and rain\nAccepting all that comes its way\nYour wholeness will sustain\nYou through both night and day.", sage: "You are enough. A thousand times enough. - Unknown" }
+            { id: "wholeness_11", poem: "The tree stands whole in sun and rain\nAccepting all that comes its way\nYour wholeness will sustain\nYou through both night and day.", sage: "You are enough. A thousand times enough. - Unknown" },
+            { id: "wholeness_12", poem: "What was divided now is one\nThe scattered fragments find their place\nThe journey ends where it begun\nAnd time dissolves in endless grace.", sage: "I became what I loved, and in that becoming, I found myself. - Ibn Arabi" },
+            { id: "wholeness_13", poem: "The wound that split the world in two\nReveals the seam where wholeness grows\nFor only broken hearts break through\nTo love that nothing can oppose.", sage: "Love lift us high - so bells ring. - Rustaveli" },
+            { id: "wholeness_14", poem: "The pieces of a shattered vase\nRetain the memory of the whole\nAnd in the seeking of their place\nReveal the contour of the soul.", sage: "Every form you see has its archetype in the unseen world. - Ibn Arabi" },
+            { id: "wholeness_15", poem: "Above, below; within, without\nThe same one light in all things burns\nThe seeker's long and winding route\nEnds where the heart's own temple turns.", sage: "In a moment, it turns one into a hundred, a hundred into one. - Rustaveli" }
         ],
         
         // Category 11: Patience (12 poems) for waiting, timing, slow growth
@@ -173,7 +213,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "patience_8", poem: "The tree does not watch its own growth\nBut simply lives from day to day\nYour patience is the living oath\nThat shows you're on your way.", sage: "How poor are they that have not patience! What wound did ever heal but by degrees? - Shakespeare" },
             { id: "patience_9", poem: "Slow growth makes for stronger wood\nWith rings that tell of seasons passed\nYour patience will be understood\nWhen you have built to last.", sage: "Have patience. All things are difficult before they become easy. - Saadi" },
             { id: "patience_10", poem: "The bonsai master waits for years\nTo shape the tiny, living art\nYour patience through both joys and tears\nWill play its destined part.", sage: "Patience is the companion of wisdom. - Saint Augustine" },
-            { id: "patience_11", poem: "The tree knows seasons must unfold\nIn their appointed, patient turn\nYour patience makes your spirit bold\nAnd helps life's lessons learn.", sage: "Rivers know this: there is no hurry. We shall get there some day. - A.A. Milne" }
+            { id: "patience_11", poem: "The tree knows seasons must unfold\nIn their appointed, patient turn\nYour patience makes your spirit bold\nAnd helps life's lessons learn.", sage: "Rivers know this: there is no hurry. We shall get there some day. - A.A. Milne" },
+            { id: "patience_12", poem: "Do not demand the final word\nNor seek to capture what is free\nThe mystery must be inferred\nFrom every leaf on every tree.", sage: "Not every question demands an answer; some demand awe. - Ibn Arabi" },
+            { id: "patience_13", poem: "The seed does not demand the sun\nTo hurry with its warming rays\nIt knows its work is not yet done\nAnd trusts in slowly growing days.", sage: "Patience is not waiting; it is the art of hoping while hidden. - Ibn Arabi" },
+            { id: "patience_14", poem: "The oak that stands a thousand years\nWas patient through a thousand springs\nYour waiting holds the same spheres\nThat circle round all growing things.", sage: "Patience, even blamed, is better than haste, even praised. - Rustaveli" },
+            { id: "patience_15", poem: "The seed sleeps in the winter ground\nAnd dreams of what it does not know\nThe sun's return, the rain's soft sound\nWill wake it in its time, and slow.", sage: "Patience is not the absence of action, but the presence of trust while the unseen works. - Ibn Arabi" }
         ],
         
         // Category 12: Presence (12 poems) for mindfulness, now, awareness
@@ -189,7 +233,11 @@ const POETIC_WISDOM_EXPORT = {
             { id: "presence_8", poem: "No anticipation, no regret\nJust being in the here and now\nThe tree has learned its alphabet\nIn presence, and it shows you how.", sage: "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor. - Thich Nhat Hanh" },
             { id: "presence_9", poem: "The tree stands present through all change\nThrough seasons' turning, day and night\nYour presence helps your spirit range\nIn what feels true and feels just right.", sage: "The present moment is the only moment where life exists. - Jon Kabat-Zinn" },
             { id: "presence_10", poem: "In presence, there is only this\nThis breath, this light, this ground, this sky\nThe tree has learned the perfect bliss\nOf being present, by and by.", sage: "Life is available only in the present moment. - Thich Nhat Hanh" },
-            { id: "presence_11", poem: "The tree does not miss being elsewhere\nBut stands complete in its own place\nYour presence is the answered prayer\nThat brings you fully into grace.", sage: "Wherever you are, be there totally. - Eckhart Tolle" }
+            { id: "presence_11", poem: "The tree does not miss being elsewhere\nBut stands complete in its own place\nYour presence is the answered prayer\nThat brings you fully into grace.", sage: "Wherever you are, be there totally. - Eckhart Tolle" },
+            { id: "presence_12", poem: "The pond reflects the perfect moon\nWhen not a single ripple moves\nSo silence is the sacred boon\nThat clarifies what spirit proves.", sage: "Be silent, that the heart may speak. - Ibn Arabi" },
+            { id: "presence_13", poem: "Between the thoughts, between the breaths\nA gap of infinite repose\nWhere dwell the one who never death\nAnd knows the peace the silence knows.", sage: "In the stillness, the stars sang of love. - Dante" },
+            { id: "presence_14", poem: "This breath, this moment, this one leaf\nThat trembles in the present air\nContains all joy, contains all grief\nAnd holds you in its timeless care.", sage: "The present moment is the veil through which eternity gazes. - Ibn Arabi" },
+            { id: "presence_15", poem: "The past is ash, the future smoke\nBut here, now, burns the living flame\nPresence is the sacred cloak\nThat wraps you in your own true name.", sage: "The love that moves the sun and other stars is here, now, in this breath. - Dante" }
         ]
     },
     
