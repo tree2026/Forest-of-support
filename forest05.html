@@ -504,7 +504,19 @@
     background: linear-gradient(to right, #724115, #8a5a2d);
     box-shadow: 0 6px 0 #5a3410;
     }
-
+        /* 1.9999 after canopy btn. Add these for canopy steps */
+    .canopy-step-fade-out {
+    opacity: 0; 
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+        
+    .canopy-step-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    }/* 1.9999 end */
     /* Entry footer - bottom right corner */
     .entry-footer {
     text-align: right;
@@ -538,6 +550,85 @@
     color: var(--text-secondary);
     font-size: 0.9em;
     }
+        /*1.99999 before clear data btn. YouTube suggestion button - just a bell */
+.youtube-suggest-btn {
+    background: transparent !important;
+    border: none !important;            
+    padding: 0 !important;            
+    margin-right: 8px;    
+    font-size: 1.0em;
+    cursor: pointer;
+    color: #E67E22;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+    box-shadow: none !important;         
+}
+
+.youtube-suggest-btn:hover {
+    transform: scale(1.1);    
+    color: #D35400;          
+    background: transparent; 
+}
+
+[data-theme="dark"] .youtube-suggest-btn {
+    color: #D35400;           
+}
+
+[data-theme="dark"] .youtube-suggest-btn:hover {
+    color: #E67E22;           
+}
+    /* Popup overlay */
+    .youtube-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    }
+
+    .youtube-popup {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid var(--card-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.youtube-popup p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.youtube-popup a {
+    display: inline-block;
+    background: /*#bf854d*/#E67E22/*#8B5A2B*/;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.youtube-popup a:hover {
+    background: #D35400;
+}
+
+.youtube-popup button {
+    background: var(--button-secondary);
+    margin-top: 15px;
+}/*1.999999 end*/
+        
     /* Clear data button */
     #clear-data-btn {
     background: var(--button-secondary) !important;
@@ -825,12 +916,51 @@
             align-items: center;
         }
     }
-        
+        /* 1.9999999. before css style end Scroll to top arrow - ONLY for journal page */
+.scroll-top-arrow {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: #888;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border: none;
+}
+
+.scroll-top-arrow.visible {
+    opacity: 0.7;
+    visibility: visible;
+}
+
+.scroll-top-arrow:hover {
+    opacity: 1;
+    background: #666;
+    transform: translateX(-50%) scale(1.1);
+} 
+
+[data-theme="dark"] .scroll-top-arrow {
+    background: #555; 
+}/*1.99999 end */
     </style>
     
 </head>
 <body> 
     <div class="container">
+        <!-- 1.99999 after dic class container.  Scroll to top arrow -->
+        <div class="scroll-top-arrow" id="scrollTopArrow" onclick="scrollToTop()">↺</div>
         <header> <!--bottom of title -->
             <h1 id="app-title">
         🌳 <span id="title-text">Forest of Support</span>
@@ -2254,7 +2384,7 @@ function checkVersionAndPreserveData() {
             // 1.9 Auto-advance to next step
             setTimeout(() => {
                 nextStep();
-            }, 50); // 1.9 end
+            }, 500); // 1.9 end
         }
         
         function nextStep() {
@@ -2511,6 +2641,7 @@ function checkVersionAndPreserveData() {
                 sage: poem.sage,
                 principle: principle.title,
                 type: 'practice',
+                poemId: poem.poemId  // 1.9999999. ADD THIS LINE
             });
             
             // Save
