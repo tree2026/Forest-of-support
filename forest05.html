@@ -3059,20 +3059,73 @@ function shareEntry(entryIndex, sharePoemOnly = false) {
             text: shareText,
             url: window.location.href
         }).catch(err => {
-            console.log('Share cancelled:', err);
-            copyToClipboard(shareText);
-        });
+            // 1.9999999 FIX: share entry function before {else{ . Only copy if error is NOT AbortError (user cancellation)
+            if (err.name !== 'AbortError' && err.name !== 'CancelError') {
+                console.log('Share failed:', err);
+                copyToClipboard(shareText);
+            } else {
+                console.log('Share cancelled by user');
+            }
+        });//1.9 end
     } else {
         copyToClipboard(shareText);
     }
 }
 
+        //1.999999  
 function copyToClipboard(text) {
+    // Create a temporary textarea
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    
+    // Select and copy
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile
+    document.execCommand('copy');
+    
+    document.body.removeChild(textarea);
+    alert(currentLanguage === 'ge' ? '📋 კოპირებულია!' : '📋 Copied!');
+}// 1.999999 end
+        
+/*function copyToClipboard(text) {
     navigator.clipboard.writeText(text);
     alert(currentLanguage === 'ge' 
         ? '📋 კოპირებულია!'
         : '📋 Copied!');
-}
+}*/
+        // 1.999999. Show YouTube suggestion popup
+function showYoutubePopup(youtubeData) {
+    const t = TEXT[currentLanguage];
+    
+    // Create popup overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'youtube-popup-overlay';
+    
+    overlay.innerHTML = `
+        <div class="youtube-popup">
+            <p>${youtubeData.message}</p>
+            <a href="${youtubeData.url}" target="_blank" rel="noopener noreferrer">
+                🎬 ${currentLanguage === 'ge' ? 'ნახე YouTube-ზე' : 'Watch on YouTube'}
+            </a>
+            <br>
+            <button onclick="this.closest('.youtube-popup-overlay').remove()" class="secondary">
+                ${currentLanguage === 'ge' ? 'დახურვა' : 'Close'}
+            </button>
+        </div>
+    `;
+    
+    // Close when clicking outside
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+    
+    document.body.appendChild(overlay);
+}// 1.9999 end
         
         function clearJournal() {
             document.getElementById('newJournalEntry').value = "";
@@ -3185,6 +3238,41 @@ function copyToClipboard(text) {
                 showCard('plant');
             }
         }
+        //1.999999  Scroll to top functionalit
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide scroll arrow only when on journal page
+window.addEventListener('scroll', function() {
+    const journalCard = document.getElementById('journal');
+    const arrow = document.getElementById('scrollTopArrow');
+    
+    // Check if journal card has class 'active'
+    if (journalCard && journalCard.classList.contains('active')) {
+        // Show arrow after scrolling 300px on journal page
+        if (window.scrollY > 2000) {
+            arrow.classList.add('visible');
+        } else {
+            arrow.classList.remove('visible');
+        }
+    } else {
+        // Hide arrow on other pages
+        arrow.classList.remove('visible');
+    }
+});//1.99999 end
+
+        // 1.99999Add event listener for all youtube buttons (put this at the very end of your script)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('youtube-suggest-btn')) {
+        const message = e.target.getAttribute('data-message');
+        const url = e.target.getAttribute('data-url');
+        showYoutubePopup({message: message, url: url});
+            }
+        });
         
     </script>
     
@@ -3197,7 +3285,7 @@ function copyToClipboard(text) {
     isPlaying: false,
     volume: 0.9, // 90% volume - subtle background
     audioFiles: {
-        birds: 'https://files.catbox.moe/fw3nxk.mp3'
+        birds: 'https://files.catbox.moe/jo9n6n.mp3'//'https://files.catbox.moe/fw3nxk.mp3'
         
         // 'https://files.catbox.moe/n75sd5.mp3' cleared
         // 'https://files.catbox.moe/fw3nxk.mp3' ++volume
@@ -3426,8 +3514,8 @@ function showSimpleUpdateNotification() {
     }
     
     const msg = currentLanguage === 'ge'
-        ? '🔄 ახალი ვერსია ხელმისაწვდომია. განაახლებთ?'
-        : '🔄 New version available. Update now?';
+        ? '🔄 ახალი ვერსია ხელმისაწვდომია'
+        : '🔄 New version available';
     
     setTimeout(() => {
         sessionStorage.setItem('updateNotificationShown', 'true');
