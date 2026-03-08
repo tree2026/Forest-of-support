@@ -2,22 +2,29 @@ const POETIC_WISDOM_EXPORT = {
     en: {
         // Category 1: Rooting (12 poems) for grounding, stability, foundation
         rooting: [
-            { id: "rooting_0", poem: "The earth holds you steady\nThrough every trembling leaf\nYour roots drink deep from silence\nFinding strength beyond grief.", sage: "Be like a tree. Let the dead leaves drop. - Rumi" },
-            { id: "rooting_1", poem: "When ground feels far beneath your feet\nAnd certainty has slipped away\nRemember roots in darkness meet\nThe nourishment of silent clay.", sage: "The ground's generosity takes in our compost and grows beauty. - Rumi" },
+            { id: "rooting_0", poem: "The earth holds you steady\nThrough every trembling leaf\nYour roots drink deep from silence\nFinding strength beyond grief.", sage: "Be like a tree. Let the dead leaves drop. - Rumi",
+            youtube: { message: "📺 short film entitled 'Down To Earth,' that reveals the scientific phenomenon of how we can heal our bodies by doing the simplest thing that a person can do…standing barefoot on the earth ", url: "https://youtu.be/EcHEWH8Eh0Q?si=pqmF3vnCc46dVowb" } },
+            { id: "rooting_1", poem: "When ground feels far beneath your feet\nAnd certainty has slipped away\nRemember roots in darkness meet\nThe nourishment of silent clay.", sage: "The ground's generosity takes in our compost and grows beauty. - Rumi",
+            youtube: { message: "🎵 Music by Raimu - Meditative flow ", url: "https://youtu.be/kVbVuACR03c?si=afJET65V8mv9NiJg" } },
             { id: "rooting_2", poem: "Before you reach for heights unknown\nFirst anchor in the present ground\nA tree that's firmly, deeply grown\nWill not be easily unsound.", sage: "The way is not in the sky. The way is in the heart. - Buddha" },
             { id: "rooting_3", poem: "In winter's sleep, the roots still grow\nThough surface world seems still and dead\nWhat happens deep, we cannot know\nUntil spring's green is widespread.", sage: "Patience is the key to joy. - Rumi" },
-            { id: "rooting_4", poem: "When storm winds shake your highest bough\nThe deepest roots stay firm and true\nYou are the oak tree standing now\nNot the acorn that once grew.", sage: "Be empty of worrying. Think of who created thought. - Rumi" },
+            { id: "rooting_4", poem: "When storm winds shake your highest bough\nThe deepest roots stay firm and true\nYou are the oak tree standing now\nNot the acorn that once grew.", sage: "Be empty of worrying. Think of who created thought. - Rumi",
+             youtube: { message: "🎵 DreamWalk into New - Adamus Saint-Germain (channeled by Geoffrey Hoppe) ", url: "https://youtu.be/_33gb4JFzgM?si=05GAQThRQi6WsInQ" } },
             { id: "rooting_5", poem: "The tree does not compare its roots\nTo others' spread or depth or reach\nIt simply stands where it has shoots\nAnd learns what silence has to teach.", sage: "The quieter you become, the more you are able to hear. - Rumi" },
             { id: "rooting_6", poem: "Your foundation is not in stone\nBut in the dark, accepting earth\nYou're never, never quite alone\nIn this, your sacred place of birth.", sage: "The whole universe is contained within a single human being - you. - Rumi" },
-            { id: "rooting_7", poem: "What seems like being stuck in place\nIs often roots extending deep\nThere is a necessary grace\nIn what the surface doesn't keep.", sage: "Do not feel lonely, the entire universe is inside you. - Rumi" },
+            { id: "rooting_7", poem: "What seems like being stuck in place\nIs often roots extending deep\nThere is a necessary grace\nIn what the surface doesn't keep.", sage: "Do not feel lonely, the entire universe is inside you. - Rumi",
+             youtube: { message: "🎵 Here's the Spirit Within - music by Raimu ", url: "https://youtu.be/jhZs0yUePlY?si=ijHCEiYUzUWB4Xfc" } },
             { id: "rooting_8", poem: "The tallest redwood starts as small\nAs any seedling on the floor\nYour growth responds to nature's call\nWhen rooted in your deepest core.", sage: "You were born with wings, why prefer to crawl through life? - Rumi" },
             { id: "rooting_9", poem: "In winter, when the world seems dead\nThe roots are working out of sight\nPreparing for what lies ahead\nIn spring's returning, gentle light.", sage: "Where there is ruin, there is hope for a treasure. - Rumi" },
             { id: "rooting_10", poem: "The maple doesn't force its sap\nTo rise before the thawing time\nIt trusts in seasons' gentle map\nAnd doesn't make a frantic climb.", sage: "The art of knowing is knowing what to ignore. - Rumi" },
-            { id: "rooting_11", poem: "When lost in thought's persistent maze\nReturn to breath, to solid ground\nThe root of peace in present days\nIs where true healing can be found.", sage: "Peace comes from within. Do not seek it without. - Buddha" },
-            { id: "rooting_12", poem: "When mind becomes a frantic bird\nThat beats against its cage of care\nBe still and know the silent Word\nThat waits beyond thought's noisy flare.", sage: "His mind drifts elsewhere, carried by his own conceit. His tears did not stop, nor did he perceive a thing. - Rustaveli" },
+            { id: "rooting_11", poem: "When lost in thought's persistent maze\nReturn to breath, to solid ground\nThe root of peace in present days\nIs where true healing can be found.", sage: "Peace comes from within. Do not seek it without. - Buddha",
+             youtube: { message: "🎵 Sun within and Sun without with Liza Bagrationi and Giorgi Ushikishvili ", url: "https://youtu.be/dWvKOCz00MU?si=cWUgK16PeTo3Rs_s" } },
+            { id: "rooting_12", poem: "When mind becomes a frantic bird\nThat beats against its cage of care\nBe still and know the silent Word\nThat waits beyond thought's noisy flare.", sage: "His mind drifts elsewhere, carried by his own conceit. His tears did not stop, nor did he perceive a thing. - Rustaveli",
+             youtube: { message: "🎵 Here's 1111Hz music from Echoes-of-pink, helps align your soul, body, and mind ", url: "https://youtu.be/fGdd74SKF98?si=JSXnS7oFLKiexhfT" } },
             { id: "rooting_13", poem: "The branch that bends but does not break\nHas roots that drink from hidden deep\nSo let the storm of feeling shake\nThe surface, while the soul learns peace.", sage: "Peace is the language of the soul's homeland. - Ibn Arabi" },
             { id: "rooting_14", poem: "The tree that stands through winter's rage\nDoes not complain or beg for spring\nIt sinks its roots on wisdom's page\nAnd waits for what the seasons bring.", sage: "An enemy cannot harm another as much as a man harms himself. - Rustaveli" },
-            { id: "rooting_15", poem: "Beneath the noise of urgent things\nThere lies a silence vast and deep\nWhere consciousness unfurls its wings\nAnd finds the peace it needs to keep.", sage: "In Your light, I learn how to love. In Your beauty, how to make poems. - Dante" }
+            { id: "rooting_15", poem: "Beneath the noise of urgent things\nThere lies a silence vast and deep\nWhere consciousness unfurls its wings\nAnd finds the peace it needs to keep.", sage: "In Your light, I learn how to love. In Your beauty, how to make poems. - Dante",
+             youtube: { message: "🎵 Here's merabh for consciousness with Adamus Saint-Germain, channeled by Geoffrey Hoppe ", url: "https://youtu.be/kAFjz6Or04E?si=lNNaA97HB-_SoztD" } }
         ],
         
         // Category 2: Bark (12 poems) for boundaries, protection, self-care
@@ -244,22 +251,29 @@ const POETIC_WISDOM_EXPORT = {
     ge: {
         // Category 1: Rooting (12 poems in Georgian)
         rooting: [
-            { id: "rooting_0", poem: "დედამიწა უმაგრებს ძალსა,\nხეს დაიცავს შიგან ქარსა,\nფესვები სიჩუმეში სვამენ წყალსა,\nძალს იკრებს, არ მისცემს სევდას თავსა.", sage: "ხესავით იყავი. დაყარე მკვდარი ფოთლები. - რუმი" },
+            { id: "rooting_0", poem: "დედამიწა უმაგრებს ძალსა,\nხეს დაიცავს შიგან ქარსა,\nფესვები სიჩუმეში სვამენ წყალსა,\nძალს იკრებს, არ მისცემს სევდას თავსა.", sage: "ხესავით იყავი. დაყარე მკვდარი ფოთლები. - რუმი",
+             youtube: { message: "📺 მოკლემეტრაჟიან ფილმში 'ქვემოთ მიწაზე' მეცნიერები ადასტურებენ, რომ ძირითადი დაავადებებისგან განკურნება შესაძლებელია მიწაზე ფეხშიშველა სიარულით ", url: "https://youtu.be/EcHEWH8Eh0Q?si=pqmF3vnCc46dVowb" } },
             { id: "rooting_1", poem: "როცა მიწა თითქოს შორს დაივანებს;\nთავდაჯერებაც, რწმენაც სადღაც დაინავლებს;\nგახსოვდეს, რომ ფესვები ბნელში ხვდება თავის საკვებს.", sage: "მიწა სულგრძელია: ჩვენს ნარჩენებს იღებს და სილამაზეს ზრდის. - რუმი" },
-            { id: "rooting_2", poem: "სანამ უცნობი სიმაღლისკენ აფრები აუშვი,\nჯერ ღუზა აწმყოს მიწაში ჩაუშვი;\nხე, მტკიცედ, ღრმად რომ გაზრდილა,\nადვილად არასდროს დავარდნილა.", sage: "გზა ცაში არ არის. გზა გულშია. - ბუდა" },
+            { id: "rooting_2", poem: "სანამ უცნობი სიმაღლისკენ აფრები აუშვი,\nჯერ ღუზა აწმყოს მიწაში ჩაუშვი;\nხე, მტკიცედ, ღრმად რომ გაზრდილა,\nადვილად არასდროს დავარდნილა.", sage: "გზა ცაში არ არის. გზა გულშია. - ბუდა",
+            youtube: { message: "🎵 მუსიკა მედიტაციისთვის Raimu-სგან ", url: "https://youtu.be/kVbVuACR03c?si=afJET65V8mv9NiJg" } },
             { id: "rooting_3", poem: "ზამთრის ბურანში ფესვები კვლავ იზრდება,\nთუმცა ზედაპირი მკვდარი და უძრავი ვლინდება;\nსიღრმეში რა ხდება ჩვენ ვერ გავიგებთ,\nსანამ გაზაფხულის მწვანე არ გაყვავილდება.", sage: "მოთმინება სიხარულის გასაღებია. - რუმი" },
-            { id: "rooting_4", poem: "როცა ქარიშხალში ყველაზე მაღალი ტოტი ტყდებოდა,\nუღრმესი ფესვები მტკიცე და მართალი რჩებოდა;\nშენ მუხა ხარ, რომელიც ახლა დგას,\nარა რკო, რომელიც ოდესღაც იზრდებოდა.", sage: "დაცარიელდი შფოთისგან, ნერვიულობისგან. იფიქრე იმაზე, თუ ვინ შექმნა აზრი. - რუმი" },
+            { id: "rooting_4", poem: "როცა ქარიშხალში ყველაზე მაღალი ტოტი ტყდებოდა,\nუღრმესი ფესვები მტკიცე და მართალი რჩებოდა;\nშენ მუხა ხარ, რომელიც ახლა დგას,\nარა რკო, რომელიც ოდესღაც იზრდებოდა.", sage: "დაცარიელდი შფოთისგან, ნერვიულობისგან. იფიქრე იმაზე, თუ ვინ შექმნა აზრი. - რუმი",
+             youtube: { message: "🎵 ოცნებით გასეირნება ახალ ერაში - ადამუს სენ-ჟერმენი, გადმომცემელი : ჯეფრი ჰოპი ", url: "https://youtu.be/_33gb4JFzgM?si=05GAQThRQi6WsInQ" } },
             { id: "rooting_5", poem: "ხე თავის ფესვებს არ ადარებს სხვისას;\nსიშორეს, ან სიღრმეს ან მიღწევას სხვის;\nუბრალოდ იქ დგას, სადაც ყლორტები აქვს\nდა სწავლობს, რასაც სიჩუმე ასწავლის.", sage: "რაც უფრო წყნარდები, მით უფრო მეტი გესმის. - რუმი" },
             { id: "rooting_6", poem: "შენი საფუძველი არ არის ქვაში,\nარამედ ბნელ, მიმღებ დედამიწაში;\nარასოდეს ხარ მარტო\nშენი დაბადების ამ წმინდა სახლში.", sage: "მთელი სამყარო ერთ ადამიანშია - შენში. - რუმი" },
             { id: "rooting_7", poem: "რაც ერთ ადგილზე გაჭედილი ჩანს,\nხშირად ფესვების გაფართოებას ნიშნავს;\nუცილობელი მადლია იმაში,\nრასაც ზედაპირი არ ჩაინიშნავს.", sage: "მარტოდ ნუ იგრძნობ თავს, მთელი სამყარო შენშია. - რუმი" },
-            { id: "rooting_8", poem: "ყველაზე მაღალი სეკვოიაც პატარა იყო,\nყოველმა ნერგმა სიცოცხლე ასე დაიწყო;\nშენი ზრდა ბუნების ძახილს პასუხობს,\nღრმად ფესვგადგმულმა სიმაღლე აიწყო.", sage: "ფრთებით დაიბადე, ხოხვას რად ამჯობინებ? - რუმი" },
+            { id: "rooting_8", poem: "ყველაზე მაღალი სეკვოიაც პატარა იყო,\nყოველმა ნერგმა სიცოცხლე ასე დაიწყო;\nშენი ზრდა ბუნების ძახილს პასუხობს,\nღრმად ფესვგადგმულმა სიმაღლე აიწყო.", sage: "ფრთებით დაიბადე, ხოხვას რად ამჯობინებ? - რუმი",
+             youtube: { message: "🎵 'სული შინა' - მუსიკა Raimu-სგან ", url: "https://youtu.be/jhZs0yUePlY?si=ijHCEiYUzUWB4Xfc" } },
             { id: "rooting_9", poem: "ზამთარში, როცა სიცოცხლე სიკვდილში დამალულა,\nფესვები მუშაობენ ხედვისგან მალულად,\nემზადებიან იმისთვის, რაც აღმოცენდება\nგაზაფხულის დაბრუნებისას გაცხადულად.", sage: "სადაც ნანგრევია, იქ საგანძურის იმედია. - რუმი" },
             { id: "rooting_10", poem: "ვაზი არ აძალებს თავის ნერგს\nყინულის გადნობამდე ამოსვლას,\nდროის სვლის გეგმას ენდობა იგი\nდა გააფთრებული არ ცდილობს აცოცვას.", sage: "ცოდნის ხელოვნებაა იცოდე თუ რა უგულებელჰყო. - რუმი" },
-            { id: "rooting_11", poem: "როს მიეცე უკიდეგანო აზრების ლაბირინთს,\nდაუბრუნდი სუნთქვას, მყარ საფუძველს, ბირთვს;\nსიმშვიდის ფესვთან დღესდღეისობით\nნამდვილი განკურნების ხმა ისმის.", sage: "მშვიდობა შიგნიდან მოდის. ნუ ეძებ გარეთ. - ბუდა" },
-            { id: "rooting_12", poem: "როცა გონება გააფთრებულ ჩიტად იქცევა,\nრომელიც ზრუნვის გალიას სცილდება,\nდამშვიდდი და შეიცან ჩუმი სიტყვა,\nხმაურიანი ფიქრის მიღმა რომ ვლინდება.", sage: "სხვაგან ქრის მისი გონება, მისმან თავისა წონამან! არცა დააგდო ტირილი, არცა რა გაიგონა მან. - რუსთაველი" },
+            { id: "rooting_11", poem: "როს მიეცე უკიდეგანო აზრების ლაბირინთს,\nდაუბრუნდი სუნთქვას, მყარ საფუძველს, ბირთვს;\nსიმშვიდის ფესვთან დღესდღეისობით\nნამდვილი განკურნების ხმა ისმის.", sage: "მშვიდობა შიგნიდან მოდის. ნუ ეძებ გარეთ. - ბუდა",
+             youtube: { message: "🎵 მზე შინა და მზე გარეთა - ლიზა ბაგრატიონი და გიორგი უშიკიშვილი ", url: "https://youtu.be/dWvKOCz00MU?si=cWUgK16PeTo3Rs_s" } },
+            { id: "rooting_12", poem: "როცა გონება გააფთრებულ ჩიტად იქცევა,\nრომელიც ზრუნვის გალიას სცილდება,\nდამშვიდდი და შეიცან ჩუმი სიტყვა,\nხმაურიანი ფიქრის მიღმა რომ ვლინდება.", sage: "სხვაგან ქრის მისი გონება, მისმან თავისა წონამან!... არცა დააგდო ტირილი, არცა რა გაიგონა მან. - რუსთაველი",
+             youtube: { message: "🎵 1111Hz მუსიკა Echoes-of-pink-ისგან, დაგეხმარებათ სული, სხეული და გონება ჰარმონიაში მოიყვანოთ ", url: "https://youtu.be/fGdd74SKF98?si=JSXnS7oFLKiexhfT" } },
             { id: "rooting_13", poem: "ტოტს, რომელიც იხრება, მაგრამ არ იმტვრევა,\nისეთი ფესვები აქვს სიღრმისკენ რომ იწვდება;\nდაე გრძნობების ქარიშხალმა არყიოს ზედაპირი,\nსანამ სული მშვიდობის სწავლაში იწრთვნება.", sage: "მშვიდობა სულის სამშობლოს ენაა. - იბნ არაბი" },
             { id: "rooting_14", poem: "ხე ზამთრის მძვინვარებას უძლებს,\nარ შევედრის ამინდს, არ წუწუნებს,\nფესვებს უმადლის სიბრძნის ფურცელს\nდა ელის, ახალ სეზონს რა ბედი უდევს.", sage: "მტერი მტერსა ვერას ავნებს, რომე კაცი თავსა ივნებს. - რუსთაველი" },
-            { id: "rooting_15", poem: "სასწრაფო საქმეთა ხმაურქვეშ\nდიდი ღრმა სიჩუმე ძევს,\nიქ ცნობიერება ფრთებს შლის\nდა პოულობს საჭირო სიმშვიდეს.", sage: "შენს შუქში ვსწავლობ სიყვარულს. შენს სილამაზეში - ლექსების წერას. - დანტე" }
+            { id: "rooting_15", poem: "სასწრაფო საქმეთა ხმაურქვეშ\nდიდი ღრმა სიჩუმე ძევს,\nიქ ცნობიერება ფრთებს შლის\nდა პოულობს საჭირო სიმშვიდეს.", sage: "შენს შუქში ვსწავლობ სიყვარულს. შენს სილამაზეში - ლექსების წერას. - დანტე",
+             youtube: { message: "🎵 ცნობიერების განხილვა ადამუს სენ-ჟერმენისგან, გადმომცემელი : ჯეფრი ჰოპი ", url: "https://youtu.be/kAFjz6Or04E?si=lNNaA97HB-_SoztD" } }
         ],
         
         // Category 2: Bark (12 poems in Georgian)
