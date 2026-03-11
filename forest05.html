@@ -3561,7 +3561,7 @@ window.addEventListener('beforeunload', () => {
                         // TEMPORARILY disable service worker notifications
                         // sessionStorage.setItem('suppressServiceWorkerUpdate', 'true');
                         // MARK that version update was shown
-                        sessionStorage.setItem('versionUpdateShown', 'true');
+                        //sessionStorage.setItem('versionUpdateShown', 'true');
                         const t = TEXT[currentLanguage];
                         const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Reference material added in journal' : 'საცნობარო მასალა დაემატა დღიურში🔔'}\n\n${t.updatePreserved}`;
                        /* if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
