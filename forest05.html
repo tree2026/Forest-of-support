@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#4a7c3f">
     <meta name="description" content="Forest of Support - A digital sanctuary with contextual poetic wisdom">
-    <link rel="manifest" href="manifest.json?v=2.0">
+    <link rel="manifest" href="manifest.json?v=2.1">
     
     <!-- Emoji as Icons (No image files needed) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
@@ -493,7 +493,26 @@
     70% { box-shadow: 0 0 0 10px rgba(74, 124, 63, 0); }
     100% { box-shadow: 0 0 0 0 rgba(74, 124, 63, 0); }
     }
-    
+     /* Yellow music button */
+.music-toggle-yellow {
+    border-color: #E6B800 !important;
+    color: #E6B800 !important;
+}
+
+.music-toggle-yellow.playing {
+    background: #E6B800 !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .music-toggle-yellow {
+    border-color: #FFA500/*#FFD700*/ !important;
+    color: #FFA500/*#FFD700*/ !important;
+}
+
+[data-theme="dark"] .music-toggle-yellow.playing {
+    background: #FFA500/*#FFD700*/ !important;
+    color: black !important;
+}
     /* Canopy button  */
     #become-canopy-btn {
     background: linear-gradient(to right, #8a5a2d, #a67c52);
@@ -965,10 +984,14 @@
             <h1 id="app-title">
         🌳 <span id="title-text">Forest of Support</span>
             </h1>
-            <div style="position: relative; text-align: center;">
+           <!-- <div style="position: relative; text-align: center;">
                 <button id="music-toggle" class="music-toggle" aria-label="Toggle ambient sounds">
             🎵
                 </button>
+            </div>-->
+            <div style="position: relative; text-align: center; display: flex; justify-content: center; gap: 15px;">
+                <button id="music-toggle" class="music-toggle" aria-label="Toggle ambient sounds">🎵</button>
+                <button id="music-toggle2" class="music-toggle music-toggle-yellow" aria-label="Toggle ambient sounds 2">🎵</button>
             </div>
         </header>
         
@@ -3420,8 +3443,126 @@ window.addEventListener('scroll', function() {
         }
     }
 };
+  // Second audio manager - yellow button
+const audioManager2 = {
+    audio: null,
+    isPlaying: false,
+    volume: 0.9,
+    audioFiles: {
+        birds: 'https://files.catbox.moe/532ezq.mp3'  // ← CHANGE THIS URL
+    },
+    
+    init() {
+        this.audio = new Audio(this.audioFiles.birds);
+        this.audio.loop = true;
+        this.audio.volume = this.volume;
+        this.audio.preload = 'auto';
+    
+        const savedPref = localStorage.getItem('forestAudioPref2');
+        if (savedPref === 'playing') {
+            setTimeout(() => this.toggle(), 1000);
+        }
+        
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && this.isPlaying) {
+                this.pause();
+                this.shouldResume = true;
+            } else if (this.shouldResume) {
+                this.play();
+                this.shouldResume = false;
+            }
+        });
+    },
+    
+    toggle() {
+        if (this.isPlaying) {
+            this.pause();
+        } else {
+            this.play();
+        }
+    },
+    
+    play() {
+        if (!this.audio) this.init();
+        
+        const playPromise = this.audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                this.isPlaying = true;
+                this.updateUI();
+                localStorage.setItem('forestAudioPref2', 'playing');
+            }).catch(error => {
+                console.log('Audio 2 play failed:', error);
+                if (error.name === 'NotAllowedError') {
+                    this.showPlayInstruction();
+                }
+            });
+        }
+    },
+    
+    pause() {
+        if (this.audio) {
+            this.audio.pause();
+            this.isPlaying = false;
+            this.updateUI();
+            localStorage.setItem('forestAudioPref2', 'paused');
+        }
+    },
+    
+    updateUI() {
+        const button = document.getElementById('music-toggle2');
+        if (button) {
+            if (this.isPlaying) {
+                button.classList.add('playing');
+                button.innerHTML = '🔊';
+            } else {
+                button.classList.remove('playing');
+                button.innerHTML = '🎵';
+            }
+        }
+    },
+    
+    showPlayInstruction() {
+        if (!sessionStorage.getItem('audioInstructionShown2')) {
+            const msg = currentLanguage === 'ge' 
+                ? 'ხმის ჩასართავად, დააწკაპუნეთ ყვითელ ღილაკზე'
+                : 'To play sounds, click the yellow button';
+            
+            alert(msg);
+            sessionStorage.setItem('audioInstructionShown2', 'true');
+        }
+    },
+    
+    setVolume(level) {
+        this.volume = Math.max(0, Math.min(1, level));
+        if (this.audio) {
+            this.audio.volume = this.volume;
+        }
+    }
+};
 
 // Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // First music button
+    const musicButton = document.getElementById('music-toggle');
+    if (musicButton) {
+        musicButton.addEventListener('click', () => audioManager.toggle());
+    }
+    
+    // Second music button
+    const musicButton2 = document.getElementById('music-toggle2');
+    if (musicButton2) {
+        musicButton2.addEventListener('click', () => audioManager2.toggle());
+    }
+    
+    // Initialize both audio managers after a delay
+    setTimeout(() => {
+        audioManager.init();
+        audioManager2.init();
+    }, 500);
+});
+/*// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to button
     const musicButton = document.getElementById('music-toggle');
@@ -3431,7 +3572,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize audio manager after a delay
     setTimeout(() => audioManager.init(), 500);
-}); 
+}); */
 
 
 // ============== SIMPLIFIED UPDATE SYSTEM ================
@@ -3587,7 +3728,7 @@ window.addEventListener('beforeunload', () => {
                         // MARK that version update was shown
                         //sessionStorage.setItem('versionUpdateShown', 'true');
                         const t = TEXT[currentLanguage];
-                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'Reference material added in journal' : 'საცნობარო მასალა დაემატა დღიურში🔔'}\n\n${t.updatePreserved}`;
+                        const updateMsg = `🌳 ${currentLanguage === 'en' ? 'Forest of Support Updated!' : 'მხარდაჭერის ტყე განახლდა!'}\n\n${currentLanguage === 'en' ? 'Version' : 'ვერსია'} ${APP_VERSION}:\n• ${currentLanguage === 'en' ? 'New Birdsong; Link for book in georgian,' : 'დაემატა ჩიტის ჭიკჭიკი; ბმული ქართულენოვან წიგნზე'}\n\n${t.updatePreserved}`;
                        /* if (confirm(updateMsg + `\n\n${currentLanguage === 'en' ? 'Show detailed update notes?' : 'გამოჩნდეს დეტალური განახლების ინფორმაცია?'}`)) {
                             showCard('welcome');
                             document.getElementById('welcome').innerHTML += `
